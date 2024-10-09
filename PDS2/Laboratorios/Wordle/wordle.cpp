@@ -43,6 +43,9 @@ int main()
      palavras.push_back(palavra);
     arquivo.close();
    }
+   else{
+   return 1;
+   }
    string chute;
    int chave,i;
    cin>>chave;
