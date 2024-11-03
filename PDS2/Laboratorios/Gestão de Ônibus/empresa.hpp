@@ -10,6 +10,7 @@ int quantidade_onibus;
 std::vector<onibus*> minha_frota;
 
 frota();
+~frota();
 void adicionar_onibus(onibus adicionar);
 onibus* buscar_onibus(std::string placa,char print);
 void imprimir_estado();
