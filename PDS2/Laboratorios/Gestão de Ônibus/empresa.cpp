@@ -5,6 +5,11 @@ frota::frota(){//construtor da frota
     minha_frota.resize(20,nullptr);
 }
 
+frota::~frota(){//destrutor da frota
+    for(int i=0; i<quantidade_onibus; i++)
+    delete minha_frota[i];
+}
+
 void frota::adicionar_onibus(onibus adicionar){
     if(buscar_onibus(adicionar.placa,'N')==nullptr){//adiciona um onibus apenas se ele ainda não existe
         minha_frota[quantidade_onibus]=new onibus(adicionar.placa,adicionar.capacidade_max);
