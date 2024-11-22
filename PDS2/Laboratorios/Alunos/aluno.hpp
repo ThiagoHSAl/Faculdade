@@ -23,7 +23,6 @@ class escola{
     std::vector<aluno> colegio;
     
     public:
-
     escola();
     void adicionar_aluno(aluno aluno);
     void relatorio();
