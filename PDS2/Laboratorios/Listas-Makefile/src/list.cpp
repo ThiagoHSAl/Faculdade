@@ -1,5 +1,4 @@
 #include "list.hpp"
-
 #include <iostream>
 
 void List::insertNode(int data) {
