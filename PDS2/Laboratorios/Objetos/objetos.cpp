@@ -122,5 +122,9 @@ int main(){
 
     }while(comando != 'E');//encerra o programa com o comando E
 
+    for(auto busca : lista){
+        delete busca;
+    }
+    
     return 0;
 }
