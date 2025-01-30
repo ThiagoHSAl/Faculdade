@@ -1,0 +1,4 @@
+<map id="reversi" name="reversi">
+<area shape="rect" id="node1" title=" " alt="" coords="25,80,91,107"/>
+<area shape="rect" id="node2" href="$classboard_1_1Board.html" title=" " alt="" coords="5,5,111,32"/>
+</map>

@@ -1,0 +1,226 @@
+\hypertarget{classgame_1_1Reversi}{}\doxysection{game\+::Reversi Class Reference}
+\label{classgame_1_1Reversi}\index{game::Reversi@{game::Reversi}}
+
+
+{\ttfamily \#include $<$reversi.\+hpp$>$}
+
+
+
+Inheritance diagram for game\+::Reversi\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=167pt]{classgame_1_1Reversi__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for game\+::Reversi\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=167pt]{classgame_1_1Reversi__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgame_1_1Reversi_ade3d05259ae86b81124f0be777a494c7}{Reversi}} ()
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_ae71ed9515f0fc8e2b0772b0aef5599e5}{Is\+Valid\+Direita}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_a2356a3e9046a52ab3c3f629052e2e0b1}{Is\+Valid\+Esquerda}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_afbfc4c5de45d8a7f8a7ca76daa95af5c}{Is\+Valid\+Cima}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_a734f67b730f768a16897067087e43f66}{Is\+Valid\+Baixo}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_af2d43fae79358a26acb0049952508ca2}{Is\+Valid\+Nordeste}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_a6e1eec453a64d878bd5fdca38c8a4267}{Is\+Valid\+Sudeste}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_a2b391fa08752e3e5bbbd71572dbba3fd}{Is\+Valid\+Sudoeste}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_a4f9c2996e7d5292bc68a7676804669f9}{Is\+Valid\+Noroeste}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_ae6d988ec6d7534d2e39b55566a9b75c4}{is\+Valid\+All}} (int position)
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_a9f90a78767a402baf27ee9ce6ad3eda1}{Can\+I\+Play}} ()
+\item 
+void \mbox{\hyperlink{classgame_1_1Reversi_a0e55a39b3f258f439359e6e64f60c657}{Score}} (std\+::string jogador1, std\+::string jogador2)
+\item 
+void \mbox{\hyperlink{classgame_1_1Reversi_ac33af60db99a0301122559a7db78997c}{Inicio}} ()
+\item 
+void \mbox{\hyperlink{classgame_1_1Reversi_ab0697202c4770deea9a8aef941ad3575}{Jogar\+Reversi}} (std\+::string jogador1, std\+::string jogador2, \mbox{\hyperlink{classcadastro}{cadastro}} \&meucadastro, \mbox{\hyperlink{classgame_1_1Reversi}{Reversi}} \&reversi)
+\item 
+void \mbox{\hyperlink{classgame_1_1Reversi_a9fd22cc25265ec02e3e29434d4a853b0}{Print\+Board}} (std\+::string jogador1, std\+::string jogador2)
+\item 
+int \mbox{\hyperlink{classgame_1_1Reversi_ab103912cd7f94f4e04f6f3929804efc9}{Check\+Win}} (std\+::string jogador1, std\+::string jogador2)
+\item 
+void \mbox{\hyperlink{classgame_1_1Reversi_aebc117ef7d76a34d657e16627411e35c}{Animacao\+Captura}} ()
+\item 
+void \mbox{\hyperlink{classgame_1_1Reversi_a78f0d54a73cf23723b6d7f51e9939b2d}{player\+Move}} (int position, bool is\+Player1) override
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_a2a87447cced82f8d1afdba2fa87a8fa7}{Check\+Tie}} () override
+\item 
+void \mbox{\hyperlink{classgame_1_1Reversi_a3149ee1f47903955ea255085761c8177}{Check\+Game\+Status}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classgame_1_1Reversi_aecaaa4f361b1fdb26fbc4ac71a2a55c6}{current\+Player}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classgame_1_1Reversi_ade3d05259ae86b81124f0be777a494c7}\label{classgame_1_1Reversi_ade3d05259ae86b81124f0be777a494c7}} 
+\index{game::Reversi@{game::Reversi}!Reversi@{Reversi}}
+\index{Reversi@{Reversi}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{Reversi()}{Reversi()}}
+{\footnotesize\ttfamily game\+::\+Reversi\+::\+Reversi (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classgame_1_1Reversi_aebc117ef7d76a34d657e16627411e35c}\label{classgame_1_1Reversi_aebc117ef7d76a34d657e16627411e35c}} 
+\index{game::Reversi@{game::Reversi}!AnimacaoCaptura@{AnimacaoCaptura}}
+\index{AnimacaoCaptura@{AnimacaoCaptura}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{AnimacaoCaptura()}{AnimacaoCaptura()}}
+{\footnotesize\ttfamily void game\+::\+Reversi\+::\+Animacao\+Captura (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a9f90a78767a402baf27ee9ce6ad3eda1}\label{classgame_1_1Reversi_a9f90a78767a402baf27ee9ce6ad3eda1}} 
+\index{game::Reversi@{game::Reversi}!CanIPlay@{CanIPlay}}
+\index{CanIPlay@{CanIPlay}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{CanIPlay()}{CanIPlay()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Can\+I\+Play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a3149ee1f47903955ea255085761c8177}\label{classgame_1_1Reversi_a3149ee1f47903955ea255085761c8177}} 
+\index{game::Reversi@{game::Reversi}!CheckGameStatus@{CheckGameStatus}}
+\index{CheckGameStatus@{CheckGameStatus}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{CheckGameStatus()}{CheckGameStatus()}}
+{\footnotesize\ttfamily void game\+::\+Reversi\+::\+Check\+Game\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a5e2404021d4588475e018c6b1ed992b8}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a2a87447cced82f8d1afdba2fa87a8fa7}\label{classgame_1_1Reversi_a2a87447cced82f8d1afdba2fa87a8fa7}} 
+\index{game::Reversi@{game::Reversi}!CheckTie@{CheckTie}}
+\index{CheckTie@{CheckTie}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{CheckTie()}{CheckTie()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Check\+Tie (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a59571103f8a5f06c79006147f7eb4440}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classgame_1_1Reversi_ab103912cd7f94f4e04f6f3929804efc9}\label{classgame_1_1Reversi_ab103912cd7f94f4e04f6f3929804efc9}} 
+\index{game::Reversi@{game::Reversi}!CheckWin@{CheckWin}}
+\index{CheckWin@{CheckWin}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{CheckWin()}{CheckWin()}}
+{\footnotesize\ttfamily int game\+::\+Reversi\+::\+Check\+Win (\begin{DoxyParamCaption}\item[{std\+::string}]{jogador1,  }\item[{std\+::string}]{jogador2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_ac33af60db99a0301122559a7db78997c}\label{classgame_1_1Reversi_ac33af60db99a0301122559a7db78997c}} 
+\index{game::Reversi@{game::Reversi}!Inicio@{Inicio}}
+\index{Inicio@{Inicio}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{Inicio()}{Inicio()}}
+{\footnotesize\ttfamily void game\+::\+Reversi\+::\+Inicio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_ae6d988ec6d7534d2e39b55566a9b75c4}\label{classgame_1_1Reversi_ae6d988ec6d7534d2e39b55566a9b75c4}} 
+\index{game::Reversi@{game::Reversi}!isValidAll@{isValidAll}}
+\index{isValidAll@{isValidAll}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{isValidAll()}{isValidAll()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::is\+Valid\+All (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a734f67b730f768a16897067087e43f66}\label{classgame_1_1Reversi_a734f67b730f768a16897067087e43f66}} 
+\index{game::Reversi@{game::Reversi}!IsValidBaixo@{IsValidBaixo}}
+\index{IsValidBaixo@{IsValidBaixo}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidBaixo()}{IsValidBaixo()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Is\+Valid\+Baixo (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_afbfc4c5de45d8a7f8a7ca76daa95af5c}\label{classgame_1_1Reversi_afbfc4c5de45d8a7f8a7ca76daa95af5c}} 
+\index{game::Reversi@{game::Reversi}!IsValidCima@{IsValidCima}}
+\index{IsValidCima@{IsValidCima}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidCima()}{IsValidCima()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Is\+Valid\+Cima (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_ae71ed9515f0fc8e2b0772b0aef5599e5}\label{classgame_1_1Reversi_ae71ed9515f0fc8e2b0772b0aef5599e5}} 
+\index{game::Reversi@{game::Reversi}!IsValidDireita@{IsValidDireita}}
+\index{IsValidDireita@{IsValidDireita}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidDireita()}{IsValidDireita()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Is\+Valid\+Direita (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a2356a3e9046a52ab3c3f629052e2e0b1}\label{classgame_1_1Reversi_a2356a3e9046a52ab3c3f629052e2e0b1}} 
+\index{game::Reversi@{game::Reversi}!IsValidEsquerda@{IsValidEsquerda}}
+\index{IsValidEsquerda@{IsValidEsquerda}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidEsquerda()}{IsValidEsquerda()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Is\+Valid\+Esquerda (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_af2d43fae79358a26acb0049952508ca2}\label{classgame_1_1Reversi_af2d43fae79358a26acb0049952508ca2}} 
+\index{game::Reversi@{game::Reversi}!IsValidNordeste@{IsValidNordeste}}
+\index{IsValidNordeste@{IsValidNordeste}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidNordeste()}{IsValidNordeste()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Is\+Valid\+Nordeste (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a4f9c2996e7d5292bc68a7676804669f9}\label{classgame_1_1Reversi_a4f9c2996e7d5292bc68a7676804669f9}} 
+\index{game::Reversi@{game::Reversi}!IsValidNoroeste@{IsValidNoroeste}}
+\index{IsValidNoroeste@{IsValidNoroeste}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidNoroeste()}{IsValidNoroeste()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Is\+Valid\+Noroeste (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a6e1eec453a64d878bd5fdca38c8a4267}\label{classgame_1_1Reversi_a6e1eec453a64d878bd5fdca38c8a4267}} 
+\index{game::Reversi@{game::Reversi}!IsValidSudeste@{IsValidSudeste}}
+\index{IsValidSudeste@{IsValidSudeste}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidSudeste()}{IsValidSudeste()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Is\+Valid\+Sudeste (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a2b391fa08752e3e5bbbd71572dbba3fd}\label{classgame_1_1Reversi_a2b391fa08752e3e5bbbd71572dbba3fd}} 
+\index{game::Reversi@{game::Reversi}!IsValidSudoeste@{IsValidSudoeste}}
+\index{IsValidSudoeste@{IsValidSudoeste}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidSudoeste()}{IsValidSudoeste()}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::\+Is\+Valid\+Sudoeste (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_ab0697202c4770deea9a8aef941ad3575}\label{classgame_1_1Reversi_ab0697202c4770deea9a8aef941ad3575}} 
+\index{game::Reversi@{game::Reversi}!JogarReversi@{JogarReversi}}
+\index{JogarReversi@{JogarReversi}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{JogarReversi()}{JogarReversi()}}
+{\footnotesize\ttfamily void game\+::\+Reversi\+::\+Jogar\+Reversi (\begin{DoxyParamCaption}\item[{std\+::string}]{jogador1,  }\item[{std\+::string}]{jogador2,  }\item[{\mbox{\hyperlink{classcadastro}{cadastro}} \&}]{meucadastro,  }\item[{\mbox{\hyperlink{classgame_1_1Reversi}{Reversi}} \&}]{reversi }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a78f0d54a73cf23723b6d7f51e9939b2d}\label{classgame_1_1Reversi_a78f0d54a73cf23723b6d7f51e9939b2d}} 
+\index{game::Reversi@{game::Reversi}!playerMove@{playerMove}}
+\index{playerMove@{playerMove}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{playerMove()}{playerMove()}}
+{\footnotesize\ttfamily void game\+::\+Reversi\+::player\+Move (\begin{DoxyParamCaption}\item[{int}]{position,  }\item[{bool}]{is\+Player1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a6742cc510fbdea774091ac5b27ef51b7}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a9fd22cc25265ec02e3e29434d4a853b0}\label{classgame_1_1Reversi_a9fd22cc25265ec02e3e29434d4a853b0}} 
+\index{game::Reversi@{game::Reversi}!PrintBoard@{PrintBoard}}
+\index{PrintBoard@{PrintBoard}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{PrintBoard()}{PrintBoard()}}
+{\footnotesize\ttfamily void game\+::\+Reversi\+::\+Print\+Board (\begin{DoxyParamCaption}\item[{std\+::string}]{jogador1,  }\item[{std\+::string}]{jogador2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1Reversi_a0e55a39b3f258f439359e6e64f60c657}\label{classgame_1_1Reversi_a0e55a39b3f258f439359e6e64f60c657}} 
+\index{game::Reversi@{game::Reversi}!Score@{Score}}
+\index{Score@{Score}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{Score()}{Score()}}
+{\footnotesize\ttfamily void game\+::\+Reversi\+::\+Score (\begin{DoxyParamCaption}\item[{std\+::string}]{jogador1,  }\item[{std\+::string}]{jogador2 }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classgame_1_1Reversi_aecaaa4f361b1fdb26fbc4ac71a2a55c6}\label{classgame_1_1Reversi_aecaaa4f361b1fdb26fbc4ac71a2a55c6}} 
+\index{game::Reversi@{game::Reversi}!currentPlayer@{currentPlayer}}
+\index{currentPlayer@{currentPlayer}!game::Reversi@{game::Reversi}}
+\doxysubsubsection{\texorpdfstring{currentPlayer}{currentPlayer}}
+{\footnotesize\ttfamily bool game\+::\+Reversi\+::current\+Player}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{reversi_8hpp}{reversi.\+hpp}}\item 
+src/\mbox{\hyperlink{reversi_8cpp}{reversi.\+cpp}}\end{DoxyCompactItemize}

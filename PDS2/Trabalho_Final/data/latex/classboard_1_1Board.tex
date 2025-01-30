@@ -1,0 +1,176 @@
+\hypertarget{classboard_1_1Board}{}\doxysection{board\+::Board Class Reference}
+\label{classboard_1_1Board}\index{board::Board@{board::Board}}
+
+
+{\ttfamily \#include $<$board.\+hpp$>$}
+
+
+
+Inheritance diagram for board\+::Board\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classboard_1_1Board__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classboard_1_1Board_ae439cb1e33374fb04daf236b155003ad}{Board}} (int \mbox{\hyperlink{classboard_1_1Board_aa70193396b9d8e265aa1ecc3ba1e03c6}{spaces}}, char \mbox{\hyperlink{classboard_1_1Board_a05d6ff7fabc92d95f9bfc720c1e53b34}{player1}}, char \mbox{\hyperlink{classboard_1_1Board_ac22998ef0699becd7d8d0027b61cc679}{player2}})
+\item 
+void \mbox{\hyperlink{classboard_1_1Board_a8d0d3fe2c0bdebf3a3b743b555a41b02}{Set\+Spaces}} (int \mbox{\hyperlink{classboard_1_1Board_aa70193396b9d8e265aa1ecc3ba1e03c6}{spaces}})
+\item 
+int \mbox{\hyperlink{classboard_1_1Board_adb44777cb1beae5c56ccae5a1299ff21}{Get\+Spaces}} ()
+\item 
+void \mbox{\hyperlink{classboard_1_1Board_acce4b5e0c6f47257f0d938aa4b1b0aaa}{Set\+Player1}} (char \mbox{\hyperlink{classboard_1_1Board_a05d6ff7fabc92d95f9bfc720c1e53b34}{player1}})
+\item 
+char \mbox{\hyperlink{classboard_1_1Board_ad6d732d03c52263f0fd9d0160a4d99f1}{Get\+Player1}} ()
+\item 
+void \mbox{\hyperlink{classboard_1_1Board_a9933157dc0536a192bed7b59b19cc56b}{Set\+Player2}} (char \mbox{\hyperlink{classboard_1_1Board_ac22998ef0699becd7d8d0027b61cc679}{player2}})
+\item 
+char \mbox{\hyperlink{classboard_1_1Board_af4834408e33e622a700e028368dce124}{Get\+Player2}} ()
+\item 
+void \mbox{\hyperlink{classboard_1_1Board_a553a1f6ccdbf85844d46940924df39d7}{Print\+Board}} ()
+\item 
+bool \mbox{\hyperlink{classboard_1_1Board_add30dbe0fc0a624a4a4bd749a248eb5a}{Check\+Win}} ()
+\item 
+virtual void \mbox{\hyperlink{classboard_1_1Board_a6742cc510fbdea774091ac5b27ef51b7}{player\+Move}} (int position, bool is\+Player1)=0
+\item 
+virtual bool \mbox{\hyperlink{classboard_1_1Board_a59571103f8a5f06c79006147f7eb4440}{Check\+Tie}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classboard_1_1Board_a5e2404021d4588475e018c6b1ed992b8}{Check\+Game\+Status}} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ char $>$ \mbox{\hyperlink{classboard_1_1Board_a7d1f62efbdc7e4eef79b9284379b31b3}{board}}
+\item 
+int \mbox{\hyperlink{classboard_1_1Board_aa70193396b9d8e265aa1ecc3ba1e03c6}{spaces}}
+\item 
+char \mbox{\hyperlink{classboard_1_1Board_a05d6ff7fabc92d95f9bfc720c1e53b34}{player1}}
+\item 
+char \mbox{\hyperlink{classboard_1_1Board_ac22998ef0699becd7d8d0027b61cc679}{player2}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classboard_1_1Board_ae439cb1e33374fb04daf236b155003ad}\label{classboard_1_1Board_ae439cb1e33374fb04daf236b155003ad}} 
+\index{board::Board@{board::Board}!Board@{Board}}
+\index{Board@{Board}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{Board()}{Board()}}
+{\footnotesize\ttfamily board\+::\+Board\+::\+Board (\begin{DoxyParamCaption}\item[{int}]{spaces,  }\item[{char}]{player1,  }\item[{char}]{player2 }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classboard_1_1Board_a5e2404021d4588475e018c6b1ed992b8}\label{classboard_1_1Board_a5e2404021d4588475e018c6b1ed992b8}} 
+\index{board::Board@{board::Board}!CheckGameStatus@{CheckGameStatus}}
+\index{CheckGameStatus@{CheckGameStatus}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{CheckGameStatus()}{CheckGameStatus()}}
+{\footnotesize\ttfamily virtual void board\+::\+Board\+::\+Check\+Game\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classgame_1_1Reversi_a3149ee1f47903955ea255085761c8177}{game\+::\+Reversi}}, \mbox{\hyperlink{classgame_1_1Lig4_a9d1e4123d1cd99cc9d0d7211dbf11b81}{game\+::\+Lig4}}, and \mbox{\hyperlink{classgame_1_1TicTacToe_a377595e634a601586f028670c16e1b45}{game\+::\+Tic\+Tac\+Toe}}.
+
+\mbox{\Hypertarget{classboard_1_1Board_a59571103f8a5f06c79006147f7eb4440}\label{classboard_1_1Board_a59571103f8a5f06c79006147f7eb4440}} 
+\index{board::Board@{board::Board}!CheckTie@{CheckTie}}
+\index{CheckTie@{CheckTie}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{CheckTie()}{CheckTie()}}
+{\footnotesize\ttfamily virtual bool board\+::\+Board\+::\+Check\+Tie (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classgame_1_1Reversi_a2a87447cced82f8d1afdba2fa87a8fa7}{game\+::\+Reversi}}, \mbox{\hyperlink{classgame_1_1Lig4_a052cd15fa260e79d66b680b6d57e4e52}{game\+::\+Lig4}}, and \mbox{\hyperlink{classgame_1_1TicTacToe_a14cf1e1b608158b3b8ff4693495ca875}{game\+::\+Tic\+Tac\+Toe}}.
+
+\mbox{\Hypertarget{classboard_1_1Board_add30dbe0fc0a624a4a4bd749a248eb5a}\label{classboard_1_1Board_add30dbe0fc0a624a4a4bd749a248eb5a}} 
+\index{board::Board@{board::Board}!CheckWin@{CheckWin}}
+\index{CheckWin@{CheckWin}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{CheckWin()}{CheckWin()}}
+{\footnotesize\ttfamily bool board\+::\+Board\+::\+Check\+Win (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classboard_1_1Board_ad6d732d03c52263f0fd9d0160a4d99f1}\label{classboard_1_1Board_ad6d732d03c52263f0fd9d0160a4d99f1}} 
+\index{board::Board@{board::Board}!GetPlayer1@{GetPlayer1}}
+\index{GetPlayer1@{GetPlayer1}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{GetPlayer1()}{GetPlayer1()}}
+{\footnotesize\ttfamily char board\+::\+Board\+::\+Get\+Player1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classboard_1_1Board_af4834408e33e622a700e028368dce124}\label{classboard_1_1Board_af4834408e33e622a700e028368dce124}} 
+\index{board::Board@{board::Board}!GetPlayer2@{GetPlayer2}}
+\index{GetPlayer2@{GetPlayer2}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{GetPlayer2()}{GetPlayer2()}}
+{\footnotesize\ttfamily char board\+::\+Board\+::\+Get\+Player2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classboard_1_1Board_adb44777cb1beae5c56ccae5a1299ff21}\label{classboard_1_1Board_adb44777cb1beae5c56ccae5a1299ff21}} 
+\index{board::Board@{board::Board}!GetSpaces@{GetSpaces}}
+\index{GetSpaces@{GetSpaces}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{GetSpaces()}{GetSpaces()}}
+{\footnotesize\ttfamily int board\+::\+Board\+::\+Get\+Spaces (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classboard_1_1Board_a6742cc510fbdea774091ac5b27ef51b7}\label{classboard_1_1Board_a6742cc510fbdea774091ac5b27ef51b7}} 
+\index{board::Board@{board::Board}!playerMove@{playerMove}}
+\index{playerMove@{playerMove}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{playerMove()}{playerMove()}}
+{\footnotesize\ttfamily virtual void board\+::\+Board\+::player\+Move (\begin{DoxyParamCaption}\item[{int}]{position,  }\item[{bool}]{is\+Player1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classgame_1_1Reversi_a78f0d54a73cf23723b6d7f51e9939b2d}{game\+::\+Reversi}}, \mbox{\hyperlink{classgame_1_1Lig4_a85da480a2b68354632b58de8003fd0e8}{game\+::\+Lig4}}, and \mbox{\hyperlink{classgame_1_1TicTacToe_a7a2cb4c866115863ed19b8efbdc351a5}{game\+::\+Tic\+Tac\+Toe}}.
+
+\mbox{\Hypertarget{classboard_1_1Board_a553a1f6ccdbf85844d46940924df39d7}\label{classboard_1_1Board_a553a1f6ccdbf85844d46940924df39d7}} 
+\index{board::Board@{board::Board}!PrintBoard@{PrintBoard}}
+\index{PrintBoard@{PrintBoard}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{PrintBoard()}{PrintBoard()}}
+{\footnotesize\ttfamily void board\+::\+Board\+::\+Print\+Board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classboard_1_1Board_acce4b5e0c6f47257f0d938aa4b1b0aaa}\label{classboard_1_1Board_acce4b5e0c6f47257f0d938aa4b1b0aaa}} 
+\index{board::Board@{board::Board}!SetPlayer1@{SetPlayer1}}
+\index{SetPlayer1@{SetPlayer1}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{SetPlayer1()}{SetPlayer1()}}
+{\footnotesize\ttfamily void board\+::\+Board\+::\+Set\+Player1 (\begin{DoxyParamCaption}\item[{char}]{player1 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classboard_1_1Board_a9933157dc0536a192bed7b59b19cc56b}\label{classboard_1_1Board_a9933157dc0536a192bed7b59b19cc56b}} 
+\index{board::Board@{board::Board}!SetPlayer2@{SetPlayer2}}
+\index{SetPlayer2@{SetPlayer2}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{SetPlayer2()}{SetPlayer2()}}
+{\footnotesize\ttfamily void board\+::\+Board\+::\+Set\+Player2 (\begin{DoxyParamCaption}\item[{char}]{player2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classboard_1_1Board_a8d0d3fe2c0bdebf3a3b743b555a41b02}\label{classboard_1_1Board_a8d0d3fe2c0bdebf3a3b743b555a41b02}} 
+\index{board::Board@{board::Board}!SetSpaces@{SetSpaces}}
+\index{SetSpaces@{SetSpaces}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{SetSpaces()}{SetSpaces()}}
+{\footnotesize\ttfamily void board\+::\+Board\+::\+Set\+Spaces (\begin{DoxyParamCaption}\item[{int}]{spaces }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classboard_1_1Board_a7d1f62efbdc7e4eef79b9284379b31b3}\label{classboard_1_1Board_a7d1f62efbdc7e4eef79b9284379b31b3}} 
+\index{board::Board@{board::Board}!board@{board}}
+\index{board@{board}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{board}{board}}
+{\footnotesize\ttfamily std\+::vector$<$char$>$ board\+::\+Board\+::board\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classboard_1_1Board_a05d6ff7fabc92d95f9bfc720c1e53b34}\label{classboard_1_1Board_a05d6ff7fabc92d95f9bfc720c1e53b34}} 
+\index{board::Board@{board::Board}!player1@{player1}}
+\index{player1@{player1}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{player1}{player1}}
+{\footnotesize\ttfamily char board\+::\+Board\+::player1\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classboard_1_1Board_ac22998ef0699becd7d8d0027b61cc679}\label{classboard_1_1Board_ac22998ef0699becd7d8d0027b61cc679}} 
+\index{board::Board@{board::Board}!player2@{player2}}
+\index{player2@{player2}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{player2}{player2}}
+{\footnotesize\ttfamily char board\+::\+Board\+::player2\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classboard_1_1Board_aa70193396b9d8e265aa1ecc3ba1e03c6}\label{classboard_1_1Board_aa70193396b9d8e265aa1ecc3ba1e03c6}} 
+\index{board::Board@{board::Board}!spaces@{spaces}}
+\index{spaces@{spaces}!board::Board@{board::Board}}
+\doxysubsubsection{\texorpdfstring{spaces}{spaces}}
+{\footnotesize\ttfamily int board\+::\+Board\+::spaces\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{board_8hpp}{board.\+hpp}}\item 
+src/\mbox{\hyperlink{board_8cpp}{board.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,12 @@
+<map id="include/board.hpp" name="include/board.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="215,5,353,32"/>
+<area shape="rect" id="node2" href="$board_8cpp.html" title=" " alt="" coords="5,80,115,107"/>
+<area shape="rect" id="node3" href="$lig4_8hpp.html" title=" " alt="" coords="139,80,264,107"/>
+<area shape="rect" id="node6" href="$tictactoe_8hpp.html" title=" " alt="" coords="289,80,447,107"/>
+<area shape="rect" id="node9" href="$reversi_8hpp.html" title=" " alt="" coords="484,80,631,107"/>
+<area shape="rect" id="node4" href="$lig4_8cpp.html" title=" " alt="" coords="7,155,103,181"/>
+<area shape="rect" id="node5" href="$modulo__jogos_8cpp.html" title=" " alt="" coords="281,155,444,181"/>
+<area shape="rect" id="node7" href="$tictactoe_8cpp.html" title=" " alt="" coords="127,155,257,181"/>
+<area shape="rect" id="node8" href="$modulo__jogos_8hpp.html" title=" " alt="" coords="468,155,660,181"/>
+<area shape="rect" id="node10" href="$reversi_8cpp.html" title=" " alt="" coords="684,155,801,181"/>
+</map>

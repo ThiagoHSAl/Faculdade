@@ -1,0 +1,122 @@
+\hypertarget{classgame_1_1TicTacToe}{}\doxysection{game\+::Tic\+Tac\+Toe Class Reference}
+\label{classgame_1_1TicTacToe}\index{game::TicTacToe@{game::TicTacToe}}
+
+
+{\ttfamily \#include $<$tictactoe.\+hpp$>$}
+
+
+
+Inheritance diagram for game\+::Tic\+Tac\+Toe\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{classgame_1_1TicTacToe__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for game\+::Tic\+Tac\+Toe\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{classgame_1_1TicTacToe__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgame_1_1TicTacToe_a0fa75f38a9d4c9013b796d0e1116b577}{Tic\+Tac\+Toe}} ()
+\item 
+void \mbox{\hyperlink{classgame_1_1TicTacToe_a3df5a7772b867de8b408ebdda2e1c71e}{Print\+Board}} ()
+\item 
+void \mbox{\hyperlink{classgame_1_1TicTacToe_a7a2cb4c866115863ed19b8efbdc351a5}{player\+Move}} (int position, bool is\+Player1) override
+\item 
+bool \mbox{\hyperlink{classgame_1_1TicTacToe_aa3586f4483aaca76f9418d52ce0ed45e}{Check\+Win}} ()
+\item 
+bool \mbox{\hyperlink{classgame_1_1TicTacToe_a14cf1e1b608158b3b8ff4693495ca875}{Check\+Tie}} ()
+\item 
+void \mbox{\hyperlink{classgame_1_1TicTacToe_a377595e634a601586f028670c16e1b45}{Check\+Game\+Status}} ()
+\item 
+void \mbox{\hyperlink{classgame_1_1TicTacToe_a2e8bc6f00ced4e74a7cb4e38c2a3f069}{Run\+Game}} (std\+::string \&jogador1, std\+::string \&jogador2, \mbox{\hyperlink{classcadastro}{cadastro}} \&meu\+Cadastro)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classgame_1_1TicTacToe_a6dd073d55a64f9c70db40f505cfd41e7}{current\+Player}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classgame_1_1TicTacToe_a0fa75f38a9d4c9013b796d0e1116b577}\label{classgame_1_1TicTacToe_a0fa75f38a9d4c9013b796d0e1116b577}} 
+\index{game::TicTacToe@{game::TicTacToe}!TicTacToe@{TicTacToe}}
+\index{TicTacToe@{TicTacToe}!game::TicTacToe@{game::TicTacToe}}
+\doxysubsubsection{\texorpdfstring{TicTacToe()}{TicTacToe()}}
+{\footnotesize\ttfamily game\+::\+Tic\+Tac\+Toe\+::\+Tic\+Tac\+Toe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classgame_1_1TicTacToe_a377595e634a601586f028670c16e1b45}\label{classgame_1_1TicTacToe_a377595e634a601586f028670c16e1b45}} 
+\index{game::TicTacToe@{game::TicTacToe}!CheckGameStatus@{CheckGameStatus}}
+\index{CheckGameStatus@{CheckGameStatus}!game::TicTacToe@{game::TicTacToe}}
+\doxysubsubsection{\texorpdfstring{CheckGameStatus()}{CheckGameStatus()}}
+{\footnotesize\ttfamily void game\+::\+Tic\+Tac\+Toe\+::\+Check\+Game\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a5e2404021d4588475e018c6b1ed992b8}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classgame_1_1TicTacToe_a14cf1e1b608158b3b8ff4693495ca875}\label{classgame_1_1TicTacToe_a14cf1e1b608158b3b8ff4693495ca875}} 
+\index{game::TicTacToe@{game::TicTacToe}!CheckTie@{CheckTie}}
+\index{CheckTie@{CheckTie}!game::TicTacToe@{game::TicTacToe}}
+\doxysubsubsection{\texorpdfstring{CheckTie()}{CheckTie()}}
+{\footnotesize\ttfamily bool game\+::\+Tic\+Tac\+Toe\+::\+Check\+Tie (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a59571103f8a5f06c79006147f7eb4440}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classgame_1_1TicTacToe_aa3586f4483aaca76f9418d52ce0ed45e}\label{classgame_1_1TicTacToe_aa3586f4483aaca76f9418d52ce0ed45e}} 
+\index{game::TicTacToe@{game::TicTacToe}!CheckWin@{CheckWin}}
+\index{CheckWin@{CheckWin}!game::TicTacToe@{game::TicTacToe}}
+\doxysubsubsection{\texorpdfstring{CheckWin()}{CheckWin()}}
+{\footnotesize\ttfamily bool game\+::\+Tic\+Tac\+Toe\+::\+Check\+Win (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1TicTacToe_a7a2cb4c866115863ed19b8efbdc351a5}\label{classgame_1_1TicTacToe_a7a2cb4c866115863ed19b8efbdc351a5}} 
+\index{game::TicTacToe@{game::TicTacToe}!playerMove@{playerMove}}
+\index{playerMove@{playerMove}!game::TicTacToe@{game::TicTacToe}}
+\doxysubsubsection{\texorpdfstring{playerMove()}{playerMove()}}
+{\footnotesize\ttfamily void game\+::\+Tic\+Tac\+Toe\+::player\+Move (\begin{DoxyParamCaption}\item[{int}]{position,  }\item[{bool}]{is\+Player1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a6742cc510fbdea774091ac5b27ef51b7}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classgame_1_1TicTacToe_a3df5a7772b867de8b408ebdda2e1c71e}\label{classgame_1_1TicTacToe_a3df5a7772b867de8b408ebdda2e1c71e}} 
+\index{game::TicTacToe@{game::TicTacToe}!PrintBoard@{PrintBoard}}
+\index{PrintBoard@{PrintBoard}!game::TicTacToe@{game::TicTacToe}}
+\doxysubsubsection{\texorpdfstring{PrintBoard()}{PrintBoard()}}
+{\footnotesize\ttfamily void game\+::\+Tic\+Tac\+Toe\+::\+Print\+Board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classgame_1_1TicTacToe_a2e8bc6f00ced4e74a7cb4e38c2a3f069}\label{classgame_1_1TicTacToe_a2e8bc6f00ced4e74a7cb4e38c2a3f069}} 
+\index{game::TicTacToe@{game::TicTacToe}!RunGame@{RunGame}}
+\index{RunGame@{RunGame}!game::TicTacToe@{game::TicTacToe}}
+\doxysubsubsection{\texorpdfstring{RunGame()}{RunGame()}}
+{\footnotesize\ttfamily void game\+::\+Tic\+Tac\+Toe\+::\+Run\+Game (\begin{DoxyParamCaption}\item[{std\+::string \&}]{jogador1,  }\item[{std\+::string \&}]{jogador2,  }\item[{\mbox{\hyperlink{classcadastro}{cadastro}} \&}]{meu\+Cadastro }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classgame_1_1TicTacToe_a6dd073d55a64f9c70db40f505cfd41e7}\label{classgame_1_1TicTacToe_a6dd073d55a64f9c70db40f505cfd41e7}} 
+\index{game::TicTacToe@{game::TicTacToe}!currentPlayer@{currentPlayer}}
+\index{currentPlayer@{currentPlayer}!game::TicTacToe@{game::TicTacToe}}
+\doxysubsubsection{\texorpdfstring{currentPlayer}{currentPlayer}}
+{\footnotesize\ttfamily bool game\+::\+Tic\+Tac\+Toe\+::current\+Player}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{tictactoe_8hpp}{tictactoe.\+hpp}}\item 
+src/\mbox{\hyperlink{tictactoe_8cpp}{tictactoe.\+cpp}}\end{DoxyCompactItemize}

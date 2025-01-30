@@ -1,0 +1,3 @@
+Linha inválida -> asdas
+Linha inválida -> Nome: Gustavo Apelido: Vieira 0 0 3 0 0
+Linha inválida -> Nome: Gustavo Vieira 0 0 3 0 0 5

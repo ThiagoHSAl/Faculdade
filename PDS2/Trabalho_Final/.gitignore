@@ -1,0 +1,2 @@
+echo "bin/" >> .gitignore
+echo "obj/" >> .gitignore

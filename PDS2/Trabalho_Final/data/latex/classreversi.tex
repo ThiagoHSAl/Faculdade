@@ -1,0 +1,228 @@
+\hypertarget{classreversi}{}\doxysection{reversi Class Reference}
+\label{classreversi}\index{reversi@{reversi}}
+
+
+{\ttfamily \#include $<$reversi.\+hpp$>$}
+
+
+
+Inheritance diagram for reversi\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=159pt]{classreversi__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for reversi\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=159pt]{classreversi__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classreversi_a9a0f4929be4418a70a84c29e71bd3103}{reversi}} ()
+\item 
+bool \mbox{\hyperlink{classreversi_aa1d25f15649e891aafebffd0f687f927}{Is\+Valid\+Direita}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_aedb51ee43176d85fc8cfc856fada73be}{Is\+Valid\+Esquerda}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_aa004deb9c150e5b368f3f277656545a4}{Is\+Valid\+Cima}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_a80c56d8f6e2f474055ec58ca1096cad3}{Is\+Valid\+Baixo}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_ad52f3ecabe777a93f78ca695eb7b03ef}{Is\+Valid\+Nordeste}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_a7c02b3f3d99ace09305d4a8cf541c5f1}{Is\+Valid\+Sudeste}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_a70a154f497c6a35dbe1fe904ce91de10}{Is\+Valid\+Sudoeste}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_a17d0800da0d71c57d217df83c6722306}{Is\+Valid\+Noroeste}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_abfd7b54e84e402a8a7e2d30c354f5330}{is\+Valid\+All}} (int position)
+\item 
+bool \mbox{\hyperlink{classreversi_ab6254c63726627a5df3478731b30cd17}{Can\+I\+Play}} ()
+\item 
+void \mbox{\hyperlink{classreversi_a99c97c8069f42a280363cd1cf2699ac6}{Score}} (std\+::string jogador1, std\+::string jogador2)
+\item 
+void \mbox{\hyperlink{classreversi_a2ac96853803093a5ae303ca24a727f6a}{Inicio}} ()
+\item 
+void \mbox{\hyperlink{classreversi_a69cc6e7ab00d487fb36487b6032cae64}{Jogar\+Reversi}} (std\+::string jogador1, std\+::string jogador2, \mbox{\hyperlink{classcadastro}{cadastro}} \&meucadastro, \mbox{\hyperlink{classreversi}{reversi}} \&Reversi)
+\item 
+void \mbox{\hyperlink{classreversi_a40609312487b2114d379e4884ffff3d0}{Print\+Board}} (std\+::string jogador1, std\+::string jogador2)
+\item 
+int \mbox{\hyperlink{classreversi_aded430283fc888d6ccef03c9f0877dd2}{Check\+Win}} (std\+::string jogador1, std\+::string jogador2)
+\item 
+void \mbox{\hyperlink{classreversi_ac021dd09acb7704e8714ea63cf68c3a9}{Animacao\+Captura}} ()
+\item 
+void \mbox{\hyperlink{classreversi_a7d2fc0648364210e32958b3a09b5c536}{player\+Move}} (int position, bool is\+Player1) override
+\item 
+bool \mbox{\hyperlink{classreversi_ad98b89c7d5917c49ec5d028893947c03}{Check\+Tie}} () override
+\item 
+void \mbox{\hyperlink{classreversi_ac57585233b6bc2d2323f7b5d9e19e7ee}{Check\+Game\+Status}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classreversi_a86df544911347bd14e12ed617780f7cc}{current\+Player}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classreversi_a9a0f4929be4418a70a84c29e71bd3103}\label{classreversi_a9a0f4929be4418a70a84c29e71bd3103}} 
+\index{reversi@{reversi}!reversi@{reversi}}
+\index{reversi@{reversi}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{reversi()}{reversi()}}
+{\footnotesize\ttfamily reversi\+::reversi (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classreversi_ac021dd09acb7704e8714ea63cf68c3a9}\label{classreversi_ac021dd09acb7704e8714ea63cf68c3a9}} 
+\index{reversi@{reversi}!AnimacaoCaptura@{AnimacaoCaptura}}
+\index{AnimacaoCaptura@{AnimacaoCaptura}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{AnimacaoCaptura()}{AnimacaoCaptura()}}
+{\footnotesize\ttfamily void reversi\+::\+Animacao\+Captura (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_ab6254c63726627a5df3478731b30cd17}\label{classreversi_ab6254c63726627a5df3478731b30cd17}} 
+\index{reversi@{reversi}!CanIPlay@{CanIPlay}}
+\index{CanIPlay@{CanIPlay}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{CanIPlay()}{CanIPlay()}}
+{\footnotesize\ttfamily bool reversi\+::\+Can\+I\+Play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_ac57585233b6bc2d2323f7b5d9e19e7ee}\label{classreversi_ac57585233b6bc2d2323f7b5d9e19e7ee}} 
+\index{reversi@{reversi}!CheckGameStatus@{CheckGameStatus}}
+\index{CheckGameStatus@{CheckGameStatus}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{CheckGameStatus()}{CheckGameStatus()}}
+{\footnotesize\ttfamily void reversi\+::\+Check\+Game\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a5e2404021d4588475e018c6b1ed992b8}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classreversi_ad98b89c7d5917c49ec5d028893947c03}\label{classreversi_ad98b89c7d5917c49ec5d028893947c03}} 
+\index{reversi@{reversi}!CheckTie@{CheckTie}}
+\index{CheckTie@{CheckTie}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{CheckTie()}{CheckTie()}}
+{\footnotesize\ttfamily bool reversi\+::\+Check\+Tie (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a59571103f8a5f06c79006147f7eb4440}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classreversi_aded430283fc888d6ccef03c9f0877dd2}\label{classreversi_aded430283fc888d6ccef03c9f0877dd2}} 
+\index{reversi@{reversi}!CheckWin@{CheckWin}}
+\index{CheckWin@{CheckWin}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{CheckWin()}{CheckWin()}}
+{\footnotesize\ttfamily int reversi\+::\+Check\+Win (\begin{DoxyParamCaption}\item[{std\+::string}]{jogador1,  }\item[{std\+::string}]{jogador2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_a2ac96853803093a5ae303ca24a727f6a}\label{classreversi_a2ac96853803093a5ae303ca24a727f6a}} 
+\index{reversi@{reversi}!Inicio@{Inicio}}
+\index{Inicio@{Inicio}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{Inicio()}{Inicio()}}
+{\footnotesize\ttfamily void reversi\+::\+Inicio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_abfd7b54e84e402a8a7e2d30c354f5330}\label{classreversi_abfd7b54e84e402a8a7e2d30c354f5330}} 
+\index{reversi@{reversi}!isValidAll@{isValidAll}}
+\index{isValidAll@{isValidAll}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{isValidAll()}{isValidAll()}}
+{\footnotesize\ttfamily bool reversi\+::is\+Valid\+All (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_a80c56d8f6e2f474055ec58ca1096cad3}\label{classreversi_a80c56d8f6e2f474055ec58ca1096cad3}} 
+\index{reversi@{reversi}!IsValidBaixo@{IsValidBaixo}}
+\index{IsValidBaixo@{IsValidBaixo}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidBaixo()}{IsValidBaixo()}}
+{\footnotesize\ttfamily bool reversi\+::\+Is\+Valid\+Baixo (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_aa004deb9c150e5b368f3f277656545a4}\label{classreversi_aa004deb9c150e5b368f3f277656545a4}} 
+\index{reversi@{reversi}!IsValidCima@{IsValidCima}}
+\index{IsValidCima@{IsValidCima}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidCima()}{IsValidCima()}}
+{\footnotesize\ttfamily bool reversi\+::\+Is\+Valid\+Cima (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_aa1d25f15649e891aafebffd0f687f927}\label{classreversi_aa1d25f15649e891aafebffd0f687f927}} 
+\index{reversi@{reversi}!IsValidDireita@{IsValidDireita}}
+\index{IsValidDireita@{IsValidDireita}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidDireita()}{IsValidDireita()}}
+{\footnotesize\ttfamily bool reversi\+::\+Is\+Valid\+Direita (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_aedb51ee43176d85fc8cfc856fada73be}\label{classreversi_aedb51ee43176d85fc8cfc856fada73be}} 
+\index{reversi@{reversi}!IsValidEsquerda@{IsValidEsquerda}}
+\index{IsValidEsquerda@{IsValidEsquerda}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidEsquerda()}{IsValidEsquerda()}}
+{\footnotesize\ttfamily bool reversi\+::\+Is\+Valid\+Esquerda (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_ad52f3ecabe777a93f78ca695eb7b03ef}\label{classreversi_ad52f3ecabe777a93f78ca695eb7b03ef}} 
+\index{reversi@{reversi}!IsValidNordeste@{IsValidNordeste}}
+\index{IsValidNordeste@{IsValidNordeste}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidNordeste()}{IsValidNordeste()}}
+{\footnotesize\ttfamily bool reversi\+::\+Is\+Valid\+Nordeste (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_a17d0800da0d71c57d217df83c6722306}\label{classreversi_a17d0800da0d71c57d217df83c6722306}} 
+\index{reversi@{reversi}!IsValidNoroeste@{IsValidNoroeste}}
+\index{IsValidNoroeste@{IsValidNoroeste}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidNoroeste()}{IsValidNoroeste()}}
+{\footnotesize\ttfamily bool reversi\+::\+Is\+Valid\+Noroeste (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_a7c02b3f3d99ace09305d4a8cf541c5f1}\label{classreversi_a7c02b3f3d99ace09305d4a8cf541c5f1}} 
+\index{reversi@{reversi}!IsValidSudeste@{IsValidSudeste}}
+\index{IsValidSudeste@{IsValidSudeste}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidSudeste()}{IsValidSudeste()}}
+{\footnotesize\ttfamily bool reversi\+::\+Is\+Valid\+Sudeste (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_a70a154f497c6a35dbe1fe904ce91de10}\label{classreversi_a70a154f497c6a35dbe1fe904ce91de10}} 
+\index{reversi@{reversi}!IsValidSudoeste@{IsValidSudoeste}}
+\index{IsValidSudoeste@{IsValidSudoeste}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{IsValidSudoeste()}{IsValidSudoeste()}}
+{\footnotesize\ttfamily bool reversi\+::\+Is\+Valid\+Sudoeste (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_a69cc6e7ab00d487fb36487b6032cae64}\label{classreversi_a69cc6e7ab00d487fb36487b6032cae64}} 
+\index{reversi@{reversi}!JogarReversi@{JogarReversi}}
+\index{JogarReversi@{JogarReversi}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{JogarReversi()}{JogarReversi()}}
+{\footnotesize\ttfamily void reversi\+::\+Jogar\+Reversi (\begin{DoxyParamCaption}\item[{std\+::string}]{jogador1,  }\item[{std\+::string}]{jogador2,  }\item[{\mbox{\hyperlink{classcadastro}{cadastro}} \&}]{meucadastro,  }\item[{\mbox{\hyperlink{classreversi}{reversi}} \&}]{Reversi }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_a7d2fc0648364210e32958b3a09b5c536}\label{classreversi_a7d2fc0648364210e32958b3a09b5c536}} 
+\index{reversi@{reversi}!playerMove@{playerMove}}
+\index{playerMove@{playerMove}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{playerMove()}{playerMove()}}
+{\footnotesize\ttfamily void reversi\+::player\+Move (\begin{DoxyParamCaption}\item[{int}]{position,  }\item[{bool}]{is\+Player1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classboard_1_1Board_a6742cc510fbdea774091ac5b27ef51b7}{board\+::\+Board}}.
+
+\mbox{\Hypertarget{classreversi_a40609312487b2114d379e4884ffff3d0}\label{classreversi_a40609312487b2114d379e4884ffff3d0}} 
+\index{reversi@{reversi}!PrintBoard@{PrintBoard}}
+\index{PrintBoard@{PrintBoard}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{PrintBoard()}{PrintBoard()}}
+{\footnotesize\ttfamily void reversi\+::\+Print\+Board (\begin{DoxyParamCaption}\item[{std\+::string}]{jogador1,  }\item[{std\+::string}]{jogador2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classreversi_a99c97c8069f42a280363cd1cf2699ac6}\label{classreversi_a99c97c8069f42a280363cd1cf2699ac6}} 
+\index{reversi@{reversi}!Score@{Score}}
+\index{Score@{Score}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{Score()}{Score()}}
+{\footnotesize\ttfamily void reversi\+::\+Score (\begin{DoxyParamCaption}\item[{std\+::string}]{jogador1,  }\item[{std\+::string}]{jogador2 }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classreversi_a86df544911347bd14e12ed617780f7cc}\label{classreversi_a86df544911347bd14e12ed617780f7cc}} 
+\index{reversi@{reversi}!currentPlayer@{currentPlayer}}
+\index{currentPlayer@{currentPlayer}!reversi@{reversi}}
+\doxysubsubsection{\texorpdfstring{currentPlayer}{currentPlayer}}
+{\footnotesize\ttfamily bool reversi\+::current\+Player}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{reversi_8hpp}{reversi.\+hpp}}\item 
+src/\mbox{\hyperlink{reversi_8cpp}{reversi.\+cpp}}\end{DoxyCompactItemize}

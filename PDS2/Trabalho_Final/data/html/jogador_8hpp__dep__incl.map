@@ -1,0 +1,15 @@
+<map id="include/jogador.hpp" name="include/jogador.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="272,5,421,32"/>
+<area shape="rect" id="node2" href="$jogador_8cpp.html" title=" " alt="" coords="205,80,325,107"/>
+<area shape="rect" id="node3" href="$cadastro_8hpp.html" title=" " alt="" coords="349,80,507,107"/>
+<area shape="rect" id="node4" href="$cadastro_8cpp.html" title=" " alt="" coords="5,155,133,181"/>
+<area shape="rect" id="node5" href="$modulo__cadastro_8cpp.html" title=" " alt="" coords="157,155,341,181"/>
+<area shape="rect" id="node6" href="$lig4_8hpp.html" title=" " alt="" coords="365,155,491,181"/>
+<area shape="rect" id="node9" href="$tictactoe_8hpp.html" title=" " alt="" coords="515,155,674,181"/>
+<area shape="rect" id="node12" href="$reversi_8hpp.html" title=" " alt="" coords="711,155,857,181"/>
+<area shape="rect" id="node7" href="$lig4_8cpp.html" title=" " alt="" coords="232,229,328,256"/>
+<area shape="rect" id="node8" href="$modulo__jogos_8cpp.html" title=" " alt="" coords="507,229,669,256"/>
+<area shape="rect" id="node10" href="$tictactoe_8cpp.html" title=" " alt="" coords="353,229,482,256"/>
+<area shape="rect" id="node11" href="$modulo__jogos_8hpp.html" title=" " alt="" coords="693,229,885,256"/>
+<area shape="rect" id="node13" href="$reversi_8cpp.html" title=" " alt="" coords="909,229,1027,256"/>
+</map>
