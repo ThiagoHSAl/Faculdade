@@ -309,7 +309,7 @@ void quickSortIns(int tamanho, int *A, int l, int r, sortperf_t *s) {
     inccalls(s, 1);
     int parada;
     if (tamanho > 81){
-        parada = 51;
+        parada = 50;
     }
     else{
         parada = (tamanho + 1)/2;
