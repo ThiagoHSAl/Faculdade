@@ -305,51 +305,57 @@ void quickSort3(int * A, int l, int r, sortperf_t *s) {
     }
 }
 
-void quickSortIns(int tamanho, int *A, int l, int r, sortperf_t *s) {
-    inccalls(s, 1);
-    int parada;
-    if (tamanho > 81){
-        parada = 50;
-    }
-    else{
-        parada = (tamanho + 1)/2;
-    }
-    if (r - l < parada) {
-        insertionSort(A, l, r, s);
-        return;
-    }
+void quickSortIns(int *A, int l, int r, sortperf_t *s) {
+    inccalls(s, 2);
     
     // Caso contrário, procede com QuickSort normal
     int i, j;
     partition(A, l, r, &i, &j, s);
-    
+
     // Chamadas recursivas
-    if (l < j) quickSortIns(tamanho, A, l, j, s);
-    if (i < r) quickSortIns(tamanho, A, i, r, s);
+    if (l < j){
+      if(j - l <= 50){
+        insertionSort(A, l, j, s);
+      }
+      else{
+        quickSortIns(A, l, j, s);
+      }
+    }
+    if (i < r){
+      if(r - i <= 50){
+        insertionSort(A, i, r, s);
+      }
+      else{
+        quickSortIns(A, i, r, s);
+      }
+    }
 }
 
-void quickSort3Ins(int tamanho, int *A, int l, int r, sortperf_t *s) {
-    inccalls(s, 1);
-    int parada;
-    if (tamanho > 9){
-        parada = 50;
-    }
-    else{
-        parada = 8;
-    }
+void quickSort3Ins(int *A, int l, int r, sortperf_t *s) {
+    inccalls(s, 2);
     // Verifica se o tamanho da partição é pequeno o suficiente para insertion sort
-    if (r - l < parada) {
-        insertionSort(A, l, r, s);
-        return;
-    }
     
     // Caso contrário, procede com quicksort mediana de três
     int i, j;
     partition3(A, l, r, &i, &j, s);
     
-    // Chamadas recursivas para as partições
-    if (l < j) quickSort3Ins(tamanho, A, l, j, s);
-    if (i < r) quickSort3Ins(tamanho, A, i, r, s);
+   // Chamadas recursivas
+   if (l < j){
+    if(j - l <= 50){
+      insertionSort(A, l, j, s);
+    }
+    else{
+      quickSort3Ins(A, l, j, s);
+    }
+  }
+  if (i < r){
+    if(r - i <= 50){
+      insertionSort(A, i, r, s);
+    }
+    else{
+      quickSort3Ins(A, i, r, s);
+    }
+  }
 }
 
 
@@ -472,13 +478,11 @@ int main (int argc, char ** argv){
          quickSort3(vet, 0, opt.size-1, &s);
          break;
     case ALGQSORTINS:{
-        quickSortIns(opt.size, vet, 0, opt.size-1, &s);
-        inccalls(&s,-1);
+        quickSortIns(vet, 0, opt.size-1, &s);
         break;
     }
     case ALGQSORT3INS:{
-        quickSort3Ins(opt.size, vet, 0, opt.size-1, &s);
-        inccalls(&s,-1);
+        quickSort3Ins(vet, 0, opt.size-1, &s);
         break;
     }
     case ALGSHELLSORT:
