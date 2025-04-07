@@ -287,60 +287,60 @@ void partition(int *A, int l, int r, int *i, int *j, sortperf_t *s) {
 }
 
 void quickSort(int *A, int l, int r, sortperf_t *s){
-    inccalls(s, 2); // Conta esta chamada
+    inccalls(s, 1); // Conta esta chamada
     int i,j;
     partition(A, l, r, &i, &j, s);
+    inccalls(s, 1); // Conta esta chamada
     if (l < j) quickSort(A, l, j, s);
     if (i < r) quickSort(A, i, r, s);
 }
 
 // quicksort with median of 3
 void quickSort3(int * A, int l, int r, sortperf_t *s) {
-    inccalls(s, 2);
+  inccalls(s, 1); // Conta esta chamada
     if (l < r) {
-        int i, j;
-        partition3(A, l, r, &i, &j, s);
-        if (l < j) quickSort3(A, l, j, s);
-        if (i < r) quickSort3(A, i, r, s);
+      int i, j;
+      partition3(A, l, r, &i, &j, s);
+      inccalls(s, 1); // Conta esta chamada
+      if (l < j) quickSort3(A, l, j, s);
+      if (i < r) quickSort3(A, i, r, s);
     }
 }
 
 void quickSortIns(int *A, int l, int r, sortperf_t *s) {
-    inccalls(s, 2);
-    
-    // Caso contrário, procede com QuickSort normal
-    int i, j;
-    partition(A, l, r, &i, &j, s);
-
-    // Chamadas recursivas
-    if (l < j){
-      if(j - l <= 50){
-        insertionSort(A, l, j, s);
-      }
-      else{
-        quickSortIns(A, l, j, s);
-      }
+  inccalls(s, 1); // Conta esta chamada
+  
+  // Caso contrário, procede com QuickSort normal
+  int i, j;
+  partition(A, l, r, &i, &j, s);
+  inccalls(s, 1); // Conta esta chamada
+  // Chamadas recursivas
+  if (l < j){
+    if(j - l <= 50){
+      insertionSort(A, l, j, s);
     }
-    if (i < r){
-      if(r - i <= 50){
-        insertionSort(A, i, r, s);
-      }
-      else{
-        quickSortIns(A, i, r, s);
-      }
+    else{
+      quickSortIns(A, l, j, s);
     }
+  }
+  if (i < r){
+    if(r - i <= 50){
+      insertionSort(A, i, r, s);
+    }
+    else{
+      quickSortIns(A, i, r, s);
+    }
+  }
 }
 
 void quickSort3Ins(int *A, int l, int r, sortperf_t *s) {
-    inccalls(s, 2);
-    // Verifica se o tamanho da partição é pequeno o suficiente para insertion sort
+  inccalls(s, 1); // Conta esta chamada
     
-    // Caso contrário, procede com quicksort mediana de três
-    int i, j;
-    partition3(A, l, r, &i, &j, s);
-    
+  int i, j;
+  partition3(A, l, r, &i, &j, s);
+  inccalls(s, 1); // Conta esta chamada
    // Chamadas recursivas
-   if (l < j){
+  if (l < j){
     if(j - l <= 50){
       insertionSort(A, l, j, s);
     }
