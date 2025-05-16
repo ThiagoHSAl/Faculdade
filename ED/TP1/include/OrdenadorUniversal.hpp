@@ -17,9 +17,9 @@ private:
 
     // Atributos para calibragem de partição
     estatisticas s;
-    int tamanhosTestados[10];
-    double custosQS[10];
-    double custosIS[10];
+    int tamanhosTestados[20];
+    double custosQS[20];
+    double custosIS[20];
     int numeroQuebras;
     int seed;
 

@@ -38,7 +38,7 @@ int OrdenadorUniversal::determinaLimiarParticao(){
     do {
         indexadorTeste = 0;
         std::cout << std::endl << "iter " << iteracao << std::endl;
-        for (int tamanhoParticao = menorTamanhoParticao; tamanhoParticao <= maiorTamanhoParticao; tamanhoParticao  += passoTestes) {
+        for (int tamanhoParticao = menorTamanhoParticao; tamanhoParticao < maiorTamanhoParticao; tamanhoParticao  += passoTestes) {
             resetcounter(&s);
             tamanhosTestados[indexadorTeste] = tamanhoParticao;
             escolheAlgoritmo(tamanhoParticao, -1);
@@ -56,7 +56,7 @@ int OrdenadorUniversal::determinaLimiarParticao(){
           << " mpsdiff " << std::fixed << std::setprecision(6) << diferencaCusto
           << std::endl;
         iteracao++;
-    } while ((diferencaCusto > limiarCusto) && (indexadorTeste >= 6));
+    } while ((diferencaCusto > limiarCusto) && (indexadorTeste >= 5));
 
     int limiarParticao;
     limiarParticao = getTamanho(melhorIndice);
@@ -173,11 +173,11 @@ int OrdenadorUniversal::determinaLimiarQuebra(int particao){
         indexadorTeste = 0;
         std::cout << std::endl << "iter " << iteracao << std::endl;
 
-        for (int limiarQuebra = menorLimiarQuebra; limiarQuebra <= maiorLimiarQuebra; limiarQuebra  += passoTestes) {
+        for (int limiarQuebra = menorLimiarQuebra; limiarQuebra < maiorLimiarQuebra; limiarQuebra  += passoTestes) {
             resetcounter(&s);
             tamanhosTestados[indexadorTeste] = limiarQuebra;
 
-            vetorDeTestes = vetorComQuebra(vetorDeTestes, limiarQuebra);
+            vetorDeTestes = vetorComQuebra(nullptr, limiarQuebra);
             quickSort(vetorDeTestes, 0, tamanho-1, particao, -1, &s);
 
             std::cout << "qs lq " << tamanhosTestados[indexadorTeste];
@@ -185,7 +185,7 @@ int OrdenadorUniversal::determinaLimiarQuebra(int particao){
             imprimeEstatisticas('q', indexadorTeste);
 
             resetcounter(&s);
-            vetorDeTestes = vetorComQuebra(vetorDeTestes, limiarQuebra);
+            vetorDeTestes = vetorComQuebra(nullptr, limiarQuebra);
             insercao(vetorDeTestes, 0, tamanho-1, &s);
 
             std::cout << "in lq " << tamanhosTestados[indexadorTeste];
@@ -202,9 +202,9 @@ int OrdenadorUniversal::determinaLimiarQuebra(int particao){
           << " lqdiff " << std::fixed << std::setprecision(6) << diferencaCusto
           << std::endl;
         iteracao++;
-    } while ((diferencaCusto > limiarCusto) && (indexadorTeste >= 6));
-
-    return melhorIndice;
+    } while ((diferencaCusto > limiarCusto) && (indexadorTeste >= 5));
+    int melhorLimiarQuebra = getTamanho(melhorIndice);
+    return melhorLimiarQuebra;
 }
 
 int* OrdenadorUniversal::vetorComQuebra(int* vetor, int quebras){
