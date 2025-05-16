@@ -115,7 +115,7 @@ int OrdenadorUniversal::getTamanho(int indexador){
 int OrdenadorUniversal::menorCusto(){
     int menorCusto = 0;
 
-    for (int i = 1; i < 6; i++){
+    for (int i = 1; i < 10; i++){
         if (custosQS[i] < custosQS[menorCusto]){
             menorCusto = i;
         }
