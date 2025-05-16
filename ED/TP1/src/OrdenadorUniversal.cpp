@@ -38,7 +38,7 @@ int OrdenadorUniversal::determinaLimiarParticao(){
     do {
         indexadorTeste = 0;
         std::cout << std::endl << "iter " << iteracao << std::endl;
-        for (int tamanhoParticao = menorTamanhoParticao; tamanhoParticao < maiorTamanhoParticao; tamanhoParticao  += passoTestes) {
+        for (int tamanhoParticao = menorTamanhoParticao; tamanhoParticao <= maiorTamanhoParticao; tamanhoParticao  += passoTestes) {
             resetcounter(&s);
             tamanhosTestados[indexadorTeste] = tamanhoParticao;
             escolheAlgoritmo(tamanhoParticao, -1);
@@ -173,7 +173,7 @@ int OrdenadorUniversal::determinaLimiarQuebra(int particao){
         indexadorTeste = 0;
         std::cout << std::endl << "iter " << iteracao << std::endl;
 
-        for (int limiarQuebra = menorLimiarQuebra; limiarQuebra < maiorLimiarQuebra; limiarQuebra  += passoTestes) {
+        for (int limiarQuebra = menorLimiarQuebra; limiarQuebra <= maiorLimiarQuebra; limiarQuebra  += passoTestes) {
             resetcounter(&s);
             tamanhosTestados[indexadorTeste] = limiarQuebra;
 
