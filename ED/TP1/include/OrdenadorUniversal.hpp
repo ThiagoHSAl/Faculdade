@@ -21,12 +21,13 @@ private:
     double custosQS[10];
     double custosIS[10];
     int numeroQuebras;
+    int seed;
 
 public:
-    OrdenadorUniversal(int* v, int t, int custo, double a_, double b_, double c_);
+    OrdenadorUniversal(int* v, int t, int custo, double a_, double b_, double c_, int seed);
     int determinaLimiarParticao();
     int determinaLimiarQuebra(int menorTamanhoParticao);
-    void calculaNovaFaixa(int indexadorTeste, int melhorIndice, int* menorTamanhoParticao, int* maiorTamanhoParticao, int* passoTestes, double* diferencaCusto, char identificador);
+    void calculaNovaFaixa(int indexadorTeste, int melhorIndice, int* menorTamanhoParticao, int* maiorTamanhoParticao, int* passoTestes, float* diferencaCusto, char identificador);
     void escolheAlgoritmo(int menorTamanhoParticao, int limiarQuebras);
     void registraEstatisticas(char identificador, int indexador);
     void imprimeEstatisticas(char identificador, int indexador);

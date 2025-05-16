@@ -37,10 +37,9 @@ int main(int argc, char* argv[]){
         vetor[i] = elemento;
     }
 
-    OrdenadorUniversal teste(vetor, tamanho, limiarCusto, a, b, c);
+    OrdenadorUniversal teste(vetor, tamanho, limiarCusto, a, b, c, seed);
     quebras = contaQuebras(vetor, 0, tamanho);
-    std::cout << "size " << tamanho << " seed " << seed << " breaks " << quebras <<std::endl;
-
+    std::cout << "size " << tamanho << " seed " << seed << " breaks " << quebras << std::endl;
     particao = teste.determinaLimiarParticao();
     particao = teste.determinaLimiarQuebra(particao);
 }

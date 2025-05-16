@@ -6,7 +6,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/bin/tp1.out",
-        "args": ["teste.txt"],
+        "args": ["input.txt"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}/bin",
         "environment": [],
