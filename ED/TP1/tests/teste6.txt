@@ -1611,29 +1611,3 @@ in lq 25 cost 116.900397700 cmp 21190 move 22689 calls 1
 qs lq 28 cost 94.641716800 cmp 9377 move 3610 calls 94
 in lq 28 cost 125.832996700 cmp 22687 move 24186 calls 1
 numlq 7 limQuebras 19 lqdiff 27.853956
-
-iter 5
-qs lq 16 cost 93.490040800 cmp 9091 move 3237 calls 94
-in lq 16 cost 78.377445700 cmp 14734 move 16233 calls 1
-qs lq 17 cost 93.776456800 cmp 9139 move 3285 calls 94
-in lq 17 cost 83.288286700 cmp 15557 move 17056 calls 1
-qs lq 18 cost 93.220094800 cmp 9065 move 3229 calls 94
-in lq 18 cost 92.256687700 cmp 17060 move 18559 calls 1
-qs lq 19 cost 93.802394800 cmp 9169 move 3339 calls 94
-in lq 19 cost 96.075567700 cmp 17700 move 19199 calls 1
-qs lq 20 cost 93.939635800 cmp 9192 move 3362 calls 94
-in lq 20 cost 96.200874700 cmp 17721 move 19220 calls 1
-qs lq 21 cost 93.984905800 cmp 9206 move 3382 calls 94
-in lq 21 cost 96.582762700 cmp 17785 move 19284 calls 1
-qs lq 22 cost 94.268855800 cmp 9260 move 3442 calls 94
-in lq 22 cost 106.231401700 cmp 19402 move 20901 calls 1
-numlq 7 limQuebras 18 lqdiff 12.787281
-
-iter 6
-qs lq 17 cost 93.776456800 cmp 9139 move 3285 calls 94
-in lq 17 cost 83.288286700 cmp 15557 move 17056 calls 1
-qs lq 18 cost 93.220094800 cmp 9065 move 3229 calls 94
-in lq 18 cost 92.256687700 cmp 17060 move 18559 calls 1
-qs lq 19 cost 93.802394800 cmp 9169 move 3339 calls 94
-in lq 19 cost 96.075567700 cmp 17700 move 19199 calls 1
-numlq 3 limQuebras 18 lqdiff 12.787281

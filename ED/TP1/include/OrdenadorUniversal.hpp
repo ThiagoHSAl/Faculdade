@@ -1,45 +1,45 @@
 #ifndef ORDENADORUNIVERSAL_HPP
 #define ORDENADORUNIVERSAL_HPP
+#include "itemT.hpp"
+#include "estatisticas.hpp"
 
-
-typedef struct estatisticas{
-  int cmp;
-  int move;
-  int calls;
-} estatisticas;
+enum Algoritmo { QUICKSORT, INSERCAO };
 
 class OrdenadorUniversal {
 private:
-    int* vetorOriginal;
+    item_t* vetorOriginal;
     int tamanho;
     int limiarCusto;
     double a, b, c;
 
     // Atributos para calibragem de partição
-    estatisticas s;
-    int tamanhosTestados[20];
-    double custosQS[20];
-    double custosIS[20];
+    estatisticas Estatisticas;
+    int tamanhosTestados[10];
+    double custosQS[10];
+    double custosIS[10];
     int numeroQuebras;
     int seed;
 
 public:
-    OrdenadorUniversal(int* v, int t, int custo, double a_, double b_, double c_, int seed);
+    OrdenadorUniversal(item_t* v, int t, int custo, double a_, double b_, double c_, int seed);
     int determinaLimiarParticao();
     int determinaLimiarQuebra(int menorTamanhoParticao);
-    void calculaNovaFaixa(int indexadorTeste, int melhorIndice, int* menorTamanhoParticao, int* maiorTamanhoParticao, int* passoTestes, float* diferencaCusto, char identificador);
+    void calculaNovaFaixa(int indexadorTeste, int melhorIndice, int* menorTamanhoParticao, int* maiorTamanhoParticao, int* passoTestes);
     void escolheAlgoritmo(int menorTamanhoParticao, int limiarQuebras);
-    void registraEstatisticas(char identificador, int indexador);
-    void imprimeEstatisticas(char identificador, int indexador);
+    void registraEstatisticas(Algoritmo tipo, int indexador);
+    void imprimeEstatisticas(Algoritmo tipo, int indexador);
+    void imprimeAnalise(); //utilizado na analise experimental
     int getTamanho(int indexador);
+    int getIndexadorTamanho(int tamanhoParticao);
+    float calculaDiferenca(Algoritmo tipo, int atributoMin, int atributoMax);
     int menorCusto();
     int menorDiferenca();
     void resetCustos();
-    int* copiaVetor(int tamanho);
-    int* vetorComQuebra(int* vetor, int quebras);
-    void print(int* vetor);
+    void resetTamanhosTestados();
+    item_t* copiaVetor(int tamanho);
+    item_t* adicionaQuebras(item_t* vetor, int quebras);
     // ...
 };
 
-int contaQuebras(int* vetor, int inicio, int final);
+
 #endif

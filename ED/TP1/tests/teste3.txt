@@ -1628,12 +1628,3 @@ in lq 18 cost 89.248911700 cmp 17098 move 18597 calls 1
 qs lq 19 cost 92.344006900 cmp 9157 move 3237 calls 97
 in lq 19 cost 101.192037700 cmp 19165 move 20664 calls 1
 numlq 7 limQuebras 18 lqdiff 14.132988
-
-iter 6
-qs lq 17 cost 92.349250900 cmp 9127 move 3179 calls 97
-in lq 17 cost 87.059049700 cmp 16719 move 18218 calls 1
-qs lq 18 cost 92.235868900 cmp 9114 move 3172 calls 97
-in lq 18 cost 89.248911700 cmp 17098 move 18597 calls 1
-qs lq 19 cost 92.344006900 cmp 9157 move 3237 calls 97
-in lq 19 cost 101.192037700 cmp 19165 move 20664 calls 1
-numlq 3 limQuebras 18 lqdiff 14.132988

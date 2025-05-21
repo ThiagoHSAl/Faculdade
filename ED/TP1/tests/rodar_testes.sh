@@ -1,7 +1,12 @@
 #!/bin/bash
 
-EXEC="./bin/tp1.out"
-DIRETORIO_TESTES="./tests"
+# Caminho relativo para o executável (um nível acima da pasta 'tests')
+EXEC="../bin/tp1.out"
+
+# Diretório onde os arquivos de teste .txt estão (agora é o diretório atual)
+DIRETORIO_TESTES="."
+
+# Lista todos os arquivos .txt no diretório atual
 ARQUIVOS=$(ls "$DIRETORIO_TESTES"/*.txt)
 
 echo "🔎 Rodando testes..."
@@ -20,8 +25,8 @@ for arquivo in $ARQUIVOS; do
     # Extrai o output esperado
     awk '/###### end input file ######/ {flag=1; next} flag' "$arquivo" > "$esperado_temp"
 
-    # Executa o programa
-    $EXEC "$input_temp" > "$output_temp"
+    # Executa o programa com o input extraído
+    "$EXEC" "$input_temp" > "$output_temp"
 
     # Compara diretamente as saídas
     if diff -q "$output_temp" "$esperado_temp" > /dev/null; then

@@ -3,11 +3,14 @@
 #include "OrdenadorUniversal.hpp"
 #include "AlgoritmosOrdenacao.hpp"
 #include <fstream>
+#include <sstream>
+#include "ValidacaoArquivo.hpp"
+#include "AnaliseExperimental.hpp"
 
 int main(int argc, char* argv[]){
-    int tamanho, particao, seed, elemento, quebras;
+    int tamanho, particao, seed, quebras, elemento;
     double  limiarCusto, a, b, c;
-    int* vetor;
+    item_t* vetor;
     estatisticas s;
 
     if (argc != 2) {
@@ -15,13 +18,13 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-    std::string nome_arquivo = argv[1];
-    std::ifstream arquivo(nome_arquivo);
-
-    if (!arquivo) {
-        std::cerr << "Erro: Não foi possível abrir o arquivo " << nome_arquivo << std::endl;
-        return 1;
+    std::string nomeArquivo = argv[1];
+    
+    if(!verificarFormato(nomeArquivo)){
+        return 0;
     }
+
+    std::ifstream arquivo(nomeArquivo);
 
     arquivo >> seed;
     arquivo >> limiarCusto;
@@ -30,11 +33,11 @@ int main(int argc, char* argv[]){
     arquivo >> c;
     arquivo >> tamanho;
 
-    vetor = new int[tamanho];
+    vetor = new item_t[tamanho];
 
     for(int i = 0; i < tamanho; i++){
         arquivo >> elemento;
-        vetor[i] = elemento;
+        vetor[i].key = elemento;
     }
 
     OrdenadorUniversal teste(vetor, tamanho, limiarCusto, a, b, c, seed);
@@ -42,4 +45,6 @@ int main(int argc, char* argv[]){
     std::cout << "size " << tamanho << " seed " << seed << " breaks " << quebras << std::endl;
     particao = teste.determinaLimiarParticao();
     particao = teste.determinaLimiarQuebra(particao);
+
+    //AnaliseExperimental();
 }

@@ -1,5 +1,7 @@
   #include "AlgoritmosOrdenacao.hpp"
   #include "OrdenadorUniversal.hpp"
+  #include "AnaliseExperimental.hpp"
+  #include "itemT.hpp"
   #include <stdlib.h>
   #include <algorithm>
   #include <math.h>
@@ -22,7 +24,7 @@
     s->calls += num;
   }
 
-  int mediana(int a, int b, int c) {
+  item_t mediana(item_t a, item_t b, item_t c) {
       if ((a <= b) && (b <= c)) return b;  // a b c
       if ((a <= c) && (c <= b)) return c;  // a c b
       if ((b <= a) && (a <= c)) return a;  // b a c
@@ -31,22 +33,14 @@
       return b;                            // c b a
   }
 
-  void swap(int *xp, int *yp, estatisticas *s){
-      int temp = *xp;
-      *xp = *yp;
-      *yp = temp;
-      incmove(s,3);
-  }
-
-  void insercao(int* v, int l, int r, estatisticas *s) {
-      inccalls(s, 1);  // conta chamada da função
-      int i,j,aux;
+  void insercao(item_t* v, int l, int r, estatisticas *s) {
+      inccalls(s, 1); 
+      int i,j;
       for (i = l+1; i <= r; i++) {
-          aux = v[i];
+          item_t aux = v[i];
           incmove(s, 1);
           int j = i - 1;
           inccmp(s, 1);
-          // Contabiliza ambas as condições do while separadamente
           while ((j >= l) && (aux < v[j])){
               inccmp(s, 1);
               v[j + 1] = v[j];
@@ -58,64 +52,63 @@
       }
   }
 
-  void particao(int * A, int l, int r, int *i, int *j, estatisticas *s) {
-      // Find mediana of first, middle and last elements
-      int m = l + (r - l) / 2;
-      int pivot = mediana(A[l], A[m], A[r]);
-      
-      *i = l;
-      *j = r;
-      
-      do {
-          while (A[*i] < pivot) {
-              inccmp(s, 1);
-              (*i)++;
-          }
-          inccmp(s, 1); // Count the last comparison that failed
-          
-          while (A[*j] > pivot) {
-              inccmp(s, 1);
-              (*j)--;
-          }
-          inccmp(s, 1); // Count the last comparison that failed
-          
-          if (*i <= *j) {
-              swap(&A[*i], &A[*j], s);
-              (*i)++;
-              (*j)--;
-          }
-      } while (*i <= *j);
+  void particao(item_t * A, int l, int r, int *i, int *j, estatisticas *s) {
+    int m = l + (r - l) / 2;
+    item_t pivot = mediana(A[l], A[m], A[r]);
+    
+    *i = l;
+    *j = r;
+    
+    do {
+        while (A[*i] < pivot) {
+            inccmp(s, 1);
+            (*i)++;
+        }
+        inccmp(s, 1);
+        
+        while (A[*j] > pivot) {
+            inccmp(s, 1);
+            (*j)--;
+        }
+        inccmp(s, 1);
+        
+        if (*i <= *j) {
+            swap(A[*i], A[*j], s);
+            (*i)++;
+            (*j)--;
+        }
+    } while (*i <= *j);
   }
 
-  void quickSort(int *A, int l, int r, int menorTamanhoParticao, int limiarQuebras, estatisticas *s) {
-    inccalls(s, 1); // Conta esta chamada
+  void quickSort(item_t *A, int l, int r, int menorTamanhoParticao, estatisticas *s) {
+    inccalls(s, 1); 
       
     int i, j;
     particao(A, l, r, &i, &j, s);
-    inccalls(s, 1); // Conta esta chamada
-    // Chamadas recursivas
+    inccalls(s, 1);
+    
     if (l < j){
-      if((j - l + 1) <= menorTamanhoParticao || contaQuebras(A,l,j) < limiarQuebras){
+      if((j - l + 1) <= menorTamanhoParticao){
         insercao(A, l, j, s);
       }
       else{
-        quickSort(A, l, j, menorTamanhoParticao, limiarQuebras, s);
+        quickSort(A, l, j, menorTamanhoParticao, s);
       }
     }
     if (i < r){
-      if((r - i + 1) <= menorTamanhoParticao || contaQuebras(A,i,r) < limiarQuebras){
+      if((r - i + 1) <= menorTamanhoParticao){
         insercao(A, i, r, s);
       }
       else{
-        quickSort(A, i, r, menorTamanhoParticao, limiarQuebras, s);
+        quickSort(A, i, r, menorTamanhoParticao, s);
       }
     }
   }
 
 
-  int embaralharVetor(int *vetor, int tamanho, int numTrocas){
-      int indice1 = 0, indice2 = 0, temp;
-
+  int embaralharVetor(item_t *vetor, int tamanho, int numTrocas){
+      int indice1 = 0, indice2 = 0;
+      item_t temp;
       for (int i = 0; i < numTrocas; i++) {
           // Gera dois índices distintos no intervalo [0..tamanho-1]
           while (indice1 == indice2) {
@@ -133,4 +126,14 @@
       }
       return 0;
   }
+
+  int contaQuebras(item_t* vetor, int inicio, int final){
+    int quantidadeQuebras = 0;
+    for(int i = inicio; i < final - 1; i++){
+        if(vetor[i] > vetor[i + 1]){
+            quantidadeQuebras++;
+        }
+    }
+    return quantidadeQuebras;
+}
 

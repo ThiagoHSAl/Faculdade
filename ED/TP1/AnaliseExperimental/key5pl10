@@ -1,0 +1,172 @@
+VETSZ10
+calls = 20
+moves = 39
+compares = 59
+Tempo de execução: 2.917e-06 segundos
+
+VETSZ100
+calls = 178
+moves = 561
+compares = 884
+Tempo de execução: 2.5852e-05 segundos
+
+VETSZ1000
+calls = 1804
+moves = 8055
+compares = 13012
+Tempo de execução: 0.000344348 segundos
+
+VETSZ10000
+calls = 17964
+moves = 103614
+compares = 171854
+Tempo de execução: 0.00440985 segundos
+
+VETSZ100000
+calls = 174412
+moves = 1296255
+compares = 2096170
+Tempo de execução: 0.0635198 segundos
+
+VETSZ1000000
+calls = 1551116
+moves = 16282620
+compares = 26038199
+Tempo de execução: 0.501921 segundos
+
+VETSZ10000000
+calls = 14741364
+moves = 209958921
+compares = 272253940
+Tempo de execução: 4.79028 segundos
+
+a = 0.4603847775
+b = 0.005592596138
+c = -0.01164587348
+
+Comparação de Algoritmo
+
+VETSZ 150000 (Vetor desordenado)
+Ordenador Universal
+cost 137395.053341964 cmp 2962009 move 1999769 calls 77042
+Tempo de execução: 2757.6369 microsegundos
+
+QuickSort
+cost 144812.370887399 cmp 3127204 move 2039742 calls 257676
+Tempo de execução: 3134.5153 microsegundos
+
+Insercao
+cost 262558793.124469995 cmp 5634580649 move 5634730648 calls 1
+Tempo de execução: 2820040.2199 microsegundos
+
+VETSZ 15000 (Vetor desordenado)
+Ordenador Universal
+cost 11029.218908578 cmp 237758 move 165113 calls 7847
+Tempo de execução: 226.2344 microsegundos
+
+QuickSort
+cost 11751.277259326 cmp 253962 move 162003 calls 26918
+Tempo de execução: 256.2247 microsegundos
+
+Insercao
+cost 2621024.125479123 cmp 56247704 move 56262703 calls 1
+Tempo de execução: 28607.8073 microsegundos
+
+VETSZ 1500 (Vetor desordenado)
+Ordenador Universal
+cost 808.212443343 cmp 17410 move 13392 calls 693
+Tempo de execução: 21.6780 microsegundos
+
+QuickSort
+cost 882.992789524 cmp 19093 move 12810 calls 2734
+Tempo de execução: 27.0156 microsegundos
+
+Insercao
+cost 26171.384607993 cmp 561627 move 563126 calls 1
+Tempo de execução: 299.0818 microsegundos
+-----------------------------------------------------------------------------------------
+espera-se do insertion em um vetor ordenado:
+
+Tamanho - 1 comprações
+1 move ao copiar v[i] para aux.
+1 move ao copiar aux de volta para v[j+1] (que é o mesmo lugar que já estava!).
+Total de 2 * tamanho - 2 movimentações
+
+
+VETSZ 1500 (Vetor ordenado)
+Ordenador Universal
+cost 70.687173882 cmp 1499 move 2998 calls 1
+Tempo de execução: 1.9996 microsegundos
+
+QuickSort
+cost 687.171278481 cmp 14940 move 2964 calls 1976
+Tempo de execução: 7.7888 microsegundos
+
+Insercao
+cost 70.687173882 cmp 1499 move 2998 calls 1
+Tempo de execução: 2.1108 microsegundos
+
+VETSZ 15000 (Vetor ordenado)
+Ordenador Universal
+cost 707.306633080 cmp 14999 move 29998 calls 1
+Tempo de execução: 93.6608 microsegundos
+
+QuickSort
+cost 9067.878397655 cmp 197086 move 26694 calls 17680
+Tempo de execução: 156.2929 microsegundos
+
+Insercao
+cost 707.306633080 cmp 14999 move 29998 calls 1
+Tempo de execução: 71.9659 microsegundos
+
+VETSZ 150000 (Vetor ordenado)
+Ordenador Universal
+cost 7073.501225056 cmp 149999 move 299998 calls 1
+Tempo de execução: 807.6289 microsegundos
+
+QuickSort
+cost 117185.114751284 cmp 2546085 move 418131 calls 228928
+Tempo de execução: 1469.5511 microsegundos
+
+Insercao
+cost 7073.501225056 cmp 149999 move 299998 calls 1
+Tempo de execução: 256.0331 microsegundos
+
+VETSZ 150000 (Vetor inversamente ordenado)
+Ordenador Universal
+cost 104061.178003690 cmp 2255007 move 559076 calls 58888
+Tempo de execução: 1103.3956 microsegundos
+
+QuickSort
+cost 117311.683102254 cmp 2546101 move 643128 calls 228928
+Tempo de execução: 1396.8097 microsegundos
+
+Insercao
+cost 524222301.672986865 cmp 11249950050 move 11250100049 calls 1
+Tempo de execução: 5680006.3194 microsegundos
+
+VETSZ 15000 (Vetor inversamente ordenado)
+Ordenador Universal
+cost 8134.804280153 cmp 176231 move 51050 calls 6142
+Tempo de execução: 92.9760 microsegundos
+
+QuickSort
+cost 9081.373665387 cmp 197106 move 49224 calls 17702
+Tempo de execução: 105.0956 microsegundos
+
+Insercao
+cost 5242546.847170404 cmp 112506288 move 112521287 calls 1
+Tempo de execução: 59970.3224 microsegundos
+
+VETSZ 1500 (Vetor inversamente ordenado)
+Ordenador Universal
+cost 586.636380328 cmp 12698 move 5030 calls 664
+Tempo de execução: 7.3094 microsegundos
+
+QuickSort
+cost 689.025132252 cmp 14953 move 5217 calls 1980
+Tempo de execução: 8.2784 microsegundos
+
+Insercao
+cost 52457.774025498 cmp 1125740 move 1127239 calls 1
+Tempo de execução: 621.8936 microsegundos
