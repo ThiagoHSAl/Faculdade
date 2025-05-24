@@ -131,6 +131,7 @@ void OrdenadorUniversal::escolheAlgoritmo(int menorTamanhoParticao, int limiarQu
             insercao(vetorDeTestes, 0, tamanho-1, &Estatisticas);
         }
     }
+    delete[] vetorDeTestes;
 }
 
 
@@ -186,6 +187,8 @@ int OrdenadorUniversal::determinaLimiarQuebra(int menorTamanhoParticao){
             std::cout << "qs lq " << tamanhosTestados[indexadorTeste];
             registraEstatisticas(QUICKSORT, indexadorTeste);
             imprimeEstatisticas(QUICKSORT, indexadorTeste);
+            vetorDeTestes = nullptr;
+            delete[] vetorDeTestes;
 
             resetcounter(&Estatisticas);
             vetorDeTestes = adicionaQuebras(nullptr, limiarQuebra);
@@ -194,6 +197,9 @@ int OrdenadorUniversal::determinaLimiarQuebra(int menorTamanhoParticao){
             std::cout << "in lq " << tamanhosTestados[indexadorTeste];
             registraEstatisticas(INSERCAO, indexadorTeste);
             imprimeEstatisticas(INSERCAO, indexadorTeste);
+            vetorDeTestes = nullptr;
+            delete[] vetorDeTestes;
+
             indexadorTeste++;
         }
 
