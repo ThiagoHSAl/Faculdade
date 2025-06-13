@@ -12,6 +12,7 @@ class ListaAdjacencia {
         void Imprime();
         void Limpa();
         int GetTamanho();
+        int GetVerticeID();
     private:
         TipoCelula* primeiro;
         TipoCelula* ultimo;

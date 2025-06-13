@@ -1,36 +1,34 @@
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
+
 #include "ListaAdjacencia.hpp"
+#include <iostream>
 
-/*  Você pode inserir os includes necessários para que sua classe funcione.
- * Nenhuma outra alteração neste arquivo é permitida
- */
+struct GrafoVerticeNo {
+    ListaAdjacencia *adj_list;
+    GrafoVerticeNo *proximo;
 
+    GrafoVerticeNo(ListaAdjacencia *list_ptr) : adj_list(list_ptr), proximo(nullptr) {}
+};
 
-class Grafo{
-    public:
-        Grafo();
-        ~Grafo();
+class Grafo {
+public:
+    Grafo();
+    ~Grafo();
+    void InsereVertice();
+    void InsereAresta(int v, int w);
+    int QuantidadeVertices();
+    int QuantidadeArestas();
+    int GrauMinimo();
+    int GrauMaximo();
+    void ImprimeVizinhos(int v);
 
-        void InsereVertice();
-        void InsereAresta(int v, int w);
+private:
+    GrafoVerticeNo *primeiro_vertice;
+    GrafoVerticeNo *ultimo_vertice;
+    int tamanho; // Numero de vértices
 
-        int QuantidadeVertices();
-        int QuantidadeArestas();
-
-        int GrauMinimo();
-        int GrauMaximo();
-
-        void ImprimeVizinhos(int v);
-        
-    private:
-        
-        /*  Você deve implementar ListaAdjacencia como um TAD que irá armazenar
-         * os dados do grafo. Lembrando que este TAD deve ser uma lista 
-         * encadeada
-         */
-        ListaAdjacencia **vertices;
-        int tamanho;
+    ListaAdjacencia* EncontraVertice(int vertice_id);
 };
 
 #endif

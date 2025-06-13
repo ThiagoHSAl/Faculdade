@@ -1,0 +1,42 @@
+#ifndef TRANSPORTE_HPP
+#define TRANSPORTE_HPP
+
+#include "TopologiaArmazens.hpp"
+#include "Pacote.hpp"
+#include "ListaEncadeadaRota.hpp"
+#include <vector>
+
+class Escalonador;
+
+struct SecaoProcessada {
+    PilhaPacotes pacotes;
+    Armazem* armazemOrigem;
+    int idSecao;
+};
+
+class Transporte {
+private:
+    TopologiaArmazens* topologiaArmazens;
+    double latenciaTransporte;
+    int capacidadeTransporte;
+    double custoRemocao;
+    double intervaloTransporte;
+
+public:
+    Transporte(TopologiaArmazens* t, double latencia, int capacidade, double custo, double intervalo);
+    ~Transporte();
+
+    double GetIntervaloTransporte() const;
+
+    ListaEncadeadaRota CalculaRotaBFS(int origem_id, int destino_id);
+    bool CalculaEAtribuiRota(Pacote* pacote);
+    void CoordenarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, double tempoAtual, Escalonador* escalonador);
+    void ProcessarRemocao(PilhaPacotes* pilhaSecao, PilhaPacotes& pacotesRemovidos, double tempoAtual, int idArmazem, int idSecao, double& tempoFimRemocao);
+    void ProcessarTransporte(PilhaPacotes& pacotesRemovidos, PilhaPacotes& pacotesSobraram, double tempoFimRemocao, Armazem* armazemOrigem, Armazem* armazem_destino, Escalonador* escalonador);
+    void ProcessarRearmazenamento(PilhaPacotes* pilhaSecao, PilhaPacotes& pacotesSobraram, double tempoFimRemocao, int idArmazem, int idSecao);
+    void ProcessarArmazenamento(Pacote* pacote, Armazem* armazemChegada, double tempoAtual, Escalonador* escalonador);
+    void ProcessarEntrega(Pacote* pacote, Armazem* armazemFinal, double tempoAtual, Escalonador* escalonador);
+    void ProcessarChegadaInicial(Pacote* pacote, Armazem* armazemInicial, double tempoAtual, Escalonador* escalonador);
+};
+
+#endif

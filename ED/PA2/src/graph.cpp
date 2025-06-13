@@ -1,29 +1,59 @@
 #include "graph.hpp"
+#include <limits> 
 
 Grafo::Grafo(){
-        tamanho = 0;
-        vertices = new ListaAdjacencia*[1000];
-    
-        // inicializa todos os ponteiros como nullptr
-        for (int i = 0; i < 1000; i++) {
-            vertices[i] = nullptr;
-        }
+    tamanho = 0;
+    primeiro_vertice = nullptr;
+    ultimo_vertice = nullptr;
 }
 
 Grafo::~Grafo(){
-    for(int i = 0; i < tamanho; i++){
-        vertices[i]->Limpa();
-        delete vertices[i];
+    GrafoVerticeNo *current = primeiro_vertice;
+    while (current != nullptr) {
+        GrafoVerticeNo *next = current->proximo;
+        delete current->adj_list;
+        delete current;          
+        current = next;
     }
+    primeiro_vertice = nullptr;
+    ultimo_vertice = nullptr;
+    tamanho = 0;
+}
+
+ListaAdjacencia* Grafo::EncontraVertice(int vertice_id) {
+    GrafoVerticeNo *current = primeiro_vertice;
+    while (current != nullptr) {
+        if (current->adj_list->GetVerticeID() == vertice_id) {
+            return current->adj_list;
+        }
+        current = current->proximo;
+    }
+    return nullptr;
 }
 
 void Grafo::InsereVertice(){
-    vertices[tamanho] = new ListaAdjacencia(tamanho);
+    ListaAdjacencia *nova_lista = new ListaAdjacencia(tamanho);
+    GrafoVerticeNo *novo_no = new GrafoVerticeNo(nova_lista);
+
+    if (primeiro_vertice == nullptr) {
+        primeiro_vertice = novo_no;
+        ultimo_vertice = novo_no;
+    } else {
+        ultimo_vertice->proximo = novo_no;
+        ultimo_vertice = novo_no;
+    }
     tamanho++;
 }
 
 void Grafo::InsereAresta(int v, int w){
-    vertices[v]->Insere(w);
+    ListaAdjacencia *list_v = EncontraVertice(v);
+    if (list_v != nullptr) {
+        list_v->Insere(w);
+    }
+    ListaAdjacencia *list_w = EncontraVertice(w);
+    if (list_w != nullptr) {
+        list_w->Insere(v);
+    }
 }
 
 int Grafo::QuantidadeVertices(){
@@ -32,32 +62,53 @@ int Grafo::QuantidadeVertices(){
 
 int Grafo::QuantidadeArestas(){
     int arestas = 0;
-    for(int i = 0; i < tamanho; i++){
-        arestas += vertices[i]->GetTamanho();
+    GrafoVerticeNo *current = primeiro_vertice;
+    while (current != nullptr) {
+        arestas += current->adj_list->GetTamanho();
+        current = current->proximo;
     }
-    return arestas/2;
+    return arestas / 2;
 }
 
 int Grafo::GrauMinimo(){
-    int grau = vertices[0]->GetTamanho();
-    for(int i = 1; i < tamanho; i++){
-        if (grau > vertices[i]->GetTamanho()){
-            grau = vertices[i]->GetTamanho();
-        }
+    if (tamanho == 0) {
+        return 0; 
     }
-    return grau;
+
+    int grau_min = std::numeric_limits<int>::max();
+    GrafoVerticeNo *current = primeiro_vertice;
+    while (current != nullptr) {
+        int current_grau = current->adj_list->GetTamanho();
+        if (current_grau < grau_min) {
+            grau_min = current_grau;
+        }
+        current = current->proximo;
+    }
+    return grau_min;
 }
 
 int Grafo::GrauMaximo(){
-    int grau = vertices[0]->GetTamanho();
-    for(int i = 1; i < tamanho; i++){
-        if (grau < vertices[i]->GetTamanho()){
-            grau = vertices[i]->GetTamanho();
-        }
+    if (tamanho == 0) {
+        return 0;
     }
-    return grau;
+
+    int grau_max = 0; 
+    GrafoVerticeNo *current = primeiro_vertice;
+    while (current != nullptr) {
+        int current_grau = current->adj_list->GetTamanho();
+        if (current_grau > grau_max) {
+            grau_max = current_grau;
+        }
+        current = current->proximo;
+    }
+    return grau_max;
 }
 
 void Grafo::ImprimeVizinhos(int v){
-    vertices[v]->Imprime();
+    ListaAdjacencia *list_v = EncontraVertice(v);
+    if (list_v != nullptr) {
+        list_v->Imprime();
+    } else {
+        std::cout << "Vertice " << v << " nao encontrado." << std::endl;
+    }
 }

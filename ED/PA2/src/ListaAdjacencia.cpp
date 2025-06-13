@@ -1,5 +1,4 @@
 #include "ListaAdjacencia.hpp"
-#include "TipoCelula.hpp"
 #include <iostream>
 
 ListaAdjacencia::ListaAdjacencia(int item){
@@ -14,8 +13,15 @@ ListaAdjacencia::~ListaAdjacencia(){
 }
 
 void ListaAdjacencia::Insere(int item){
-    TipoCelula *nova;
+    TipoCelula *current = primeiro->proximo;
+    while (current != nullptr) {
+        if (current->item == item) {
+            return;
+        }
+        current = current->proximo;
+    }
 
+    TipoCelula *nova;
     nova = new TipoCelula();
     nova->item = item;
     ultimo->proximo = nova;
@@ -44,11 +50,13 @@ void ListaAdjacencia::Limpa(){
         limpeza = primeiro->proximo;
     }
     ultimo = primeiro;
-    tamanho = 0;
+    tamanho = 1;
 }
 
 int ListaAdjacencia::GetTamanho(){
-    return tamanho-1;
+    return tamanho - 1;
 }
 
-
+int ListaAdjacencia::GetVerticeID(){
+    return primeiro->item;
+}
