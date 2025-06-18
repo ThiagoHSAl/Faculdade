@@ -95,7 +95,6 @@ public:
 class PilhaPacotes {
     private:
         Pacote* primeiro;
-        Pacote* ultimo;
         int tamanho;
         int IDEnvio;
 

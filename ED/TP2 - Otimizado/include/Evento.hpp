@@ -98,6 +98,28 @@ struct Evento {
     bool operator>(const Evento& other) const {
         return this->chavePrioridade > other.chavePrioridade;
     }
+
+    void Imprime() const {
+    std::cout << "  - Evento: T=" << this->tempoOcorrencia;
+    std::cout << " | Tipo: ";
+    switch (this->tipo) {
+        case EVENTO_CHEGADA_INICIAL: std::cout << "CHEGADA_INICIAL"; break;
+        case EVENTO_ARMAZENAMENTO: std::cout << "ARMAZENAMENTO"; break;
+        case EVENTO_PREVISAO_TRANSPORTE: std::cout << "PREVISAO_TRANSPORTE"; break;
+        case EVENTO_INICIA_TRANSPORTE: std::cout << "INICIA_TRANSPORTE"; break;
+        default: std::cout << "DESCONHECIDO"; break;
+    }
+    if(this->pacote != nullptr) {
+        std::cout << " | Pacote: " << this->pacote->getIdUnico();
+    }
+    if(this->armazemAlvo != nullptr) {
+        std::cout << " | Armazem: " << this->armazemAlvo->GetIdArmazem();
+    }
+    if(this->idSecao != -1) {
+        std::cout << " | Secao: " << this->idSecao;
+    }
+    std::cout << std::endl;
+}
 };
 
 #endif

@@ -38,7 +38,7 @@ public:
     void ProcessarEntrega(Pacote* pacote, Armazem* armazemFinal, double tempoAtual, Escalonador* escalonador);
     void ProcessarChegadaInicial(Pacote* pacote, Armazem* armazemInicial, double tempoAtual, Escalonador* escalonador);
     void PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, double tempoAtual, Escalonador* escalonador);
-    PilhaPacotes* EncontraPilhaDoPacote(int id, Pacote& outPacote);
+    PilhaPacotes* EncontraPilhaDoPacote(int id, int& outIdArmazem);
 
 };
 

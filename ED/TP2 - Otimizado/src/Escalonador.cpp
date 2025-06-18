@@ -131,10 +131,47 @@ void Escalonador::RodaSimulacao() {
         if (pacotesEntreguesCount >= totalPacotesInput) {
             break;
         }
+        /*ImprimeEstadoDaSimulacao();
+        std::cout << "\n>>> Pressione ENTER para executar o proximo evento...";
+        std::cin.get(); // Pausa a execução e espera o usuário apertar Enter*/
         ExecutaProximoEvento();
     }
 }
 
 void Escalonador::IncrementaPacotesEntregues() {
     pacotesEntreguesCount++;
+}
+
+void Escalonador::ImprimeEstadoDaSimulacao() const {
+    std::cout << "\n=======================================================" << std::endl;
+    std::cout << "ESTADO DA SIMULACAO NO TEMPO: " << this->relogioSimulacao << std::endl;
+    std::cout << "=======================================================" << std::endl;
+    
+    // Imprime o estado da Fila de Eventos
+    std::cout << "\n--- FILA DE EVENTOS PENDENTES ---" << std::endl;
+    if (this->filaEventos->EstaVazia()) {
+        std::cout << "  (vazia)" << std::endl;
+    } else {
+        // Usa a cópia do heap para imprimir sem destruir a fila original
+        MinHeap<Evento> copiaHeap = *(this->filaEventos);
+        while(!copiaHeap.EstaVazia()) {
+            Evento* ev = copiaHeap.ExtraiMin();
+            ev->Imprime();
+            delete ev; // Deleta a cópia do evento, não o original
+        }
+    }
+
+    // Imprime o estado dos Armazéns
+    std::cout << "\n--- ESTADO DOS ARMAZENS ---" << std::endl;
+    TopologiaArmazensVerticeNo* noAtual = this->topologia->primeiroVertice;
+    while(noAtual != nullptr) {
+        if(noAtual->armazem) {
+            std::cout << "Armazem " << noAtual->armazem->GetIdArmazem() << ":" << std::endl;
+            if(noAtual->armazem->GetSecoes()){
+                noAtual->armazem->GetSecoes()->Imprime();
+            }
+        }
+        noAtual = noAtual->proximo;
+    }
+    std::cout << "---------------------------------" << std::endl;
 }

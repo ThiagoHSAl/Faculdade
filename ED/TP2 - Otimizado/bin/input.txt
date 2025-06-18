@@ -9,9 +9,8 @@
 4 0 2 3
 0 2 0 0
 0 3 0 0
-4
-10 pac 101 org 3 dst 2
-15 pac 102 org 2 dst 2
-20 pac 103 org 1 dst 2
-30 pac 104 org 3 dst 2
+2
+10 pac 101 org 0 dst 2
+15 pac 102 org 0 dst 2
+
 

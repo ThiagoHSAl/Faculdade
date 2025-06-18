@@ -27,6 +27,7 @@ public:
     void RodaSimulacao();
     void IncrementaPacotesEntregues();
     MinHeap<Evento> getCopiaFilaEventos() const; 
+    void ImprimeEstadoDaSimulacao() const;
 };
 
 #endif

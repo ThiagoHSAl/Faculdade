@@ -356,7 +356,7 @@ bool Transporte::CalculaEAtribuiRota(Pacote* pacote) {
     }
 }
 
-PilhaPacotes* Transporte::EncontraPilhaDoPacote(int id, Pacote& outPacote) {
+PilhaPacotes* Transporte::EncontraPilhaDoPacote(int id, int& outIdArmazem) {
     TopologiaArmazensVerticeNo* noBusca = topologiaArmazens->primeiroVertice;
     while(noBusca != nullptr) {
         SecoesArmazem* secoes = noBusca->armazem->GetSecoes();
@@ -364,17 +364,14 @@ PilhaPacotes* Transporte::EncontraPilhaDoPacote(int id, Pacote& outPacote) {
             TipoCelula* celula = secoes->GetPrimeiroCelula();
             while(celula != nullptr) {
                 PilhaPacotes* secaoReal = celula->pilhaSecao;
-                if(secaoReal && !secaoReal->estaVazia()) {
-                    // Para encontrar o pacote, precisamos de uma função na Pilha,
-                    // ou iteramos em uma cópia.
-                    PilhaPacotes copia = *secaoReal;
-                    while(!copia.estaVazia()) {
-                        Pacote* p = copia.desempilhaPacote();
-                        if (p->getIdUnico() == id) {
-                            outPacote = *p;
-                            return secaoReal; // Retorna ponteiro para a pilha real
-                        }
+                // Itera de forma segura, sem destruir a pilha
+                Pacote* p_atual = secaoReal->getPrimeiro();
+                while(p_atual != nullptr) {
+                    if (p_atual->getIdUnico() == id) {
+                        outIdArmazem = noBusca->armazem->GetIdArmazem();
+                        return secaoReal; // Retorna ponteiro para a pilha real
                     }
+                    p_atual = p_atual->getProximo();
                 }
                 celula = celula->proximo;
             }
@@ -434,9 +431,12 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
                     // Isso evita a cópia superficial e a corrupção de memória.
                     Pacote* pacoteAtualNaPilha = secaoReal->getPrimeiro();
                     while(pacoteAtualNaPilha != nullptr){
+                         // DEBUG: Ao coletar o pacote 0
+                        std::cout << "[DEBUG t=" << tempoAtual << "] PASSO B: Pacote " << pacoteAtualNaPilha->getIdUnico() << " encontrado na secao " 
+                                    << noBusca->armazem->GetIdArmazem() << "->" << celula->pilhaSecao->GetIDEnvio() 
+                                    << ". Adicionando a lista de prioridades." << std::endl;
                         // Passamos o ponteiro para o pacote original.
                         pacotesOrdenadosPorChegada.Insere(new PacoteComPrevisao(pacoteAtualNaPilha, tempoChegada, noBusca->armazem->GetIdArmazem()));
-                        
                         // Avança para o próximo pacote na lista encadeada.
                         pacoteAtualNaPilha = pacoteAtualNaPilha->getProximo();
                     }
@@ -488,6 +488,10 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
      // --- PASSO C: SIMULAR FLUXO LÍQUIDO USANDO O MANIFESTO ---
     while(!pacotesOrdenadosPorChegada.EstaVazia()) {
         PacoteComPrevisao* chegada = pacotesOrdenadosPorChegada.ExtraiMin();
+
+        // DEBUG: Ao simular a chegada do pacote 
+            std::cout << "[DEBUG t=" << tempoAtual << "] PASSO C: Simulando chegada do Pacote " << chegada->pacote->getIdUnico() << " no armazem " 
+                      << chegada->pacote->getProximoArmazemNaRota() << "." << std::endl;
         
         if (chegada->pacote == nullptr || chegada->pacote->getRota() == nullptr) {
             delete chegada;
@@ -568,7 +572,8 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
         Fila<Pacote*> copiaEspera = secaoSimuladaAtual->pacotesEmEspera;
         while (!copiaEspera.estaVazia()) {
             Pacote* p = copiaEspera.desenfileira();
-
+            // DEBUG: Ao analisar o pacote 0 na fila de espera
+                std::cout << "[DEBUG t=" << tempoAtual << "] PASSO D: Analisando Pacote "<< p->getIdUnico() <<" que estava em espera." << std::endl;
             ListaEncadeadaRota novaRota = CalculaRotaDijkstra(secaoSimuladaAtual->idArmazemDono, p->getArmazemDestino(), secaoSimuladaAtual->idSecaoDestino);
 
             // --- Início do Bloco de Decisão Refatorado ---
@@ -613,28 +618,32 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
 
             // --- SUCESSO NA REROTA: REMANEJAMENTO IMEDIATO ---
             
-            // 1. Encontra a localização do pacote REAL na topologia.
-            int idArmazemReal, idSecaoAntiga;
-            Pacote pacoteOriginal;
-            PilhaPacotes* pilhaAntiga = EncontraPilhaDoPacote(p->getIdUnico(), pacoteOriginal);
+            // --- SUCESSO NA REROTA: REMANEJAMENTO IMEDIATO E SEGURO ---
+            
+            // 1. Encontra a pilha ONDE o pacote real está.
+            int idArmazemReal;
+            PilhaPacotes* pilhaAntiga = EncontraPilhaDoPacote(p->getIdUnico(), idArmazemReal);
 
-            if (pilhaAntiga == nullptr) continue; // Segurança
+            if (pilhaAntiga == nullptr) continue; // Segurança: se não achar, não faz nada.
 
-            // 2. Remove o pacote da sua seção antiga.
-            Pacote* pacoteRemovido = pilhaAntiga->RemovePacotePorId(p->getIdUnico());
+            // 2. Remove o pacote da sua seção antiga. 'p' é o ponteiro para o pacote real.
+            pilhaAntiga->RemovePacotePorId(p->getIdUnico());
 
-            // 3. Atualiza a rota do objeto real que acabamos de remover.
-            pacoteRemovido->setRota(new ListaEncadeadaRota(novaRota));
+            // 3. Atualiza a rota do objeto real.
+            p->setRota(new ListaEncadeadaRota(novaRota));
 
-            // 4. Adiciona o pacote atualizado na sua NOVA seção de partida.
-            int idArmazemDePartida = secaoSimuladaAtual->idArmazemDono;
-            int idSecaoNova = pacoteRemovido->getProximoArmazemNaRota();
-            PilhaPacotes* pilhaNova = topologiaArmazens->GetArmazem(idArmazemDePartida)->GetSecao(idSecaoNova);
+            // 4. Adiciona o pacote (já com a rota atualizada) na sua NOVA seção de partida.
+            int idSecaoNova = p->getProximoArmazemNaRota();
+            PilhaPacotes* pilhaNova = topologiaArmazens->GetArmazem(idArmazemReal)->GetSecao(idSecaoNova);
             
             if (pilhaNova) {
-                std::cout <<  std::setw(7) << std::setfill('0') << tempoAtual << " pacote " <<  std::setw(3) << std::setfill('0') << pacoteRemovido->getIdUnico() << " REMANEJADO: Movido da secao " << idSecaoAntiga << " para a secao " << idSecaoNova << std::endl;
-                pilhaNova->empilhaPacote(pacoteRemovido);
+                std::cout << tempoAtual << " pacote " << std::setw(3) << std::setfill('0') << p->getIdUnico() 
+                          << " REMANEJADO: Movido da secao " << pilhaAntiga->GetIDEnvio() 
+                          << " para a secao " << idSecaoNova << " no armazem " << idArmazemReal << "." << std::endl;
+                
+                pilhaNova->empilhaPacote(p);
             }
+            // --- FIM DO REMANEJAMENTO ---
         }
         secaoSimuladaAtual = secaoSimuladaAtual->proximo;
     }
@@ -669,6 +678,9 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
                         // Um pacote é aprovado se ele NÃO estiver na lista de espera.
                         if(!idsParaEspera.contem(p->getIdUnico())) {
                             // MUDANÇA: Enfileiramos o ponteiro, não uma cópia do objeto.
+                            // DEBUG: Ao confirmar que o pacote 0 foi aprovado para transporte
+                                std::cout << "[DEBUG t=" << tempoAtual << "] PASSO E: Pacote " << p->getIdUnico() << " APROVADO para transporte neste ciclo." << std::endl;
+        
                             pacotesAprovadosNestaSecao.enfileira(p);
                         }
                         p = p->getProximo();

@@ -191,7 +191,6 @@ void Pacote::setTimestampPostagem(double ts) {
 
 PilhaPacotes::PilhaPacotes() {
     primeiro = nullptr;
-    ultimo = nullptr;
     tamanho = 0;
     IDEnvio = -1;
 }
@@ -205,7 +204,6 @@ void PilhaPacotes::empilhaPacote(Pacote* pacote) {
     if (pacote == nullptr) return;
     pacote->setProximo(this->primeiro);
     this->primeiro = pacote;
-    this->ultimo = pacote;
     this->tamanho++;
 }
 
@@ -222,7 +220,6 @@ Pacote* PilhaPacotes::desempilhaPacote() {
 
 void PilhaPacotes::limpa() {
     primeiro = nullptr;
-    ultimo = nullptr;
     tamanho = 0;
 }
 
@@ -262,7 +259,6 @@ bool PacoteComPrevisao::operator>(const PacoteComPrevisao& other) const {
 
 PilhaPacotes::PilhaPacotes(const PilhaPacotes& other) {
     this->primeiro = other.primeiro;
-    this->ultimo = other.ultimo;
     this->tamanho = other.tamanho;
     this->IDEnvio = other.IDEnvio;
 }
@@ -272,7 +268,6 @@ PilhaPacotes::PilhaPacotes(const PilhaPacotes& other) {
 PilhaPacotes& PilhaPacotes::operator=(const PilhaPacotes& other) {
     if (this != &other) {
         this->primeiro = other.primeiro;
-        this->ultimo = other.ultimo;
         this->tamanho = other.tamanho;
         this->IDEnvio = other.IDEnvio;
     }
@@ -285,29 +280,21 @@ Pacote* PilhaPacotes::RemovePacotePorId(int id) {
     Pacote* atual = primeiro;
     Pacote* anterior = nullptr;
 
-    // Procura o pacote na lista
     while(atual != nullptr && atual->getIdUnico() != id) {
         anterior = atual;
         atual = atual->getProximo();
     }
 
-    // Se não encontrou, retorna nulo
     if (atual == nullptr) return nullptr;
 
-    // Se encontrou, remove da lista
-    if (anterior == nullptr) { // O pacote a ser removido é o primeiro
+    if (anterior == nullptr) {
         primeiro = atual->getProximo();
     } else {
         anterior->setProximo(atual->getProximo());
     }
     
-    // Atualiza o 'ultimo' se o removido era o último
-    if (ultimo == atual) {
-        ultimo = anterior;
-    }
-
     tamanho--;
-    atual->setProximo(nullptr); // Desvincula o pacote da lista
+    atual->setProximo(nullptr);
     return atual;
 }
 
