@@ -106,14 +106,15 @@ class PilhaPacotes {
         PilhaPacotes(const PilhaPacotes& other); // Construtor de Cópia
         PilhaPacotes& operator=(const PilhaPacotes& other); // Operador de Atribuição
 
-        void empilhaPacote(Pacote pacote);
-        Pacote desempilhaPacote();
+        void empilhaPacote(Pacote* pacote);
+        Pacote* desempilhaPacote();
         void limpa();
         int getTamanho() const;
         bool estaVazia() const;
         int GetIDEnvio() const;
         void Imprime();
-        Pacote RemovePacotePorId(int id);
+        Pacote* RemovePacotePorId(int id);
+        Pacote* getPrimeiro() const;
 
         friend class SecoesArmazem;
 };

@@ -22,7 +22,7 @@ struct Evento {
     Armazem* armazemAlvo;
     int idSecao;
     std::string chavePrioridade;
-    Fila<Pacote> pacotesParaTransportar;
+    Fila<Pacote*> pacotesParaTransportar;
 
     Evento(double tempo, TipoEvento tipoEvento, Pacote* pacote, Armazem* armazem) {
         this->tempoOcorrencia = tempo;
@@ -75,7 +75,7 @@ struct Evento {
         }
     }
 
-    Evento(double tempo, TipoEvento tipoEvento, Armazem* armazem, int idSecao, Fila<Pacote>& pacotes) {
+    Evento(double tempo, TipoEvento tipoEvento, Armazem* armazem, int idSecao, Fila<Pacote*>& pacotes) {
         this->tempoOcorrencia = tempo;
         this->tipo = tipoEvento;
         this->pacote = nullptr; // Este evento não se refere a um único pacote
@@ -93,10 +93,6 @@ struct Evento {
     }
 
     ~Evento() {
-        if ((tipo == EVENTO_CHEGADA_INICIAL || tipo == EVENTO_ARMAZENAMENTO) && pacote != nullptr) {
-            delete pacote; 
-            pacote = nullptr;
-        }
     }
 
     bool operator>(const Evento& other) const {

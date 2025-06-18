@@ -33,36 +33,32 @@ public:
         }
     }
 
-     // 1. Construtor de Cópia
-    Fila(const Fila<T>& other) : primeiro(nullptr), ultimo(nullptr), tamanho(0) {
-        FilaNo<T>* atualOther = other.primeiro;
-        while (atualOther != nullptr) {
-            this->enfileira(atualOther->dado);
-            atualOther = atualOther->proximo;
-        }
+     // Construtor de Cópia (Deep Copy)
+Fila(const Fila<T>& other) : primeiro(nullptr), ultimo(nullptr), tamanho(0) {
+    FilaNo<T>* noAtualDaOutra = other.primeiro;
+    while (noAtualDaOutra != nullptr) {
+        this->enfileira(noAtualDaOutra->dado);
+        noAtualDaOutra = noAtualDaOutra->proximo;
     }
+}
 
-    // 2. Operador de Atribuição de Cópia
-    Fila<T>& operator=(const Fila<T>& other) {
-        // Proteção contra auto-atribuição (ex: filaA = filaA)
-        if (this == &other) {
-            return *this;
-        }
-
-        // Limpa a fila atual antes de copiar
-        while (!this->estaVazia()) {
-            this->desenfileira();
-        }
-
-        // Lógica de cópia profunda
-        FilaNo<T>* atualOther = other.primeiro;
-        while (atualOther != nullptr) {
-            this->enfileira(atualOther->dado);
-            atualOther = atualOther->proximo;
-        }
-
+// Operador de Atribuição de Cópia (Deep Copy)
+Fila<T>& operator=(const Fila<T>& other) {
+    if (this == &other) {
         return *this;
     }
+    // Limpa a lista atual antes de copiar
+    while (!this->estaVazia()) {
+        this->desenfileira();
+    }
+    // Copia os elementos da outra lista
+    FilaNo<T>* noAtualDaOutra = other.primeiro;
+    while (noAtualDaOutra != nullptr) {
+        this->enfileira(noAtualDaOutra->dado);
+        noAtualDaOutra = noAtualDaOutra->proximo;
+    }
+    return *this;
+}
 
     // Adiciona um item do tipo T à fila
     void enfileira(T item) {

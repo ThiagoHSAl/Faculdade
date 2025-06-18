@@ -16,7 +16,7 @@ public:
     void Limpa();
     int GetNumeroSecoes();
     TipoCelula* GetPrimeiroCelula() const;
-    TipoCelula* EncontraSecao(int idSecao);
+    TipoCelula* EncontraSecao(int idSecao) const;
 
 private:
     TipoCelula* primeiro;
@@ -39,7 +39,7 @@ public:
     explicit Armazem(int idArmazem);
     ~Armazem();
 
-    void ArmazenaPacote(Pacote& pacote, int idPilha);
+    void ArmazenaPacote(Pacote* pacote, int idPilha);
     PilhaPacotes* GetSecao(int idSecao);
     int GetIdArmazem() const;
     SecoesArmazem* GetSecoes() const; 
@@ -73,7 +73,7 @@ public:
     void ImprimeVizinhos(int idV);
     void ImprimeEstatisticasFinais(); 
     double GetLatenciaAresta(int idOrigem, int idDestino) const;
-    int GetCapacidadeAresta(int idOrigem, int idDestino);
+    int GetCapacidadeAresta(int idOrigem, int idDestino) const;
 
     Armazem* GetArmazem(int idArmazem);
     SecoesArmazem* GetSecoesArmazem(int idArmazem);
@@ -86,7 +86,7 @@ private:
     TopologiaArmazensVerticeNo* ultimoVertice;
     int tamanho;
 
-    TopologiaArmazensVerticeNo* EncontraNoVertice(int idVertice);
+    TopologiaArmazensVerticeNo* EncontraNoVertice(int idVertice) const;
 };
 
 #endif

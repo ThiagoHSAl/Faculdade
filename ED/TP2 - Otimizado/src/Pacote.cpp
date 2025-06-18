@@ -196,53 +196,34 @@ PilhaPacotes::PilhaPacotes() {
     IDEnvio = -1;
 }
 
-PilhaPacotes::PilhaPacotes(int idEnvio) {
-    primeiro = nullptr;
-    ultimo = nullptr;
-    tamanho = 0;
-    this->IDEnvio = idEnvio;
-}
+PilhaPacotes::PilhaPacotes(int idEnvio) : primeiro(nullptr), tamanho(0), IDEnvio(idEnvio) {}
 
 PilhaPacotes::~PilhaPacotes() {
-    limpa(); 
 }
 
-void PilhaPacotes::empilhaPacote(Pacote pacote) {
-    Pacote* novoPacote = new Pacote(pacote); 
-
-    if (estaVazia()) {
-        primeiro = novoPacote;
-        ultimo = novoPacote;
-    } else {
-        novoPacote->setProximo(primeiro); 
-        primeiro = novoPacote;
-    }
-    tamanho++;
+void PilhaPacotes::empilhaPacote(Pacote* pacote) {
+    if (pacote == nullptr) return;
+    pacote->setProximo(this->primeiro);
+    this->primeiro = pacote;
+    this->ultimo = pacote;
+    this->tamanho++;
 }
 
-Pacote PilhaPacotes::desempilhaPacote() {
-    if (estaVazia()) {
-        std::cerr << "Erro: Tentativa de desempilhar de uma pilha vazia com IDEnvio " << IDEnvio << "." << std::endl;
-        return Pacote(); 
-    }
-
-    Pacote* pacoteDesempilhado = primeiro;
-    Pacote pacoteRetorno = *pacoteDesempilhado;
-
-    primeiro = primeiro->getProximo(); 
-    if (primeiro == nullptr) { 
-        ultimo = nullptr;
-    }
-
-    delete pacoteDesempilhado; 
-    tamanho--;
+Pacote* PilhaPacotes::desempilhaPacote() {
+    if (estaVazia()) return nullptr;
+    
+    Pacote* pacoteRetorno = this->primeiro;
+    this->primeiro = this->primeiro->getProximo();
+    this->tamanho--;
+    
+    pacoteRetorno->setProximo(nullptr); // Desvincula completamente o pacote da lista.
     return pacoteRetorno;
 }
 
 void PilhaPacotes::limpa() {
-    while (!estaVazia()) {
-        desempilhaPacote();
-    }
+    primeiro = nullptr;
+    ultimo = nullptr;
+    tamanho = 0;
 }
 
 int PilhaPacotes::getTamanho() const {
@@ -270,7 +251,7 @@ void PilhaPacotes::Imprime() {
 }
 
 // Implementação do construtor
-PacoteComPrevisao::PacoteComPrevisao(const Pacote& p, double tempo, int origem)
+PacoteComPrevisao::PacoteComPrevisao(Pacote* p, double tempo, int origem)
     : pacote(p), tempoChegada(tempo), armazemOrigemTransporte(origem) {}
 
 // Implementação do operador de comparação
@@ -280,84 +261,56 @@ bool PacoteComPrevisao::operator>(const PacoteComPrevisao& other) const {
 }
 
 PilhaPacotes::PilhaPacotes(const PilhaPacotes& other) {
-    primeiro = nullptr;
-    ultimo = nullptr;
-    tamanho = 0;
-    IDEnvio = other.IDEnvio;
-
-    // Se a outra pilha estiver vazia, não há nada a fazer.
-    if (other.primeiro == nullptr) {
-        return;
-    }
-
-    // Cria uma pilha temporária para manter a ordem correta (LIFO)
-    PilhaPacotes temp;
-    Pacote* atualOther = other.primeiro;
-    while(atualOther != nullptr) {
-        temp.empilhaPacote(*atualOther);
-        atualOther = atualOther->getProximo();
-    }
-    
-    // Desempilha da temporária e empilha na nova, recriando a ordem original
-    while(!temp.estaVazia()){
-        this->empilhaPacote(temp.desempilhaPacote());
-    }
+    this->primeiro = other.primeiro;
+    this->ultimo = other.ultimo;
+    this->tamanho = other.tamanho;
+    this->IDEnvio = other.IDEnvio;
 }
+
 
 // Implementação do Operador de Atribuição de Cópia
 PilhaPacotes& PilhaPacotes::operator=(const PilhaPacotes& other) {
-    // 1. Proteção contra auto-atribuição (ex: pilhaA = pilhaA)
-    if (this == &other) {
-        return *this;
+    if (this != &other) {
+        this->primeiro = other.primeiro;
+        this->ultimo = other.ultimo;
+        this->tamanho = other.tamanho;
+        this->IDEnvio = other.IDEnvio;
     }
-
-    // 2. Limpa o estado atual da pilha da esquerda
-    this->limpa();
-
-    // 3. Copia o IDEnvio
-    this->IDEnvio = other.IDEnvio;
-
-    // 4. Lógica de cópia profunda (igual ao construtor de cópia)
-    if (other.primeiro == nullptr) {
-        return *this;
-    }
-    
-    PilhaPacotes temp;
-    Pacote* atualOther = other.primeiro;
-    while(atualOther != nullptr) {
-        temp.empilhaPacote(*atualOther);
-        atualOther = atualOther->getProximo();
-    }
-    
-    while(!temp.estaVazia()){
-        this->empilhaPacote(temp.desempilhaPacote());
-    }
-
-    // 5. Retorna a pilha atualizada
     return *this;
 }
 
-Pacote PilhaPacotes::RemovePacotePorId(int id) {
-    PilhaPacotes temp;
-    Pacote pacoteEncontrado;
-    bool achou = false;
+Pacote* PilhaPacotes::RemovePacotePorId(int id) {
+    if (estaVazia()) return nullptr;
 
-    // Esvazia a pilha principal para uma temporária até achar o pacote
-    while (!this->estaVazia()) {
-        Pacote p = this->desempilhaPacote();
-        if (p.getIdUnico() == id) {
-            pacoteEncontrado = p;
-            achou = true;
-            break; // Para quando achar
-        }
-        temp.empilhaPacote(p);
+    Pacote* atual = primeiro;
+    Pacote* anterior = nullptr;
+
+    // Procura o pacote na lista
+    while(atual != nullptr && atual->getIdUnico() != id) {
+        anterior = atual;
+        atual = atual->getProximo();
     }
 
-    // Re-empilha os pacotes de volta na pilha principal
-    while (!temp.estaVazia()) {
-        this->empilhaPacote(temp.desempilhaPacote());
+    // Se não encontrou, retorna nulo
+    if (atual == nullptr) return nullptr;
+
+    // Se encontrou, remove da lista
+    if (anterior == nullptr) { // O pacote a ser removido é o primeiro
+        primeiro = atual->getProximo();
+    } else {
+        anterior->setProximo(atual->getProximo());
+    }
+    
+    // Atualiza o 'ultimo' se o removido era o último
+    if (ultimo == atual) {
+        ultimo = anterior;
     }
 
-    if (achou) return pacoteEncontrado;
-    return Pacote(); // Retorna pacote inválido se não achar
+    tamanho--;
+    atual->setProximo(nullptr); // Desvincula o pacote da lista
+    return atual;
+}
+
+Pacote* PilhaPacotes::getPrimeiro() const {
+    return this->primeiro;
 }

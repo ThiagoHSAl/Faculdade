@@ -1,14 +1,24 @@
 #include "Planejamento.hpp"
 
 SecaoSimulada::SecaoSimulada(int dono, int destino, int cap) {
-    idArmazemDono = dono;
-    idSecaoDestino = destino;
-    capacidade = cap;
-    proximo = nullptr;
+    this->idArmazemDono = dono;
+    this->idSecaoDestino = destino;
+    this->capacidade = cap;
+    this->proximo = nullptr;
+
+    // --- CORREÇÃO PRINCIPAL ---
+    // Inicializa os ponteiros criando novos objetos PilhaPacotes no heap.
+    this->pacotesAtuais = new PilhaPacotes();
+    this->pacotesPrevistos = new PilhaPacotes();
+}
+
+SecaoSimulada::~SecaoSimulada() {
+    delete pacotesAtuais;
+    delete pacotesPrevistos;
 }
 
 int SecaoSimulada::getTamanhoFuturo() const {
-    return pacotesAtuais.getTamanho() + pacotesPrevistos.getTamanho();
+    return pacotesAtuais->getTamanho() + pacotesPrevistos->getTamanho();
 }
 
 bool SecaoSimulada::temEspaco(int n = 1) const {
@@ -28,7 +38,7 @@ PlanejadorDeCiclo::~PlanejadorDeCiclo() {
 
 void PlanejadorDeCiclo::AdicionarSecao(int idDono, int idDestino, int capacidade, const PilhaPacotes& pacotesIniciais) {
     SecaoSimulada* nova = new SecaoSimulada(idDono, idDestino, capacidade);
-    nova->pacotesAtuais = pacotesIniciais; // Assume que PilhaPacotes tem um operator=
+    *(nova->pacotesAtuais) = pacotesIniciais; // Assume que PilhaPacotes tem um operator=
 
     if (primeira == nullptr) {
         primeira = nova;

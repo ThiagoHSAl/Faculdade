@@ -95,4 +95,17 @@ public:
         }
         return vetorHeap[0];
     }
+
+    MinHeap(const MinHeap<T>& other) {
+        this->capacidade = other.capacidade;
+        this->tamanhoAtual = other.tamanhoAtual;
+        this->vetorHeap = new T*[this->capacidade];
+
+        // Cria uma nova cópia de cada item no heap original.
+        // Isso garante que a cópia seja totalmente independente.
+        for (int i = 0; i < this->tamanhoAtual; i++) {
+            // Requer que o tipo T tenha um construtor de cópia.
+            this->vetorHeap[i] = new T(*(other.vetorHeap[i]));
+        }
+    }
 };

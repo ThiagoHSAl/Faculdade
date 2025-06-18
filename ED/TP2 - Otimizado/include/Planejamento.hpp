@@ -10,12 +10,13 @@ struct SecaoSimulada {
     int capacidade;
 
     PilhaPacotes* pacotesAtuais;     // Pacotes que já estão na seção no início do ciclo.
-    PilhaPacotes pacotesPrevistos;  // Pacotes que chegarão e caberão na seção.
+    PilhaPacotes* pacotesPrevistos;  // Pacotes que chegarão e caberão na seção.
     Fila<Pacote*> pacotesEmEspera;   // Pacotes que chegarão mas não caberão (FIFO).
 
     SecaoSimulada* proximo;
 
     SecaoSimulada(int dono, int destino, int cap);
+    ~SecaoSimulada();
     int getTamanhoFuturo() const;
     bool temEspaco(int n) const;
 };

@@ -22,7 +22,7 @@ SecoesArmazem::~SecoesArmazem(){
     Limpa();
 }
 
-TipoCelula* SecoesArmazem::EncontraSecao(int idSecao) {
+TipoCelula* SecoesArmazem::EncontraSecao(int idSecao) const{
     TipoCelula* atual = primeiro;
     while (atual != nullptr) {
         if (atual->pilhaSecao != nullptr) {
@@ -122,13 +122,14 @@ Armazem::~Armazem() {
     delete secoes;
 }
 
-void Armazem::ArmazenaPacote(Pacote& pacote, int idPilha){
+void Armazem::ArmazenaPacote(Pacote* pacote, int idPilha) {
     if (secoes != nullptr) {
         PilhaPacotes* pilhaDestino = secoes->GetPilhaSecao(idPilha); 
         if (pilhaDestino != nullptr){
+            // A chamada agora passa o ponteiro diretamente
             pilhaDestino->empilhaPacote(pacote); 
-            } else {
-        std::cerr << "Erro: Secao para o armazem " << idPilha << " nao encontrada no Armazem " << this->idArmazem << std::endl;
+        } else {
+            std::cerr << "Erro: Secao para o armazem " << idPilha << " nao encontrada no Armazem " << this->idArmazem << std::endl;
         }
     } else {
         std::cerr << "Erro: SecoesArmazem nao inicializadas para o Armazem " << idArmazem << std::endl;
@@ -172,18 +173,34 @@ TopologiaArmazens::TopologiaArmazens(){
 }
 
 
-TopologiaArmazens::~TopologiaArmazens(){
+TopologiaArmazens::~TopologiaArmazens() {
     TopologiaArmazensVerticeNo *atual = primeiroVertice;
     while (atual != nullptr) {
         TopologiaArmazensVerticeNo *next = atual->proximo;
+
+        // Limpa os pacotes em todas as seções deste armazém
+        SecoesArmazem* secoes = atual->armazem->GetSecoes();
+        if (secoes) {
+            TipoCelula* celula = secoes->GetPrimeiroCelula();
+            while(celula) {
+                if (celula->pilhaSecao) {
+                    while(!celula->pilhaSecao->estaVazia()) {
+                        delete celula->pilhaSecao->desempilhaPacote();
+                    }
+                }
+                celula = celula->proximo;
+            }
+        }
+        // Limpa os pacotes entregues neste armazém
+        PilhaPacotes* final = atual->armazem->GetDestinoFinal();
+        while(final && !final->estaVazia()){
+            delete final->desempilhaPacote();
+        }
 
         delete atual->armazem; 
         delete atual;          
         atual = next;
     }
-    primeiroVertice = nullptr;
-    ultimoVertice = nullptr;
-    tamanho = 0;
 }
 
 
@@ -208,7 +225,7 @@ TopologiaArmazens::TopologiaArmazens(int numeroVertices, int** matrizCapacidade,
 }
 
 
-TopologiaArmazensVerticeNo* TopologiaArmazens::EncontraNoVertice(int idVertice) {
+TopologiaArmazensVerticeNo* TopologiaArmazens::EncontraNoVertice(int idVertice) const{
     TopologiaArmazensVerticeNo *atual = primeiroVertice;
     while (atual != nullptr) {
         if (atual->armazem->GetIdArmazem() == idVertice) {
@@ -360,27 +377,24 @@ void TopologiaArmazens::ImprimeEstatisticasFinais() {
     
     TopologiaArmazensVerticeNo* v_node = this->primeiroVertice;
     while (v_node != nullptr) {
-        Armazem* armazem_atual = v_node->armazem;
-        PilhaPacotes* pilha_entregues = armazem_atual->GetDestinoFinal();
+        PilhaPacotes* pilha_entregues = v_node->armazem->GetDestinoFinal();
 
         if (pilha_entregues != nullptr && !pilha_entregues->estaVazia()) {
-            std::cout << "Armazem de Entrega: " << armazem_atual->GetIdArmazem() << std::endl;
+            std::cout << "Armazem de Entrega: " << v_node->armazem->GetIdArmazem() << std::endl;
             
             PilhaPacotes pilha_temp;
-
-            // Esvazia a pilha original, imprimindo os dados e guardando na pilha temporária
             while (!pilha_entregues->estaVazia()) {
-                Pacote pacote = pilha_entregues->desempilhaPacote();
+                // desempilhaPacote agora retorna Pacote*
+                Pacote* pacote = pilha_entregues->desempilhaPacote();
                 
-                std::cout << "  - Pacote ID: " << std::setw(3) << std::setfill('0') << pacote.getIdUnico()
-                          << " | Tempo Armazenado Total: " << std::fixed << std::setprecision(2) << pacote.getTempoArmazenado()
-                          << " | Tempo em Transito Total: " << std::fixed << std::setprecision(2) << pacote.getTempoEmTransito()
+                std::cout << "  - Pacote ID: " << std::setw(3) << std::setfill('0') << pacote->getIdUnico()
+                          << " | Tempo Armazenado Total: " << std::fixed << std::setprecision(2) << pacote->getTempoArmazenado()
+                          << " | Tempo em Transito Total: " << std::fixed << std::setprecision(2) << pacote->getTempoEmTransito()
                           << std::endl;
                 
-                pilha_temp.empilhaPacote(pacote);
+                pilha_temp.empilhaPacote(pacote); // empilhaPacote agora recebe Pacote*
             }
 
-            // Restaura a pilha original a partir da pilha temporária
             while (!pilha_temp.estaVazia()) {
                 pilha_entregues->empilhaPacote(pilha_temp.desempilhaPacote());
             }
@@ -391,7 +405,7 @@ void TopologiaArmazens::ImprimeEstatisticasFinais() {
 }
 
 double TopologiaArmazens::GetLatenciaAresta(int idOrigem, int idDestino) const {
-    TopologiaArmazensVerticeNo* noOrigem = const_cast<TopologiaArmazens*>(this)->EncontraNoVertice(idOrigem);
+    TopologiaArmazensVerticeNo* noOrigem = this->EncontraNoVertice(idOrigem);
     if (noOrigem) {
         SecoesArmazem* secoes = noOrigem->secoesAdjacentes;
         if (secoes) {
@@ -404,7 +418,7 @@ double TopologiaArmazens::GetLatenciaAresta(int idOrigem, int idDestino) const {
     return -1.0; // Retorna -1 se a aresta não for encontrada
 }
 
-int TopologiaArmazens::GetCapacidadeAresta(int idOrigem, int idDestino) {
+int TopologiaArmazens::GetCapacidadeAresta(int idOrigem, int idDestino) const{
     // 1. Encontra o nó do armazém de origem na topologia.
     TopologiaArmazensVerticeNo* noOrigem = this->EncontraNoVertice(idOrigem);
     
