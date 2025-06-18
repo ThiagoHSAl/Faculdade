@@ -1,0 +1,96 @@
+110
+1
+4
+0 15 0 0
+15 0 20 25
+0 20 0 0
+0 25 0 0
+0 4 0 0
+4 0 2 3
+0 2 0 0
+0 3 0 0
+4
+10 pac 101 org 3 dst 0
+15 pac 102 org 3 dst 0
+20 pac 103 org 0 dst 0
+30 pac 104 org 2 dst 0
+
+
+ // --- PASSO B: COLETAR E ORDENAR OS MOVIMENTOS POR PRIORIDADE ---
+    // (Esta parte permanece a mesma, pois precisamos da lista de chegadas ordenada)
+    MinHeap<PacoteComPrevisao> pacotesOrdenadosPorChegada;
+    // ... (código que preenche o heap pacotesOrdenadosPorChegada) ...
+
+
+    // --- NOVO PASSO B.2: CRIAR MANIFESTO DE PARTIDAS ---
+    // Precisamos de uma estrutura para contar quantos pacotes sairão de cada seção.
+    // Como não usamos STL, uma lista encadeada simples serve.
+    struct ManifestoPartida {
+        int idArmazem;
+        int idSecao;
+        int contagemSaidas = 0;
+        ManifestoPartida* proximo = nullptr;
+    };
+    ManifestoPartida* primeiroManifesto = nullptr;
+
+    // Usamos uma cópia do heap para não esvaziá-lo antes da hora.
+    MinHeap<PacoteComPrevisao> copiaHeap = pacotesOrdenadosPorChegada;
+    while(!copiaHeap.EstaVazia()) {
+        PacoteComPrevisao* previsao = copiaHeap.ExtraiMin();
+        
+        int idOrigem = previsao->armazemOrigemTransporte;
+        int idDestino = previsao->pacote.getProximoArmazemNaRota();
+
+        // Encontra ou cria o manifesto para esta seção de partida
+        ManifestoPartida* manifesto = primeiroManifesto;
+        while(manifesto != nullptr) {
+            if(manifesto->idArmazem == idOrigem && manifesto->idSecao == idDestino) break;
+            manifesto = manifesto->proximo;
+        }
+        if(manifesto == nullptr) {
+            manifesto = new ManifestoPartida();
+            manifesto->idArmazem = idOrigem;
+            manifesto->idSecao = idDestino;
+            manifesto->proximo = primeiroManifesto;
+            primeiroGrupo = manifesto;
+        }
+        manifesto->contagemSaidas++;
+        delete previsao;
+    }
+
+
+    // --- PASSO C: SIMULAR FLUXO LÍQUIDO E IDENTIFICAR CONGESTIONAMENTOS ---
+    while(!pacotesOrdenadosPorChegada.EstaVazia()) {
+        PacoteComPrevisao* chegada = pacotesOrdenadosPorChegada.ExtraiMin();
+        
+        // ... (lógica para encontrar armazemChegadaId e proximoDestinoId) ...
+
+        SecaoSimulada* secaoSimulada = planejador.BuscaSecao(armazemChegadaId, proximoDestinoId);
+
+        if (secaoSimulada) {
+            // LÓGICA CORRIGIDA: Calcula o espaço disponível real
+            int numSaindo = 0;
+            ManifestoPartida* manifestoBusca = primeiroManifesto;
+            while(manifestoBusca != nullptr){
+                if(manifestoBusca->idArmazem == armazemChegadaId && manifestoBusca->idSecao == proximoDestinoId){
+                    numSaindo = manifestoBusca->contagemSaidas;
+                    break;
+                }
+                manifestoBusca = manifestoBusca->proximo;
+            }
+
+            // Ocupação líquida = (pacotes já na seção - os que vão sair) + os que já chegaram na simulação
+            int ocupacaoLiquidaAtual = (secaoSimulada->pacotesAtuais.getTamanho() - numSaindo) + secaoSimulada->pacotesPrevistos.getTamanho();
+            
+            if (ocupacaoLiquidaAtual < secaoSimulada->capacidade) {
+                secaoSimulada->pacotesPrevistos.empilhaPacote(chegada->pacote);
+            } else {
+                std::cout << tempoAtual << " pacote " << chegada->pacote.getIdUnico() << " Detectado gargalo real, buscando alternativas" << std::endl;
+                secaoSimulada->pacotesEmEspera.enfileira(chegada->pacote);
+            }
+        }
+        delete chegada;
+    }
+    
+    // Limpeza da memória do manifesto
+    // ...

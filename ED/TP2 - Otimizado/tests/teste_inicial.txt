@@ -1,0 +1,66 @@
+###### start input file ######
+2
+20
+100
+1
+4
+0 0 1 0
+0 0 1 0
+1 1 0 1
+0 0 1 0
+8
+9 pac 0 org 1 dst 0
+45 pac 1 org 1 dst 2
+93 pac 2 org 0 dst 3
+1 pac 3 org 0 dst 3
+92 pac 4 org 3 dst 2
+18 pac 5 org 2 dst 3
+7 pac 6 org 3 dst 2
+78 pac 7 org 0 dst 3 
+###### end input file ######
+0000001 pacote 003 armazenado em 000 na secao 002
+0000007 pacote 006 armazenado em 003 na secao 002
+0000009 pacote 000 armazenado em 001 na secao 002
+0000018 pacote 005 armazenado em 002 na secao 003
+0000045 pacote 001 armazenado em 001 na secao 002
+0000078 pacote 007 armazenado em 000 na secao 002
+0000092 pacote 004 armazenado em 003 na secao 002
+0000093 pacote 002 armazenado em 000 na secao 002
+0000102 pacote 002 removido de 000 na secao 002
+0000103 pacote 007 removido de 000 na secao 002
+0000104 pacote 003 removido de 000 na secao 002
+0000104 pacote 003 em transito de 000 para 002
+0000104 pacote 007 em transito de 000 para 002
+0000104 pacote 002 rearmazenado em 000 na secao 002
+0000102 pacote 001 removido de 001 na secao 002
+0000103 pacote 000 removido de 001 na secao 002
+0000103 pacote 000 em transito de 001 para 002
+0000103 pacote 001 em transito de 001 para 002
+0000102 pacote 005 removido de 002 na secao 003
+0000102 pacote 005 em transito de 002 para 003
+0000102 pacote 004 removido de 003 na secao 002
+0000103 pacote 006 removido de 003 na secao 002
+0000103 pacote 006 em transito de 003 para 002
+0000103 pacote 004 em transito de 003 para 002
+0000122 pacote 005 entregue em 003
+0000123 pacote 000 armazenado em 002 na secao 000
+0000123 pacote 001 entregue em 002
+0000123 pacote 004 entregue em 002
+0000123 pacote 006 entregue em 002
+0000124 pacote 003 armazenado em 002 na secao 003
+0000124 pacote 007 armazenado em 002 na secao 003
+0000202 pacote 002 removido de 000 na secao 002
+0000202 pacote 002 em transito de 000 para 002
+0000202 pacote 000 removido de 002 na secao 000
+0000202 pacote 000 em transito de 002 para 000
+0000202 pacote 007 removido de 002 na secao 003
+0000203 pacote 003 removido de 002 na secao 003
+0000203 pacote 003 em transito de 002 para 003
+0000203 pacote 007 em transito de 002 para 003
+0000222 pacote 000 entregue em 000
+0000222 pacote 002 armazenado em 002 na secao 003
+0000223 pacote 003 entregue em 003
+0000223 pacote 007 entregue em 003
+0000302 pacote 002 removido de 002 na secao 003
+0000302 pacote 002 em transito de 002 para 003
+0000322 pacote 002 entregue em 003
