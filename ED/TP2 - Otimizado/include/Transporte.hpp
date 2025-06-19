@@ -31,7 +31,7 @@ public:
     ListaEncadeadaRota CalculaRotaDijkstra(int idOrigem, int idDestino, int idNoProibido = -1);
     bool CalculaEAtribuiRota(Pacote* pacote);
     void CoordenarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, Fila<Pacote*>& pacotesAprovados, double tempoAtual, Escalonador* escalonador);
-    void ProcessarRemocao(PilhaPacotes* pilhaSecao, PilhaPacotes& pacotesRemovidos, double tempoAtual, int idArmazem, int idSecao, double& tempoFimRemocao);
+    void ProcessarRemocao(PilhaPacotes* pilhaParaRemover, PilhaPacotes& pacotesProntos, double tempoAtual, int idArmazem, int idSecao, double& tempoFimRemocao);
     void ProcessarTransporte(PilhaPacotes& pacotesRemovidos, PilhaPacotes& pacotesSobraram, double tempoFimRemocao, Armazem* armazemOrigem, Armazem* armazem_destino, Escalonador* escalonador);
     void ProcessarRearmazenamento(PilhaPacotes* pilhaSecao, PilhaPacotes& pacotesSobraram, double tempoFimRemocao, int idArmazem, int idSecao);
     void ProcessarArmazenamento(Pacote* pacote, Armazem* armazemChegada, double tempoAtual, Escalonador* escalonador);

@@ -392,7 +392,7 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
 
     // --- PASSO A: INICIALIZAR O AMBIENTE DE SIMULAÇÃO ---
     PlanejadorDeCiclo planejador;
-    int CAPACIDADE_SECAO = 1; // TODO: Obter este valor do arquivo de input.
+    int CAPACIDADE_SECAO = 3; // TODO: Obter este valor do arquivo de input.
     TopologiaArmazensVerticeNo* noSetup = topologiaArmazens->primeiroVertice;
     while(noSetup != nullptr) {
         SecoesArmazem* secoesReais = noSetup->armazem->GetSecoes();
@@ -429,16 +429,14 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
 
                     // 2. Itera sobre a pilha usando ponteiros, de forma NÃO-DESTRUTIVA.
                     // Isso evita a cópia superficial e a corrupção de memória.
-                    Pacote* pacoteAtualNaPilha = secaoReal->getPrimeiro();
+                    // Iterate through the PilhaPacotesNodes, not the Pacote's internal 'proximo'
+                    Pacote* pacoteAtualNaPilha = secaoReal->getPrimeiro(); // Get the top Pacote*
                     while(pacoteAtualNaPilha != nullptr){
-                         // DEBUG: Ao coletar o pacote 0
-                        std::cout << "[DEBUG t=" << tempoAtual << "] PASSO B: Pacote " << pacoteAtualNaPilha->getIdUnico() << " encontrado na secao " 
-                                    << noBusca->armazem->GetIdArmazem() << "->" << celula->pilhaSecao->GetIDEnvio() 
-                                    << ". Adicionando a lista de prioridades." << std::endl;
-                        // Passamos o ponteiro para o pacote original.
+                        // Pass the pointer to the original Pacote.
                         pacotesOrdenadosPorChegada.Insere(new PacoteComPrevisao(pacoteAtualNaPilha, tempoChegada, noBusca->armazem->GetIdArmazem()));
-                        // Avança para o próximo pacote na lista encadeada.
-                        pacoteAtualNaPilha = pacoteAtualNaPilha->getProximo();
+
+                        // Advance to the next Pacote* using the new public method
+                        pacoteAtualNaPilha = secaoReal->ObterProximoPacote(pacoteAtualNaPilha);
                     }
                     // --- FIM DA LÓGICA CORRIGIDA ---
                 }
@@ -461,9 +459,9 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
     ManifestoPartida* primeiroManifesto = nullptr;
 
     // Usamos uma cópia do heap para não esvaziá-lo antes da hora.
-    MinHeap<PacoteComPrevisao> copiaHeap = pacotesOrdenadosPorChegada;
+    MinHeap<PacoteComPrevisao> copiaHeap = pacotesOrdenadosPorChegada; // Copy of the full heap
     while(!copiaHeap.EstaVazia()) {
-        PacoteComPrevisao* previsao = copiaHeap.ExtraiMin();
+        PacoteComPrevisao* previsao = copiaHeap.ExtraiMin(); // Extracts in order of predicted arrival
         
         int idOrigem = previsao->armazemOrigemTransporte;
         int idDestino = previsao->pacote->getProximoArmazemNaRota(); 
@@ -488,10 +486,6 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
      // --- PASSO C: SIMULAR FLUXO LÍQUIDO USANDO O MANIFESTO ---
     while(!pacotesOrdenadosPorChegada.EstaVazia()) {
         PacoteComPrevisao* chegada = pacotesOrdenadosPorChegada.ExtraiMin();
-
-        // DEBUG: Ao simular a chegada do pacote 
-            std::cout << "[DEBUG t=" << tempoAtual << "] PASSO C: Simulando chegada do Pacote " << chegada->pacote->getIdUnico() << " no armazem " 
-                      << chegada->pacote->getProximoArmazemNaRota() << "." << std::endl;
         
         if (chegada->pacote == nullptr || chegada->pacote->getRota() == nullptr) {
             delete chegada;
@@ -507,11 +501,9 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
         }
 
         // Determina a seção que o pacote tentará ocupar no armazém de chegada.
-        int proximoDestinoId = -1;
-        RotaNo* noAtualNaRota = chegada->pacote->getRota()->GetAtualNaRota();
-        if(noAtualNaRota && noAtualNaRota->proximo && noAtualNaRota->proximo->proximo){
-            proximoDestinoId = noAtualNaRota->proximo->proximo->idArmazem;
-        }
+        ListaEncadeadaRota tempRota(*chegada->pacote->getRota()); // Create a copy of the package's current route
+        tempRota.Avanca(); // Simulate advancing the route
+        int proximoDestinoId = tempRota.GetProximoArmazem();
         
         SecaoSimulada* secaoSimuladaAlvo = planejador.BuscaSecao(armazemChegadaId, proximoDestinoId);
 
@@ -519,32 +511,40 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
             // --- LÓGICA CORRETA USANDO O MANIFESTO ---
 
             // 1. Busca no manifesto o número exato de pacotes que sairão da seção de destino.
-            int numSaindo = 0;
+            int numSaindoRealPrevisto = 0; // Renamed for clarity
             ManifestoPartida* manifestoBusca = primeiroManifesto;
             while(manifestoBusca != nullptr){
                 if(manifestoBusca->idArmazem == armazemChegadaId && manifestoBusca->idSecao == proximoDestinoId){
-                    numSaindo = manifestoBusca->contagemSaidas;
+                    numSaindoRealPrevisto = manifestoBusca->contagemSaidas;
                     break;
                 }
                 manifestoBusca = manifestoBusca->proximo;
             }
 
-            // 2. Calcula a ocupação líquida usando a contagem precisa do manifesto.
+            // Get the *actual transport capacity* for this route (truck capacity)
+            int capacidadeTransporteDaRota = topologiaArmazens->GetCapacidadeAresta(armazemChegadaId, proximoDestinoId);
+
+            // The number of packages *actually leaving* this section should be capped by the transport capacity.
+            // This is a subtle point: The manifest counts how many *can* be transported *if there's space on the truck*.
+            // If the truck capacity is lower than `numSaindoRealPrevisto`, then only `capacidadeTransporteDaRota` packages will actually leave.
+            int numSaindoEfetivo = std::min(numSaindoRealPrevisto, capacidadeTransporteDaRota); // Use std::min
+
+            // 2. Calcula a ocupação líquida usando a contagem precisa do manifesto E a capacidade de transporte.
             int ocupacaoInicial = secaoSimuladaAlvo->pacotesAtuais->getTamanho();
             int chegadasJaSimuladas = secaoSimuladaAlvo->pacotesPrevistos->getTamanho();
 
-            // Ocupação Final = (Estavam lá - Vão Sair) + (Já chegaram na simulação) + 1 (este pacote)
-            int ocupacaoFinalPrevista = (ocupacaoInicial - numSaindo) + chegadasJaSimuladas + 1;
+            // Ocupação Final = (Estavam lá - Vão Sair EFETIVAMENTE) + (Já chegaram na simulação) + 1 (este pacote)
+            int ocupacaoFinalPrevista = (ocupacaoInicial - numSaindoEfetivo) + chegadasJaSimuladas + 1;
 
-            if (ocupacaoFinalPrevista <= secaoSimuladaAlvo->capacidade) {
+            if (ocupacaoFinalPrevista <= secaoSimuladaAlvo->capacidade) { // This `capacidade` is the storage capacity
                 // NÃO HÁ GARGALO: O espaço será liberado a tempo.
                 secaoSimuladaAlvo->pacotesPrevistos->empilhaPacote(chegada->pacote);
             } else {
                 // GARGALO REAL DETECTADO: Mesmo com as saídas, não haverá espaço.
-                std::cout << std::setw(7) << std::setfill('0') << tempoAtual << " pacote " << std::setw(3) << std::setfill('0') << chegada->pacote->getIdUnico() 
-                          << " Congestionamento previsto no armazem " 
-                          << armazemESecaoFormatado(armazemChegadaId, proximoDestinoId) 
-                          << " (Ocupacao: " << ocupacaoFinalPrevista 
+                std::cout << std::setw(7) << std::setfill('0') << tempoAtual << " pacote " << std::setw(3) << std::setfill('0') << chegada->pacote->getIdUnico()
+                          << " Congestionamento previsto no armazem "
+                          << armazemESecaoFormatado(armazemChegadaId, proximoDestinoId)
+                          << " (Ocupacao: " << ocupacaoFinalPrevista
                           << ", Capacidade: " << secaoSimuladaAlvo->capacidade << ")" << std::endl;
                 secaoSimuladaAlvo->pacotesEmEspera.enfileira(chegada->pacote);
             }
@@ -572,8 +572,6 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
         Fila<Pacote*> copiaEspera = secaoSimuladaAtual->pacotesEmEspera;
         while (!copiaEspera.estaVazia()) {
             Pacote* p = copiaEspera.desenfileira();
-            // DEBUG: Ao analisar o pacote 0 na fila de espera
-                std::cout << "[DEBUG t=" << tempoAtual << "] PASSO D: Analisando Pacote "<< p->getIdUnico() <<" que estava em espera." << std::endl;
             ListaEncadeadaRota novaRota = CalculaRotaDijkstra(secaoSimuladaAtual->idArmazemDono, p->getArmazemDestino(), secaoSimuladaAtual->idSecaoDestino);
 
             // --- Início do Bloco de Decisão Refatorado ---
@@ -617,8 +615,6 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
 
 
             // --- SUCESSO NA REROTA: REMANEJAMENTO IMEDIATO ---
-            
-            // --- SUCESSO NA REROTA: REMANEJAMENTO IMEDIATO E SEGURO ---
             
             // 1. Encontra a pilha ONDE o pacote real está.
             int idArmazemReal;
@@ -668,33 +664,29 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
             TipoCelula* celulaReal = secoesReais->GetPrimeiroCelula();
             while(celulaReal != nullptr) {
                 PilhaPacotes* pilhaDaSecao = celulaReal->pilhaSecao;
-                // MUDANÇA: A fila local também armazena ponteiros
                 Fila<Pacote*> pacotesAprovadosNestaSecao;
 
                 if (pilhaDaSecao && !pilhaDaSecao->estaVazia()) {
-                    // --- LÓGICA DE ITERAÇÃO CORRIGIDA E NÃO-DESTRUTIVA ---
-                    Pacote* p = pilhaDaSecao->getPrimeiro();
+                    // Iterar sobre a estrutura interna de PilhaPacotesNode
+                    PilhaPacotesNode* atualNode = pilhaDaSecao->getPrimeiroNode(); 
+                    Pacote* p = pilhaDaSecao->getPrimeiro(); // Pega o primeiro Pacote*
+
                     while(p != nullptr) {
-                        // Um pacote é aprovado se ele NÃO estiver na lista de espera.
                         if(!idsParaEspera.contem(p->getIdUnico())) {
-                            // MUDANÇA: Enfileiramos o ponteiro, não uma cópia do objeto.
-                            // DEBUG: Ao confirmar que o pacote 0 foi aprovado para transporte
-                                std::cout << "[DEBUG t=" << tempoAtual << "] PASSO E: Pacote " << p->getIdUnico() << " APROVADO para transporte neste ciclo." << std::endl;
-        
                             pacotesAprovadosNestaSecao.enfileira(p);
                         }
-                        p = p->getProximo();
+                        // Utilize o método que retorna o próximo Pacote* na sequência da pilha
+                        p = pilhaDaSecao->ObterProximoPacote(p); // Use o ObterProximoPacote de PilhaPacotes
                     }
                 }
-                
+
                 // Se encontramos pacotes aprovados para esta seção, criamos um grupo de despacho.
                 if (!pacotesAprovadosNestaSecao.estaVazia()) {
                     GrupoDespacho* novoGrupo = new GrupoDespacho();
                     novoGrupo->armazemOrigem = noExecucao->armazem;
                     novoGrupo->idSecao = celulaReal->pilhaSecao->GetIDEnvio();
-                    novoGrupo->pacotes = pacotesAprovadosNestaSecao;
-                    
-                    // Adiciona o novo grupo no início da lista de grupos.
+                    novoGrupo->pacotes = pacotesAprovadosNestaSecao; // Esta é a fila que você depurou
+
                     novoGrupo->proximo = primeiroGrupo;
                     primeiroGrupo = novoGrupo;
                 }

@@ -92,30 +92,43 @@ public:
     void ImprimeRota() const;
 };
 
+class PilhaPacotesNode {
+public:
+    Pacote* pacote;
+    PilhaPacotesNode* proximo;
+
+    PilhaPacotesNode(Pacote* p) : pacote(p), proximo(nullptr) {}
+};
+
+// In Pacote.hpp (or PilhaPacotes.hpp)
 class PilhaPacotes {
-    private:
-        Pacote* primeiro;
-        int tamanho;
-        int IDEnvio;
+private:
+    PilhaPacotesNode* primeiro; // Now points to an internal node
+    int tamanho;
+    int IDEnvio;
 
-    public:
-        PilhaPacotes();
-        explicit PilhaPacotes(int idEnvio);
-        ~PilhaPacotes();
-        PilhaPacotes(const PilhaPacotes& other); // Construtor de Cópia
-        PilhaPacotes& operator=(const PilhaPacotes& other); // Operador de Atribuição
+public:
+    PilhaPacotes();
+    PilhaPacotes(int idEnvio);
+    ~PilhaPacotes(); // Needs to delete PilhaPacotesNode objects
 
-        void empilhaPacote(Pacote* pacote);
-        Pacote* desempilhaPacote();
-        void limpa();
-        int getTamanho() const;
-        bool estaVazia() const;
-        int GetIDEnvio() const;
-        void Imprime();
-        Pacote* RemovePacotePorId(int id);
-        Pacote* getPrimeiro() const;
+    void empilhaPacote(Pacote* pacote);
+    Pacote* desempilhaPacote();
+    void limpa(); // Needs to delete PilhaPacotesNode objects
+    int getTamanho() const;
+    bool estaVazia() const;
+    int GetIDEnvio() const;
+    void Imprime();
+    Pacote* RemovePacotePorId(int id);
+    Pacote* getPrimeiro() const; // Returns primeiro->pacote (if not nullptr)
+    Pacote* ObterProximoPacote(Pacote* atual) const;
+    PilhaPacotesNode* getPrimeiroNode() const;
+    PilhaPacotesNode* getProximoNode(PilhaPacotesNode* atual) const;
 
-        friend class SecoesArmazem;
+    // Deep copy constructor for the node structure, but shallow copy of Pacote pointers
+    PilhaPacotes(const PilhaPacotes& other);
+    // Deep copy assignment operator for the node structure, but shallow copy of Pacote pointers
+    PilhaPacotes& operator=(const PilhaPacotes& other);
 };
 
 struct PacoteComPrevisao {

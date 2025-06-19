@@ -112,4 +112,21 @@ Fila<T>& operator=(const Fila<T>& other) {
     int getTamanho() const {
         return tamanho;
     }
+
+   T getPrimeiro() const {
+        if (estaVazia()) {
+            // Lançar uma exceção é mais seguro do que retornar um valor padrão ou nullptr em alguns casos.
+            throw std::runtime_error("Tentativa de acessar o primeiro elemento de fila vazia.");
+        }
+        return primeiro->dado;
+    }
+
+    FilaNo<T>* getPrimeiroNo() const { // Este é o método que você estava tentando usar.
+        return primeiro;
+    }
+    // Adicione um método para obter o próximo nó na sequência, dado um nó atual.
+    FilaNo<T>* getProximoNo(FilaNo<T>* atual) const {
+        if (atual == nullptr) return nullptr;
+        return atual->proximo;
+    }
 };
