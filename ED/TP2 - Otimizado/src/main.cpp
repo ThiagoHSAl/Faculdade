@@ -11,6 +11,7 @@ int main(int argc, char** argv) {
     auto start_time = std::chrono::high_resolution_clock::now();
     int capacidade;
     double latencia, intervalo, custo;
+    int capacidadeSecaoArmazenamento;
 
     if (argc != 2) {
         std::cerr << "Erro: É necessário fornecer o nome do arquivo como argumento." << std::endl;
@@ -26,6 +27,7 @@ int main(int argc, char** argv) {
 
     arquivo >> intervalo;
     arquivo >> custo;
+    arquivo >> capacidadeSecaoArmazenamento;
 
     // --- Bloco 2: Leitura e Construção da Topologia ---
     int numeroArmazens;
@@ -51,7 +53,7 @@ int main(int argc, char** argv) {
     }
 
     TopologiaArmazens* topologia = new TopologiaArmazens(numeroArmazens, matrizCapacidade, matrizLatencia);
-    Transporte* sistemaTransporte = new Transporte(topologia, custo, intervalo);
+    Transporte* sistemaTransporte = new Transporte(topologia, custo, intervalo, capacidadeSecaoArmazenamento);
     
     for (int i = 0; i < numeroArmazens; ++i) {
         delete[] matrizLatencia[i];

@@ -72,17 +72,19 @@ ListaEncadeadaRota::ListaEncadeadaRota(const ListaEncadeadaRota& other) :
     primeiro(nullptr), ultimo(nullptr), atualNaRota(nullptr), tamanho(0) {
     RotaNo* atualOther = other.primeiro;
     while (atualOther != nullptr) {
-        AdicionaArmazem(atualOther->idArmazem);
+        AdicionaArmazem(atualOther->idArmazem); // Cria novos RotaNo aqui
         atualOther = atualOther->proximo;
     }
+    // Lógica para redefinir 'atualNaRota' na nova lista
     if (other.atualNaRota != nullptr) {
-        RotaNo* noTemporario = primeiro;
-        RotaNo* otherNoTemporario = other.primeiro;
+        RotaNo* noTemporario = primeiro; // Posição atual na NOVA lista
+        RotaNo* otherNoTemporario = other.primeiro; // Posição atual na lista ORIGINAL
+        // Avança na NOVA lista e na ORIGINAL até encontrar a posição correspondente
         while (otherNoTemporario != other.atualNaRota && noTemporario != nullptr) {
             otherNoTemporario = otherNoTemporario->proximo;
             noTemporario = noTemporario->proximo;
         }
-        atualNaRota = noTemporario;
+        atualNaRota = noTemporario; // Define 'atualNaRota' da NOVA lista
     } else {
         atualNaRota = nullptr;
     }

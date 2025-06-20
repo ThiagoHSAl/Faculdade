@@ -21,9 +21,10 @@ private:
     TopologiaArmazens* topologiaArmazens;
     double custoRemocao;
     double intervaloTransporte;
+    int capacidadeSecaoArmazenamento;
 
 public:
-    Transporte(TopologiaArmazens* t, double custo, double intervalo);
+    Transporte(TopologiaArmazens* t, double custo, double intervalo, int capSecao);
     ~Transporte();
 
     double GetIntervaloTransporte() const;

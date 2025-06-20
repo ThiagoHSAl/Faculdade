@@ -9,6 +9,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <limits>
 
 
 // --- FUNÇÕES DE FORMATAÇÃO DE SAÍDA ---
@@ -33,10 +34,11 @@ static void imprimirLinhaFormatada(double tempo, int idPacote, const std::string
 }
 
 // --- MÉTODOS DA CLASSE TRANSPORTE ---
-Transporte::Transporte(TopologiaArmazens* t, double custo, double intervalo) {
+Transporte::Transporte(TopologiaArmazens* t, double custo, double intervalo, int capSecao) {
     topologiaArmazens = t;
     custoRemocao = custo;
     intervaloTransporte = intervalo;
+    capacidadeSecaoArmazenamento = capSecao; // Inicialize o novo membro
 }
 
 
@@ -263,7 +265,7 @@ ListaEncadeadaRota Transporte::CalculaRotaDijkstra(int idOrigem, int idDestino, 
     if (topologiaArmazens == nullptr) {
         return ListaEncadeadaRota();
     }
-    // NOVA VERIFICAÇÃO: Se a origem ou o destino for o nó proibido, não há rota possível.
+    // Se a origem ou o destino for o nó proibido, não há rota possível.
     if (idOrigem == idNoProibido || idDestino == idNoProibido) {
         return ListaEncadeadaRota();
     }
@@ -289,17 +291,17 @@ ListaEncadeadaRota Transporte::CalculaRotaDijkstra(int idOrigem, int idDestino, 
         NoHeapDijkstra* noAtual = filaPrioridade.ExtraiMin();
         int idU = noAtual->idArmazem;
 
-        if (idU == idNoProibido) {
-            continue;
-        }
-
         NoInfoDijkstra* infoU = infoNos.BuscaInfo(idU);
-        if (infoU == nullptr) {
+        // Se o nó já foi visitado ou não existe informação para ele, continue.
+        if (infoU == nullptr || infoU->visitado) {
+            delete noAtual; // Libera a memória do nó extraído do heap
             continue;
         }
-        
+        infoU->visitado = true; // Marca o nó como visitado.
+
         if (idU == idDestino) {
-            break;
+            delete noAtual; // Libera a memória do nó extraído do heap
+            break; // Encontrou o destino, pode parar.
         }
 
         SecoesArmazem* secoesU = topologiaArmazens->GetSecoesArmazem(idU);
@@ -307,10 +309,18 @@ ListaEncadeadaRota Transporte::CalculaRotaDijkstra(int idOrigem, int idDestino, 
             TipoCelula* celulaVizinho = secoesU->GetPrimeiroCelula();
             while (celulaVizinho != nullptr) {
                 int idVizinhoV = celulaVizinho->pilhaSecao->GetIDEnvio();
+                
+                // Se o vizinho for o nó proibido, não considere esta aresta.
+                if (idVizinhoV == idNoProibido) {
+                    celulaVizinho = celulaVizinho->proximo;
+                    continue;
+                }
+
                 double latenciaAresta = celulaVizinho->infoAresta.latencia;
                 NoInfoDijkstra* infoV = infoNos.BuscaInfo(idVizinhoV);
 
-                if (infoV != nullptr && infoU->distancia + latenciaAresta < infoV->distancia) {
+                // Relaxamento da aresta: Se encontrou um caminho mais curto para o vizinho.
+                if (infoV != nullptr && !infoV->visitado && (infoU->distancia + latenciaAresta < infoV->distancia)) {
                     infoV->distancia = infoU->distancia + latenciaAresta;
                     infoV->idPredecessor = idU;
                     filaPrioridade.Insere(new NoHeapDijkstra(idVizinhoV, infoV->distancia));
@@ -318,21 +328,59 @@ ListaEncadeadaRota Transporte::CalculaRotaDijkstra(int idOrigem, int idDestino, 
                 celulaVizinho = celulaVizinho->proximo;
             }
         }
+        delete noAtual; // Libera a memória do nó extraído do heap após processar seus vizinhos
+    }
+
+    // --- Reconstrução da Rota ---
+    NoInfoDijkstra* infoDestino = infoNos.BuscaInfo(idDestino);
+    // Se o destino não foi alcançado (distância infinita ou nó não encontrado), não há rota.
+    if (infoDestino == nullptr || infoDestino->distancia == std::numeric_limits<int>::max()) {
+        return ListaEncadeadaRota();
     }
 
     ListaEncadeadaRota rotaResultante;
-    int idNoAtualRota = idDestino;
-    while (idNoAtualRota != -1) {
-        rotaResultante.InsereNoInicio(idNoAtualRota);
+    int idNoAtualRota = idDestino; // Começa pelo destino
+
+    // Loop para reconstruir a rota de trás para frente, do destino à origem
+    while (true) { // Loop infinito, a quebra deve ser interna
+        // Busca a informação do nó atual na lista de informações do Dijkstra
         NoInfoDijkstra* infoAtual = infoNos.BuscaInfo(idNoAtualRota);
-        if (infoAtual != nullptr) {
-            idNoAtualRota = infoAtual->idPredecessor;
-        } else {
-            idNoAtualRota = -1;
+
+        // Se o nó não foi alcançado ou a informação está faltando (indicando caminho quebrado)
+        if (infoAtual == nullptr || (infoAtual->idPredecessor == -1 && idNoAtualRota != idOrigem)) {
+            // Se idNoAtualRota não é a origem e não tem predecessor, rota inválida.
+            // Isso captura caminhos que não chegam à origem esperada.
+            return ListaEncadeadaRota();
         }
+
+        // Insere o nó atual no INÍCIO da rota resultante (para que fique na ordem correta)
+        rotaResultante.InsereNoInicio(idNoAtualRota);
+
+        // Se o nó atual é a origem, terminamos a reconstrução.
+        if (idNoAtualRota == idOrigem) {
+            break;
+        }
+
+        // Move para o predecessor do nó atual para continuar a reconstrução
+        idNoAtualRota = infoAtual->idPredecessor;
     }
 
-    if (rotaResultante.GetTamanho() <= 1 && idOrigem != idDestino) {
+    // --- Verificações Finais de Consistência da Rota Reconstruída ---
+
+    // A rota não pode ser vazia
+    if (rotaResultante.GetTamanho() == 0) {
+        return ListaEncadeadaRota();
+    }
+    
+    // O primeiro nó da rota deve ser a origem.
+    if (rotaResultante.GetPrimeiroNo()->idArmazem != idOrigem) {
+        // Isso pode acontecer se o `idPredecessor` da origem foi incorretamente setado para algo diferente de -1
+        // ou se a reconstrução parou no lugar errado.
+        return ListaEncadeadaRota();
+    }
+    
+    // Se a rota tem apenas um nó, é válida apenas se origem e destino são o mesmo.
+    if (rotaResultante.GetTamanho() == 1 && idOrigem != idDestino) {
         return ListaEncadeadaRota(); 
     }
 
@@ -392,7 +440,6 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
 
     // --- PASSO A: INICIALIZAR O AMBIENTE DE SIMULAÇÃO ---
     PlanejadorDeCiclo planejador;
-    int CAPACIDADE_SECAO = 3; // TODO: Obter este valor do arquivo de input.
     TopologiaArmazensVerticeNo* noSetup = topologiaArmazens->primeiroVertice;
     while(noSetup != nullptr) {
         SecoesArmazem* secoesReais = noSetup->armazem->GetSecoes();
@@ -400,7 +447,11 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
             TipoCelula* celulaReal = secoesReais->GetPrimeiroCelula();
             while(celulaReal != nullptr) {
                 if(celulaReal->pilhaSecao) {
-                    planejador.AdicionarSecao(noSetup->armazem->GetIdArmazem(), celulaReal->pilhaSecao->GetIDEnvio(), CAPACIDADE_SECAO, *celulaReal->pilhaSecao);
+                    // Use o membro da classe lido do arquivo
+                    planejador.AdicionarSecao(noSetup->armazem->GetIdArmazem(),
+                                             celulaReal->pilhaSecao->GetIDEnvio(),
+                                             this->capacidadeSecaoArmazenamento, // USE O VALOR DO MEMBRO DA CLASSE AQUI
+                                             *celulaReal->pilhaSecao);
                 }
                 celulaReal = celulaReal->proximo;
             }
@@ -483,75 +534,64 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
         delete previsao;
     }
 
-     // --- PASSO C: SIMULAR FLUXO LÍQUIDO USANDO O MANIFESTO ---
+    // --- PASSO C: SIMULAR FLUXO LÍQUIDO USANDO O MANIFESTO ---
+    // Processa os pacotes ordenados por tempo de chegada previsto para simular congestionamento.
     while(!pacotesOrdenadosPorChegada.EstaVazia()) {
         PacoteComPrevisao* chegada = pacotesOrdenadosPorChegada.ExtraiMin();
-        
+
+        std::cout << "[DEBUG PLANO C] Processando Pacote " << chegada->pacote->getIdUnico()
+                  << " (OrigemPrev: " << chegada->armazemOrigemTransporte
+                  << ", ProxDest: " << chegada->pacote->getProximoArmazemNaRota()
+                  << ", TempoChegadaPrev: " << chegada->tempoChegada << ")" << std::endl; // NOVO DEBUG
+
         if (chegada->pacote == nullptr || chegada->pacote->getRota() == nullptr) {
             delete chegada;
             continue;
         }
-        
-        int armazemChegadaId = chegada->pacote->getProximoArmazemNaRota();
 
-        // Se o pacote chegou ao seu destino final, ele não ocupará uma nova seção.
-        if (armazemChegadaId == -1) {
+        int idArmazemDonoSecao = chegada->armazemOrigemTransporte; 
+        int idSecaoDestinoSecao = chegada->pacote->getProximoArmazemNaRota(); 
+
+        if (idSecaoDestinoSecao == -1) { 
+            std::cout << "[DEBUG PLANO C] Pacote " << chegada->pacote->getIdUnico() << " e destino final na simulacao. Nao ocupa secao." << std::endl; // NOVO DEBUG
             delete chegada;
             continue;
         }
 
-        // Determina a seção que o pacote tentará ocupar no armazém de chegada.
-        ListaEncadeadaRota tempRota(*chegada->pacote->getRota()); // Create a copy of the package's current route
-        tempRota.Avanca(); // Simulate advancing the route
-        int proximoDestinoId = tempRota.GetProximoArmazem();
-        
-        SecaoSimulada* secaoSimuladaAlvo = planejador.BuscaSecao(armazemChegadaId, proximoDestinoId);
+        SecaoSimulada* secaoSimuladaAlvo = planejador.BuscaSecao(idArmazemDonoSecao, idSecaoDestinoSecao);
 
         if (secaoSimuladaAlvo) {
-            // --- LÓGICA CORRETA USANDO O MANIFESTO ---
-
-            // 1. Busca no manifesto o número exato de pacotes que sairão da seção de destino.
-            int numSaindoRealPrevisto = 0; // Renamed for clarity
+            int numSaindoRealPrevisto = 0; 
             ManifestoPartida* manifestoBusca = primeiroManifesto;
             while(manifestoBusca != nullptr){
-                if(manifestoBusca->idArmazem == armazemChegadaId && manifestoBusca->idSecao == proximoDestinoId){
+                if(manifestoBusca->idArmazem == idArmazemDonoSecao && manifestoBusca->idSecao == idSecaoDestinoSecao){
                     numSaindoRealPrevisto = manifestoBusca->contagemSaidas;
                     break;
                 }
                 manifestoBusca = manifestoBusca->proximo;
             }
 
-            // Get the *actual transport capacity* for this route (truck capacity)
-            int capacidadeTransporteDaRota = topologiaArmazens->GetCapacidadeAresta(armazemChegadaId, proximoDestinoId);
+            int capacidadeTransporteDaRota = topologiaArmazens->GetCapacidadeAresta(idArmazemDonoSecao, idSecaoDestinoSecao);
+            int numSaindoEfetivo = std::min(numSaindoRealPrevisto, capacidadeTransporteDaRota);
 
-            // The number of packages *actually leaving* this section should be capped by the transport capacity.
-            // This is a subtle point: The manifest counts how many *can* be transported *if there's space on the truck*.
-            // If the truck capacity is lower than `numSaindoRealPrevisto`, then only `capacidadeTransporteDaRota` packages will actually leave.
-            int numSaindoEfetivo = std::min(numSaindoRealPrevisto, capacidadeTransporteDaRota); // Use std::min
+            int ocupacaoFuturaDaFilaDeSaida = secaoSimuladaAlvo->pacotesPrevistos->getTamanho() + 1;
 
-            // 2. Calcula a ocupação líquida usando a contagem precisa do manifesto E a capacidade de transporte.
-            int ocupacaoInicial = secaoSimuladaAlvo->pacotesAtuais->getTamanho();
-            int chegadasJaSimuladas = secaoSimuladaAlvo->pacotesPrevistos->getTamanho();
-
-            // Ocupação Final = (Estavam lá - Vão Sair EFETIVAMENTE) + (Já chegaram na simulação) + 1 (este pacote)
-            int ocupacaoFinalPrevista = (ocupacaoInicial - numSaindoEfetivo) + chegadasJaSimuladas + 1;
-
-            if (ocupacaoFinalPrevista <= secaoSimuladaAlvo->capacidade) { // This `capacidade` is the storage capacity
-                // NÃO HÁ GARGALO: O espaço será liberado a tempo.
-                secaoSimuladaAlvo->pacotesPrevistos->empilhaPacote(chegada->pacote);
+            if (ocupacaoFuturaDaFilaDeSaida <= secaoSimuladaAlvo->capacidade) { 
+                std::cout << "[DEBUG PLANO C] Pacote " << chegada->pacote->getIdUnico() << " ACEITO na secao "
+                          << armazemESecaoFormatado(idArmazemDonoSecao, idSecaoDestinoSecao)
+                          << " (Ocupacao Prev: " << ocupacaoFuturaDaFilaDeSaida << ", Cap: " << secaoSimuladaAlvo->capacidade << ")" << std::endl; // NOVO DEBUG
+                secaoSimuladaAlvo->pacotesPrevistos->empilhaPacote(chegada->pacote); 
             } else {
-                // GARGALO REAL DETECTADO: Mesmo com as saídas, não haverá espaço.
-                std::cout << std::setw(7) << std::setfill('0') << tempoAtual << " pacote " << std::setw(3) << std::setfill('0') << chegada->pacote->getIdUnico()
-                          << " Congestionamento previsto no armazem "
-                          << armazemESecaoFormatado(armazemChegadaId, proximoDestinoId)
-                          << " (Ocupacao: " << ocupacaoFinalPrevista
-                          << ", Capacidade: " << secaoSimuladaAlvo->capacidade << ")" << std::endl;
-                secaoSimuladaAlvo->pacotesEmEspera.enfileira(chegada->pacote);
+                std::cout << "[DEBUG PLANO C] Pacote " << chegada->pacote->getIdUnico() << " CONGESTIONAMENTO na secao "
+                          << armazemESecaoFormatado(idArmazemDonoSecao, idSecaoDestinoSecao)
+                          << " (Ocupacao Prev: " << ocupacaoFuturaDaFilaDeSaida << ", Cap: " << secaoSimuladaAlvo->capacidade << "). Indo para ESPERA." << std::endl; // NOVO DEBUG
+                secaoSimuladaAlvo->pacotesEmEspera.enfileira(chegada->pacote); 
             }
+        } else {
+            std::cout << "[DEBUG PLANO C] Erro: Secao simulada " << armazemESecaoFormatado(idArmazemDonoSecao, idSecaoDestinoSecao) << " nao encontrada para Pacote " << chegada->pacote->getIdUnico() << std::endl; // NOVO DEBUG
         }
-        
-        delete chegada;
-    }
+        delete chegada; 
+
 
     // Limpeza da memória da lista de manifestos após o uso.
     ManifestoPartida* manifestoAtual = primeiroManifesto;
@@ -615,6 +655,28 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
 
 
             // --- SUCESSO NA REROTA: REMANEJAMENTO IMEDIATO ---
+
+            // 3. Atualiza a rota do objeto real.
+            // CUIDADO: novaRota é um objeto LOCAL. A cópia profunda acontece aqui.
+            ListaEncadeadaRota* novaRotaAlocada = new ListaEncadeadaRota(novaRota);
+            p->setRota(novaRotaAlocada); // p->setRota vai deletar a rota antiga e atribuir esta nova cópia
+
+            // --- Ponto de Verificação da Rota do Pacote ---
+            // Adicione estas linhas para depurar a rota recém-atribuída
+            std::cout << "[DEBUG RERROTA] Pacote " << p->getIdUnico() << " rerroteado. Nova rota: ";
+            p->getRota()->Imprime(); // Imprime a rota para ver se está correta
+            RotaNo* debugAtualNaRota = p->getRota()->GetAtualNaRota();
+            if (debugAtualNaRota != nullptr) {
+                std::cout << "[DEBUG RERROTA] atualNaRota: " << debugAtualNaRota->idArmazem;
+                if (debugAtualNaRota->proximo != nullptr) {
+                    std::cout << ", proximo idArmazem: " << debugAtualNaRota->proximo->idArmazem << std::endl;
+                } else {
+                    std::cout << ", proximo: nullptr" << std::endl;
+                }
+            } else {
+                std::cout << "[DEBUG RERROTA] atualNaRota: nullptr" << std::endl;
+            }
+            // --- Fim do Ponto de Verificação ---
             
             // 1. Encontra a pilha ONDE o pacote real está.
             int idArmazemReal;

@@ -1,22 +1,57 @@
-110
+100
 1
-4
-0 15 0 0
-15 0 20 25
-0 20 0 0
-0 25 0 0
-0 4 0 0
-4 0 2 3
-0 2 0 0
-0 3 0 0
-9
-10 pac 101 org 3 dst 2
-15 pac 102 org 2 dst 2
-20 pac 103 org 3 dst 2
-30 pac 104 org 3 dst 2
-30 pac 105 org 3 dst 2
-30 pac 106 org 3 dst 2
-30 pac 107 org 3 dst 2
-30 pac 108 org 3 dst 2
+1
+5
+0 10 0 5 0
+10 0 10 0 0
+0 10 0 0 5
+5 0 0 0 5
+0 0 5 5 0
+0 1 0 1 0
+1 0 1 0 0
+0 1 0 0 1
+1 0 0 0 1
+0 0 1 1 0
+3
+10 pac 101 org 0 dst 2
+10 pac 102 org 0 dst 2
+10 pac 103 org 0 dst 2
 
+100             // Intervalo de transporte (tempo para reagendar planejamento)
+1               // Custo de remoção por pacote
+1               // Capacidade de seção de armazenamento (força congestionamento rápido)
+5               // Número de armazéns (0, 1, 2, 3, 4)
 
+// Matriz de Latência (5x5)
+//       0   1   2   3   4
+// 0     0  10   0   5   0
+// 1    10   0  10   0   0
+// 2     0  10   0   0   5
+// 3     5   0   0   0   5
+// 4     0   0   5   5   0
+0 10 0 5 0
+10 0 10 0 0
+0 10 0 0 5
+5 0 0 0 5
+0 0 5 5 0
+
+// Matriz de Capacidade (de transporte) (5x5)
+// Assumindo capacidade 1 em todas as arestas ativas, para simplificar.
+// Se quiser testar rerrota por capacidade de *transporte* no caminhão, aumente aqui.
+// Mas para rerrota por congestionamento *de armazenamento na seção*, mantenha a capacidade de transporte alta o suficiente para não limitar ali.
+// Para este exemplo, manteremos capacidade de transporte 1 para não confundir.
+1 1 1 1 1 // Linha 0 (0->1 cap 1, 0->3 cap 1)
+1 1 1 1 1 // Linha 1 (1->0 cap 1, 1->2 cap 1)
+1 1 1 1 1 // Linha 2 (2->1 cap 1, 2->4 cap 1)
+1 1 1 1 1 // Linha 3 (3->0 cap 1, 3->4 cap 1)
+1 1 1 1 1 // Linha 4 (4->2 cap 1, 4->3 cap 1)
+0 1 0 1 0
+1 0 1 0 0
+0 1 0 0 1
+1 0 0 0 1
+0 0 1 1 0
+
+3               // Número de pacotes (para forçar congestionamento)
+10 pac 101 org 0 dst 2 // Pacote 0: 0 -> 1 -> 2 (Latência total: 10 + 10 = 20)
+10 pac 102 org 0 dst 2 // Pacote 1: 0 -> 1 -> 2 (Latência total: 10 + 10 = 20)
+10 pac 103 org 0 dst 2 // Pacote 2: 0 -> 1 -> 2 (Latência total: 10 + 10 = 20)
