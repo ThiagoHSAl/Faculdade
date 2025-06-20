@@ -412,21 +412,29 @@ PilhaPacotes* Transporte::EncontraPilhaDoPacote(int id, int& outIdArmazem) {
             TipoCelula* celula = secoes->GetPrimeiroCelula();
             while(celula != nullptr) {
                 PilhaPacotes* secaoReal = celula->pilhaSecao;
-                // Itera de forma segura, sem destruir a pilha
-                Pacote* p_atual = secaoReal->getPrimeiro();
-                while(p_atual != nullptr) {
-                    if (p_atual->getIdUnico() == id) {
-                        outIdArmazem = noBusca->armazem->GetIdArmazem();
-                        return secaoReal; // Retorna ponteiro para a pilha real
+                if(secaoReal) { // Safety check if the section's stack exists
+                    
+                    // --- START OF THE FIX ---
+                    // Correctly iterate through the stack using its internal node structure.
+                    // Do NOT use the Pacote::proximo pointer.
+                    PilhaPacotesNode* p_node_atual = secaoReal->getPrimeiroNode();
+                    while(p_node_atual != nullptr) {
+                        // Check if the node's package pointer is valid and if the ID matches
+                        if (p_node_atual->pacote != nullptr && p_node_atual->pacote->getIdUnico() == id) {
+                            outIdArmazem = noBusca->armazem->GetIdArmazem();
+                            return secaoReal; // Return pointer to the actual stack
+                        }
+                        // Move to the next node in the stack's linked list
+                        p_node_atual = secaoReal->getProximoNode(p_node_atual);
                     }
-                    p_atual = p_atual->getProximo();
+                    // --- END OF THE FIX ---
                 }
                 celula = celula->proximo;
             }
         }
         noBusca = noBusca->proximo;
     }
-    return nullptr; // Não encontrou
+    return nullptr; // Package was not found in any section
 }
 
 void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, double tempoAtual, Escalonador* escalonador) {
@@ -537,30 +545,34 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
     // --- PASSO C: SIMULAR FLUXO LÍQUIDO USANDO O MANIFESTO ---
     // Processa os pacotes ordenados por tempo de chegada previsto para simular congestionamento.
     while(!pacotesOrdenadosPorChegada.EstaVazia()) {
-        PacoteComPrevisao* chegada = pacotesOrdenadosPorChegada.ExtraiMin();
+        PacoteComPrevisao* chegada = pacotesOrdenadosPorChegada.ExtraiMin(); // Extrai o pacote com a menor previsão de chegada.
 
-        std::cout << "[DEBUG PLANO C] Processando Pacote " << chegada->pacote->getIdUnico()
-                  << " (OrigemPrev: " << chegada->armazemOrigemTransporte
-                  << ", ProxDest: " << chegada->pacote->getProximoArmazemNaRota()
-                  << ", TempoChegadaPrev: " << chegada->tempoChegada << ")" << std::endl; // NOVO DEBUG
-
+        // Verifica se o pacote ou sua rota são válidos.
         if (chegada->pacote == nullptr || chegada->pacote->getRota() == nullptr) {
             delete chegada;
             continue;
         }
 
+        // Determina qual é a seção *de saída* que este pacote vai tentar ocupar.
+        // idArmazemDonoSecao é o armazém de onde o pacote está sendo transportado neste ciclo simulado.
         int idArmazemDonoSecao = chegada->armazemOrigemTransporte; 
+        // idSecaoDestinoSecao é o próximo armazém na rota do pacote (o destino da seção de saída).
         int idSecaoDestinoSecao = chegada->pacote->getProximoArmazemNaRota(); 
 
+        // Se o próximo destino é -1, significa que o pacote chegaria ao seu destino final nesta etapa simulada.
+        // Nesses casos, ele não ocuparia uma seção de saída.
         if (idSecaoDestinoSecao == -1) { 
-            std::cout << "[DEBUG PLANO C] Pacote " << chegada->pacote->getIdUnico() << " e destino final na simulacao. Nao ocupa secao." << std::endl; // NOVO DEBUG
             delete chegada;
             continue;
         }
 
+        // Busca a SecaoSimulada correspondente a esta seção de saída no planejador.
         SecaoSimulada* secaoSimuladaAlvo = planejador.BuscaSecao(idArmazemDonoSecao, idSecaoDestinoSecao);
 
+        // Se a seção simulada alvo existe (deve existir se a topologia foi inicializada corretamente).
         if (secaoSimuladaAlvo) {
+            // Busca no manifesto o número exato de pacotes que sairão desta seção nesta previsão.
+            // O manifesto conta as intenções de saída para todas as rotas/seções.
             int numSaindoRealPrevisto = 0; 
             ManifestoPartida* manifestoBusca = primeiroManifesto;
             while(manifestoBusca != nullptr){
@@ -571,26 +583,33 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
                 manifestoBusca = manifestoBusca->proximo;
             }
 
+            // Obtém a capacidade real de transporte (do caminhão) para esta rota.
             int capacidadeTransporteDaRota = topologiaArmazens->GetCapacidadeAresta(idArmazemDonoSecao, idSecaoDestinoSecao);
-            int numSaindoEfetivo = std::min(numSaindoRealPrevisto, capacidadeTransporteDaRota);
 
-            int ocupacaoFuturaDaFilaDeSaida = secaoSimuladaAlvo->pacotesPrevistos->getTamanho() + 1;
+            // Calcula o número efetivo de pacotes que realmente conseguirão sair da seção, limitado pela capacidade do caminhão.
+            int numSaindoEfetivo = std::min(numSaindoRealPrevisto, capacidadeTransporteDaRota); 
+            int ocupacaoInicial = secaoSimuladaAlvo->pacotesAtuais->getTamanho(); // Pacotes na seção no início do ciclo.
+            int aprovadosParaSairNestaSimulacao = secaoSimuladaAlvo->pacotesPrevistos->getTamanho(); // Pacotes JÁ APROVADOS para sair nesta simulação do ciclo.
+            
+            int ocupacaoFuturaDaFilaDeSaida = secaoSimuladaAlvo->pacotesPrevistos->getTamanho() + 1; // +1 para o pacote atual.
 
-            if (ocupacaoFuturaDaFilaDeSaida <= secaoSimuladaAlvo->capacidade) { 
-                std::cout << "[DEBUG PLANO C] Pacote " << chegada->pacote->getIdUnico() << " ACEITO na secao "
-                          << armazemESecaoFormatado(idArmazemDonoSecao, idSecaoDestinoSecao)
-                          << " (Ocupacao Prev: " << ocupacaoFuturaDaFilaDeSaida << ", Cap: " << secaoSimuladaAlvo->capacidade << ")" << std::endl; // NOVO DEBUG
-                secaoSimuladaAlvo->pacotesPrevistos->empilhaPacote(chegada->pacote); 
+            // Verifica se a ocupação prevista excede a capacidade de armazenamento da seção.
+            if (ocupacaoFuturaDaFilaDeSaida <= secaoSimuladaAlvo->capacidade) {
+                // Não há gargalo: o espaço será liberado a tempo ou há espaço suficiente.
+                secaoSimuladaAlvo->pacotesPrevistos->empilhaPacote(chegada->pacote); // O pacote é aprovado para sair desta seção.
             } else {
-                std::cout << "[DEBUG PLANO C] Pacote " << chegada->pacote->getIdUnico() << " CONGESTIONAMENTO na secao "
-                          << armazemESecaoFormatado(idArmazemDonoSecao, idSecaoDestinoSecao)
-                          << " (Ocupacao Prev: " << ocupacaoFuturaDaFilaDeSaida << ", Cap: " << secaoSimuladaAlvo->capacidade << "). Indo para ESPERA." << std::endl; // NOVO DEBUG
-                secaoSimuladaAlvo->pacotesEmEspera.enfileira(chegada->pacote); 
+                // Gargalo real detectado: mesmo com as saídas, não haverá espaço para este pacote.
+                std::cout << std::setw(7) << std::setfill('0') << tempoAtual << " pacote " << std::setw(3) << std::setfill('0') << chegada->pacote->getIdUnico() 
+                          << " Congestionamento previsto na secao " 
+                          << armazemESecaoFormatado(idArmazemDonoSecao, idSecaoDestinoSecao) // Formata o log com os IDs da seção congestionada.
+                          << " (Ocupacao: " << ocupacaoFuturaDaFilaDeSaida 
+                          << ", Capacidade: " << secaoSimuladaAlvo->capacidade << ")" << std::endl;
+                secaoSimuladaAlvo->pacotesEmEspera.enfileira(chegada->pacote); // O pacote é colocado na fila de espera desta seção.
             }
-        } else {
-            std::cout << "[DEBUG PLANO C] Erro: Secao simulada " << armazemESecaoFormatado(idArmazemDonoSecao, idSecaoDestinoSecao) << " nao encontrada para Pacote " << chegada->pacote->getIdUnico() << std::endl; // NOVO DEBUG
         }
-        delete chegada; 
+        
+        delete chegada; // Libera a memória do PacoteComPrevisao
+    }
 
 
     // Limpeza da memória da lista de manifestos após o uso.
@@ -660,23 +679,6 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
             // CUIDADO: novaRota é um objeto LOCAL. A cópia profunda acontece aqui.
             ListaEncadeadaRota* novaRotaAlocada = new ListaEncadeadaRota(novaRota);
             p->setRota(novaRotaAlocada); // p->setRota vai deletar a rota antiga e atribuir esta nova cópia
-
-            // --- Ponto de Verificação da Rota do Pacote ---
-            // Adicione estas linhas para depurar a rota recém-atribuída
-            std::cout << "[DEBUG RERROTA] Pacote " << p->getIdUnico() << " rerroteado. Nova rota: ";
-            p->getRota()->Imprime(); // Imprime a rota para ver se está correta
-            RotaNo* debugAtualNaRota = p->getRota()->GetAtualNaRota();
-            if (debugAtualNaRota != nullptr) {
-                std::cout << "[DEBUG RERROTA] atualNaRota: " << debugAtualNaRota->idArmazem;
-                if (debugAtualNaRota->proximo != nullptr) {
-                    std::cout << ", proximo idArmazem: " << debugAtualNaRota->proximo->idArmazem << std::endl;
-                } else {
-                    std::cout << ", proximo: nullptr" << std::endl;
-                }
-            } else {
-                std::cout << "[DEBUG RERROTA] atualNaRota: nullptr" << std::endl;
-            }
-            // --- Fim do Ponto de Verificação ---
             
             // 1. Encontra a pilha ONDE o pacote real está.
             int idArmazemReal;
@@ -695,7 +697,7 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
             PilhaPacotes* pilhaNova = topologiaArmazens->GetArmazem(idArmazemReal)->GetSecao(idSecaoNova);
             
             if (pilhaNova) {
-                std::cout << tempoAtual << " pacote " << std::setw(3) << std::setfill('0') << p->getIdUnico() 
+                std::cout << std::setw(7) << std::setfill('0') << tempoAtual << " pacote " << std::setw(3) << std::setfill('0') << p->getIdUnico() 
                           << " REMANEJADO: Movido da secao " << pilhaAntiga->GetIDEnvio() 
                           << " para a secao " << idSecaoNova << " no armazem " << idArmazemReal << "." << std::endl;
                 
