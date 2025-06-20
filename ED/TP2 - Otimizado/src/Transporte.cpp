@@ -57,7 +57,7 @@ void Transporte::CoordenarCicloDeTransporte(Armazem* armazemOrigem, int idSecao,
     
     PilhaPacotes* pilhaReal = armazemOrigem->GetSecao(idSecao);
     if (!pilhaReal) return;
-
+    
     PilhaPacotes pacotesParaTransportar;
 
     // 2. Itera sobre a "ordem de serviço" (pacotes aprovados pelo planejador).
@@ -133,10 +133,8 @@ void Transporte::ProcessarTransporte(PilhaPacotes& pacotesProntos, PilhaPacotes&
             double latenciaDaRota = topologiaArmazens->GetLatenciaAresta(armazemOrigem->GetIdArmazem(), armazemDestino->GetIdArmazem());
             double tempoChegada = tempoFimRemocao + latenciaDaRota;
 
-            escalonador->AgendarEvento(new Evento(tempoChegada, EVENTO_ARMAZENAMENTO, new Pacote(*pacote), armazemDestino));
-            pacotesEnviados++;
+            escalonador->AgendarEvento(new Evento(tempoChegada, EVENTO_ARMAZENAMENTO, pacote, armazemDestino));            pacotesEnviados++;
         } else {
-            // O caminhão está cheio, este pacote sobra
             pacotesSobraram.empilhaPacote(pacote);
         }
     }
@@ -248,6 +246,7 @@ void Transporte::ProcessarChegadaInicial(Pacote* pacote, Armazem* armazemInicial
 }
 
 // --- Métodos Utilitários ---
+//Calcula a menor rota por Dijkstra aceitando um nó proibido, útil para rotas alternativas evitando congestionamento
 ListaEncadeadaRota Transporte::CalculaRotaDijkstra(int idOrigem, int idDestino, int idNoProibido) {
     if (topologiaArmazens == nullptr) {
         return ListaEncadeadaRota();
@@ -519,9 +518,8 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
             int ocupacaoInicial = secaoSimuladaAlvo->pacotesAtuais->getTamanho(); 
             int aprovadosParaSairNestaSimulacao = secaoSimuladaAlvo->pacotesPrevistos->getTamanho(); 
             
-            int ocupacaoFuturaDaFilaDeSaida = secaoSimuladaAlvo->pacotesPrevistos->getTamanho() + 1;
+            int ocupacaoFuturaDaFilaDeSaida = secaoSimuladaAlvo->pacotesPrevistos->getTamanho() + 1;//+1 pacote é o pacote que está chegando
 
-            // Verifica se a ocupação prevista excede a capacidade de armazenamento da seção.
             if (ocupacaoFuturaDaFilaDeSaida <= secaoSimuladaAlvo->capacidade) {
                 secaoSimuladaAlvo->pacotesPrevistos->empilhaPacote(chegada->pacote); 
             } else {
@@ -545,7 +543,7 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
         manifestoAtual = proximo;
     }
 
-    // --- PASSO D: ANALISAR PACOTES EM ESPERA E REMANEJAR IMEDIATAMENTE ---
+    // --- PASSO D: ANALISAR PACOTES EM ESPERA E REMANEJAR IMEDIATAMENTE SE POSSÍVEL---
     
     Fila<int> idsParaEspera;
 
@@ -554,6 +552,7 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
         Fila<Pacote*> copiaEspera = secaoSimuladaAtual->pacotesEmEspera;
         while (!copiaEspera.estaVazia()) {
             Pacote* p = copiaEspera.desenfileira();
+            //Calcula a menor rota que não passa pela seção congestionada
             ListaEncadeadaRota novaRota = CalculaRotaDijkstra(secaoSimuladaAtual->idArmazemDono, p->getArmazemDestino(), secaoSimuladaAtual->idSecaoDestino);
 
             // --- Início do Bloco de Decisão Refatorado ---
@@ -562,6 +561,7 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
                 std::cout << std::setw(7) << std::setfill('0') << tempoAtual << " pacote " << std::setw(3) << std::setfill('0') << p->getIdUnico() << " AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada." << std::endl;
                 continue; 
             }
+
             double latenciaNova = novaRota.CalculaLatenciaTotal(topologiaArmazens);
             double latenciaAntigaRestante = p->getRota()->CalculaLatenciaRestante(topologiaArmazens);
 
@@ -593,7 +593,9 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
             p->setRota(novaRotaAlocada); 
             int idArmazemReal;
             PilhaPacotes* pilhaAntiga = EncontraPilhaDoPacote(p->getIdUnico(), idArmazemReal);
+
             if (pilhaAntiga == nullptr) continue; 
+
             pilhaAntiga->RemovePacotePorId(p->getIdUnico());
             p->setRota(new ListaEncadeadaRota(novaRota));
             int idSecaoNova = p->getProximoArmazemNaRota();
@@ -638,7 +640,7 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
                     Pacote* p = pilhaDaSecao->getPrimeiro(); 
 
                     while(p != nullptr) {
-                        if(!idsParaEspera.contem(p->getIdUnico())) {
+                        if(!idsParaEspera.contem(p->getIdUnico())) {//se não está em espera foi aprovado
                             pacotesAprovadosNestaSecao.enfileira(p);
                         }
                         p = pilhaDaSecao->ObterProximoPacote(p);  

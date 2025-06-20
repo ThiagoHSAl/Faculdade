@@ -90,6 +90,9 @@ struct Evento {
     }
 
     ~Evento() {
+        if (this->tipo == EVENTO_ARMAZENAMENTO || this->tipo == EVENTO_CHEGADA_INICIAL) {
+        delete this->pacote; // "pacote" é o membro da classe Evento que guarda o Pacote*
+    }
     }
 
     bool operator>(const Evento& other) const {
