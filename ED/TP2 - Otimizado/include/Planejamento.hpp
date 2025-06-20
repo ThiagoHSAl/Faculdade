@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Pacote.hpp"
-#include "Fila.hpp" // Sua implementação de fila de pacotes
+#include "Fila.hpp" 
 
 // Descreve o estado futuro simulado de uma única seção de armazém.
 struct SecaoSimulada {
@@ -9,9 +9,9 @@ struct SecaoSimulada {
     int idSecaoDestino;
     int capacidade;
 
-    PilhaPacotes* pacotesAtuais;     // Pacotes que já estão na seção no início do ciclo.
-    PilhaPacotes* pacotesPrevistos;  // Pacotes que chegarão e caberão na seção.
-    Fila<Pacote*> pacotesEmEspera;   // Pacotes que chegarão mas não caberão (FIFO).
+    PilhaPacotes* pacotesAtuais;   
+    PilhaPacotes* pacotesPrevistos;  
+    Fila<Pacote*> pacotesEmEspera;  
 
     SecaoSimulada* proximo;
 
@@ -21,7 +21,6 @@ struct SecaoSimulada {
     bool temEspaco(int n) const;
 };
 
-// Gerencia a lista encadeada de todas as seções simuladas.
 class PlanejadorDeCiclo {
 private:
     SecaoSimulada* primeira;

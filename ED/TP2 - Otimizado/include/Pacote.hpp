@@ -100,43 +100,39 @@ public:
     PilhaPacotesNode(Pacote* p) : pacote(p), proximo(nullptr) {}
 };
 
-// In Pacote.hpp (or PilhaPacotes.hpp)
 class PilhaPacotes {
 private:
-    PilhaPacotesNode* primeiro; // Now points to an internal node
+    PilhaPacotesNode* primeiro; 
     int tamanho;
     int IDEnvio;
 
 public:
     PilhaPacotes();
     PilhaPacotes(int idEnvio);
-    ~PilhaPacotes(); // Needs to delete PilhaPacotesNode objects
+    ~PilhaPacotes(); 
 
     void empilhaPacote(Pacote* pacote);
     Pacote* desempilhaPacote();
-    void limpa(); // Needs to delete PilhaPacotesNode objects
+    void limpa();  
     int getTamanho() const;
     bool estaVazia() const;
     int GetIDEnvio() const;
     void Imprime();
     Pacote* RemovePacotePorId(int id);
-    Pacote* getPrimeiro() const; // Returns primeiro->pacote (if not nullptr)
+    Pacote* getPrimeiro() const; 
     Pacote* ObterProximoPacote(Pacote* atual) const;
     PilhaPacotesNode* getPrimeiroNode() const;
     PilhaPacotesNode* getProximoNode(PilhaPacotesNode* atual) const;
 
-    // Deep copy constructor for the node structure, but shallow copy of Pacote pointers
     PilhaPacotes(const PilhaPacotes& other);
-    // Deep copy assignment operator for the node structure, but shallow copy of Pacote pointers
     PilhaPacotes& operator=(const PilhaPacotes& other);
 };
 
 struct PacoteComPrevisao {
-    Pacote* pacote; // MUDANÇA: Agora é um ponteiro
+    Pacote* pacote; 
     double tempoChegada;
     int armazemOrigemTransporte;
 
-    // O construtor agora recebe um ponteiro
     PacoteComPrevisao(Pacote* p, double tempo, int origem);
 
     bool operator>(const PacoteComPrevisao& other) const;

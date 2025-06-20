@@ -55,7 +55,6 @@ public:
         vetorHeap = new T*[capacidade];
     }
 
-    // O destrutor limpa todos os ponteiros restantes no heap.
     ~MinHeap() {
         for (int i = 0; i < tamanhoAtual; i++) {
             delete vetorHeap[i];
@@ -63,7 +62,6 @@ public:
         delete[] vetorHeap;
     }
 
-    // Assinatura padronizada: sempre insere um ponteiro. O heap assume a posse.
     void Insere(T* novoItem) {
         if (tamanhoAtual == capacidade) {
             redimensionar();
@@ -73,7 +71,6 @@ public:
         heapifyUp(tamanhoAtual - 1);
     }
 
-    // Assinatura padronizada: retorna um ponteiro. Transfere a posse para quem chamou.
     T* ExtraiMin() {
         if (EstaVazia()) {
             return nullptr;
@@ -101,10 +98,7 @@ public:
         this->tamanhoAtual = other.tamanhoAtual;
         this->vetorHeap = new T*[this->capacidade];
 
-        // Cria uma nova cópia de cada item no heap original.
-        // Isso garante que a cópia seja totalmente independente.
         for (int i = 0; i < this->tamanhoAtual; i++) {
-            // Requer que o tipo T tenha um construtor de cópia.
             this->vetorHeap[i] = new T(*(other.vetorHeap[i]));
         }
     }

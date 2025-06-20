@@ -52,8 +52,6 @@ struct Evento {
         stringStream << std::setw(3) << std::setfill('0') << armazem->GetIdArmazem()
                     << std::setw(3) << std::setfill('0') << idSecao;
         } else {
-            // Se for um evento global (armazem nulo), usa um preenchimento padrão
-            // para garantir que a chave de prioridade continue única.
             stringStream << "000" << "000";
         }
 
@@ -78,17 +76,16 @@ struct Evento {
     Evento(double tempo, TipoEvento tipoEvento, Armazem* armazem, int idSecao, Fila<Pacote*>& pacotes) {
         this->tempoOcorrencia = tempo;
         this->tipo = tipoEvento;
-        this->pacote = nullptr; // Este evento não se refere a um único pacote
+        this->pacote = nullptr; 
         this->armazemAlvo = armazem;
         this->idSecao = idSecao;
-        this->pacotesParaTransportar = pacotes; // Copia a fila de pacotes
+        this->pacotesParaTransportar = pacotes; 
 
-        // Gera uma chave de prioridade única
         std::stringstream stringStream;
         stringStream << std::setw(6) << std::setfill('0') << static_cast<int>(tempo)
         << std::setw(3) << std::setfill('0') << armazem->GetIdArmazem()
         << std::setw(3) << std::setfill('0') << idSecao
-        << "3"; // Usa um dígito final diferente para garantir unicidade
+        << "3"; 
         this->chavePrioridade = stringStream.str();
     }
 

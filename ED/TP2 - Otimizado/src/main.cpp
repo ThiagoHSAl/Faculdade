@@ -4,7 +4,7 @@
 #include "Transporte.hpp"
 #include "Escalonador.hpp"
 #include "Pacote.hpp"
-#include <chrono> // Para medir o tempo
+#include <chrono> 
 
 int main(int argc, char** argv) {
     // --- Bloco 1: Leitura dos Parâmetros da Simulação ---
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
     for (int i = 0; i < numeroPacotes; ++i) {
         double timestamp;
         int id, origem, destino;
-        char junk_word[4]; // Buffer para consumir as palavras "pac", "org", "dst"
+        char junk_word[4]; 
 
         arquivo >> timestamp >> junk_word >> id >> junk_word >> origem >> junk_word >> destino;
         
@@ -91,10 +91,10 @@ int main(int argc, char** argv) {
     escalonador->RodaSimulacao();
     //topologia->ImprimeEstatisticasFinais();
     // --- Bloco 5: Limpeza de Memória ---
-   /* for (int i = 0; i < numeroPacotes; ++i) {
+    for (int i = 0; i < numeroPacotes; ++i) {
         delete todosPacotes[i];
     }
-    */
+    
     delete[] todosPacotes;
 
     delete escalonador;

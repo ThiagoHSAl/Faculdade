@@ -71,20 +71,20 @@ int ListaEncadeadaRota::GetTamanho() const {
 ListaEncadeadaRota::ListaEncadeadaRota(const ListaEncadeadaRota& other) :
     primeiro(nullptr), ultimo(nullptr), atualNaRota(nullptr), tamanho(0) {
     RotaNo* atualOther = other.primeiro;
+
     while (atualOther != nullptr) {
-        AdicionaArmazem(atualOther->idArmazem); // Cria novos RotaNo aqui
+        AdicionaArmazem(atualOther->idArmazem); 
         atualOther = atualOther->proximo;
     }
-    // Lógica para redefinir 'atualNaRota' na nova lista
+
     if (other.atualNaRota != nullptr) {
-        RotaNo* noTemporario = primeiro; // Posição atual na NOVA lista
-        RotaNo* otherNoTemporario = other.primeiro; // Posição atual na lista ORIGINAL
-        // Avança na NOVA lista e na ORIGINAL até encontrar a posição correspondente
+        RotaNo* noTemporario = primeiro; 
+        RotaNo* otherNoTemporario = other.primeiro; 
         while (otherNoTemporario != other.atualNaRota && noTemporario != nullptr) {
             otherNoTemporario = otherNoTemporario->proximo;
             noTemporario = noTemporario->proximo;
         }
-        atualNaRota = noTemporario; // Define 'atualNaRota' da NOVA lista
+        atualNaRota = noTemporario;
     } else {
         atualNaRota = nullptr;
     }
@@ -92,7 +92,6 @@ ListaEncadeadaRota::ListaEncadeadaRota(const ListaEncadeadaRota& other) :
 
 ListaEncadeadaRota& ListaEncadeadaRota::operator=(const ListaEncadeadaRota& other) {
     if (this != &other) {
-        // Limpar lista atual
         RotaNo* atual = primeiro;
         while (atual != nullptr) {
             RotaNo* proximo = atual->proximo;
@@ -173,7 +172,6 @@ double ListaEncadeadaRota::CalculaLatenciaRestante(TopologiaArmazens* topologia)
 }
 
 double ListaEncadeadaRota::CalculaLatenciaTotal(TopologiaArmazens* topologia) const {
-    // Se a rota não tem pelo menos dois nós, não há trechos para somar a latência.
     if (primeiro == nullptr || primeiro->proximo == nullptr) {
         return 0.0;
     }
@@ -186,7 +184,6 @@ double ListaEncadeadaRota::CalculaLatenciaTotal(TopologiaArmazens* topologia) co
         int idOrigem = noAtual->idArmazem;
         int idDestino = noAtual->proximo->idArmazem;
 
-        // Busca a latência da aresta na topologia.
         Armazem* armazemOrigem = topologia->GetArmazem(idOrigem);
         if (armazemOrigem) {
             SecoesArmazem* secoes = armazemOrigem->GetSecoes();

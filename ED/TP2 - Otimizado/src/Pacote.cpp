@@ -183,7 +183,6 @@ double Pacote::getTimestampPostagem() const {
     return this->timestampPostagem;
 }
 
-// Implementação do setter
 void Pacote::setTimestampPostagem(double ts) {
     this->timestampPostagem = ts;
 }
@@ -198,12 +197,12 @@ PilhaPacotes::PilhaPacotes() {
 PilhaPacotes::PilhaPacotes(int idEnvio) : primeiro(nullptr), tamanho(0), IDEnvio(idEnvio) {}
 
 PilhaPacotes::~PilhaPacotes() {
-    limpa(); // Call limpa to clean up nodes
+    limpa(); 
 }
 
 void PilhaPacotes::empilhaPacote(Pacote* pacote) {
     if (pacote == nullptr) return;
-    PilhaPacotesNode* novoNo = new PilhaPacotesNode(pacote); // Create a new internal node
+    PilhaPacotesNode* novoNo = new PilhaPacotesNode(pacote);
     novoNo->proximo = this->primeiro;
     this->primeiro = novoNo;
     this->tamanho++;
@@ -217,8 +216,8 @@ Pacote* PilhaPacotes::desempilhaPacote() {
     this->primeiro = this->primeiro->proximo;
     this->tamanho--;
     
-    noRetorno->proximo = nullptr; // Disconnect the node
-    delete noRetorno; // Delete the node, not the package
+    noRetorno->proximo = nullptr;
+    delete noRetorno; 
     return pacoteRetorno;
 }
 
@@ -226,7 +225,7 @@ void PilhaPacotes::limpa() {
     PilhaPacotesNode* atual = primeiro;
     while (atual != nullptr) {
         PilhaPacotesNode* proximoTemp = atual->proximo;
-        delete atual; // Delete the node, not the package it points to
+        delete atual; 
         atual = proximoTemp;
     }
     primeiro = nullptr;
@@ -258,13 +257,10 @@ void PilhaPacotes::Imprime() {
     std::cout << std::endl; 
 }
 
-// Implementação do construtor
 PacoteComPrevisao::PacoteComPrevisao(Pacote* p, double tempo, int origem)
     : pacote(p), tempoChegada(tempo), armazemOrigemTransporte(origem) {}
 
-// Implementação do operador de comparação
 bool PacoteComPrevisao::operator>(const PacoteComPrevisao& other) const {
-    // A prioridade é do menor tempo de chegada
     if (this->tempoChegada != other.tempoChegada) {
         return this->tempoChegada > other.tempoChegada;
     }
@@ -277,18 +273,16 @@ PilhaPacotes::PilhaPacotes(const PilhaPacotes& other) :
     primeiro(nullptr), tamanho(0), IDEnvio(other.IDEnvio) {
     
     if (other.primeiro == nullptr) {
-        return; // Nothing to copy
+        return; 
     }
 
-    // Use a temporary stack to reverse order for correct empilha
     PilhaPacotes temp;
     PilhaPacotesNode* currentOther = other.primeiro;
     while (currentOther != nullptr) {
-        temp.empilhaPacote(currentOther->pacote); // Empilha Pacote*
+        temp.empilhaPacote(currentOther->pacote);
         currentOther = currentOther->proximo;
     }
 
-    // Transfer from temporary stack to this stack (maintains original order)
     PilhaPacotesNode* tempCurrent = temp.primeiro;
     PilhaPacotesNode* prev = nullptr;
     while (tempCurrent != nullptr) {
@@ -303,34 +297,28 @@ PilhaPacotes::PilhaPacotes(const PilhaPacotes& other) :
         tamanho++;
         tempCurrent = tempCurrent->proximo;
     }
-    // Crucial: temp's destructor will delete its internal nodes, but not the actual Pacote objects.
-    // The temp.primeiro will be set to nullptr by temp's destructor, avoiding double deletion of nodes.
 }
 
 
-// Corrected Deep Copy Assignment Operator for PilhaPacotes
 PilhaPacotes& PilhaPacotes::operator=(const PilhaPacotes& other) {
     if (this == &other) {
         return *this;
     }
 
-    limpa(); // Clear existing nodes in 'this'
+    limpa();
 
     IDEnvio = other.IDEnvio;
 
     if (other.primeiro == nullptr) {
-        return *this; // Nothing to copy
+        return *this; 
     }
 
-    // Use a temporary stack to reverse order for correct empilha
     PilhaPacotes temp;
     PilhaPacotesNode* currentOther = other.primeiro;
     while (currentOther != nullptr) {
-        temp.empilhaPacote(currentOther->pacote); // Empilha Pacote*
+        temp.empilhaPacote(currentOther->pacote); 
         currentOther = currentOther->proximo;
     }
-
-    // Transfer from temporary stack to this stack (maintains original order)
     PilhaPacotesNode* tempCurrent = temp.primeiro;
     PilhaPacotesNode* prev = nullptr;
     while (tempCurrent != nullptr) {
@@ -345,7 +333,6 @@ PilhaPacotes& PilhaPacotes::operator=(const PilhaPacotes& other) {
         tamanho++;
         tempCurrent = tempCurrent->proximo;
     }
-    // temp's destructor cleans its nodes without affecting 'this' or original Pacotes.
     return *this;
 }
 
@@ -360,20 +347,20 @@ Pacote* PilhaPacotes::RemovePacotePorId(int id) {
         atual = atual->proximo;
     }
 
-    if (atual == nullptr) return nullptr; // Not found
+    if (atual == nullptr) return nullptr;
 
     Pacote* pacoteRemovido = atual->pacote;
 
-    if (anterior == nullptr) { // Removing the first node
+    if (anterior == nullptr) { 
         primeiro = atual->proximo;
     } else {
         anterior->proximo = atual->proximo;
     }
     
     tamanho--;
-    atual->proximo = nullptr; // Disconnect the node
-    delete atual; // Delete the node
-    return pacoteRemovido; // Return the package pointer
+    atual->proximo = nullptr; 
+    delete atual; 
+    return pacoteRemovido; 
 }
 
 Pacote* PilhaPacotes::getPrimeiro() const {
@@ -385,23 +372,21 @@ Pacote* PilhaPacotes::getPrimeiro() const {
 
 Pacote* PilhaPacotes::ObterProximoPacote(Pacote* atual) const {
     if (atual == nullptr) {
-        // If current is nullptr, return the first package (equivalent to getPrimeiro())
         return getPrimeiro();
     }
 
     PilhaPacotesNode* current_node = primeiro;
     while (current_node != nullptr) {
         if (current_node->pacote == atual) {
-            // Found the current package's node, return the package from the next node
             if (current_node->proximo != nullptr) {
                 return current_node->proximo->pacote;
             } else {
-                return nullptr; // No next package
+                return nullptr; 
             }
         }
         current_node = current_node->proximo;
     }
-    return nullptr; // Current package not found in this stack
+    return nullptr; 
 }
 
 PilhaPacotesNode* PilhaPacotes::getPrimeiroNode() const { return primeiro; }

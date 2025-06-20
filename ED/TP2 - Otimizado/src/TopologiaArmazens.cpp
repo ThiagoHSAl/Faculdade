@@ -126,7 +126,6 @@ void Armazem::ArmazenaPacote(Pacote* pacote, int idPilha) {
     if (secoes != nullptr) {
         PilhaPacotes* pilhaDestino = secoes->GetPilhaSecao(idPilha); 
         if (pilhaDestino != nullptr){
-            // A chamada agora passa o ponteiro diretamente
             pilhaDestino->empilhaPacote(pacote); 
         } else {
             std::cerr << "Erro: Secao para o armazem " << idPilha << " nao encontrada no Armazem " << this->idArmazem << std::endl;
@@ -178,7 +177,6 @@ TopologiaArmazens::~TopologiaArmazens() {
     while (atual != nullptr) {
         TopologiaArmazensVerticeNo *next = atual->proximo;
 
-        // Limpa os pacotes em todas as seções deste armazém
         SecoesArmazem* secoes = atual->armazem->GetSecoes();
         if (secoes) {
             TipoCelula* celula = secoes->GetPrimeiroCelula();
@@ -191,7 +189,6 @@ TopologiaArmazens::~TopologiaArmazens() {
                 celula = celula->proximo;
             }
         }
-        // Limpa os pacotes entregues neste armazém
         PilhaPacotes* final = atual->armazem->GetDestinoFinal();
         while(final && !final->estaVazia()){
             delete final->desempilhaPacote();
@@ -392,7 +389,7 @@ void TopologiaArmazens::ImprimeEstatisticasFinais() {
                           << " | Tempo em Transito Total: " << std::fixed << std::setprecision(2) << pacote->getTempoEmTransito()
                           << std::endl;
                 
-                pilha_temp.empilhaPacote(pacote); // empilhaPacote agora recebe Pacote*
+                pilha_temp.empilhaPacote(pacote);
             }
 
             while (!pilha_temp.estaVazia()) {
@@ -415,27 +412,21 @@ double TopologiaArmazens::GetLatenciaAresta(int idOrigem, int idDestino) const {
             }
         }
     }
-    return -1.0; // Retorna -1 se a aresta não for encontrada
+    return -1.0;
 }
 
 int TopologiaArmazens::GetCapacidadeAresta(int idOrigem, int idDestino) const{
-    // 1. Encontra o nó do armazém de origem na topologia.
     TopologiaArmazensVerticeNo* noOrigem = this->EncontraNoVertice(idOrigem);
     
     if (noOrigem != nullptr) {
-        // 2. Obtém a lista de seções adjacentes.
         SecoesArmazem* secoes = noOrigem->secoesAdjacentes;
         if (secoes != nullptr) {
-            // 3. Encontra a célula específica que leva ao destino.
             TipoCelula* celulaSecao = secoes->EncontraSecao(idDestino);
             if (celulaSecao != nullptr) {
-                // 4. Retorna a capacidade armazenada na informação da aresta.
                 return celulaSecao->infoAresta.capacidade;
             }
         }
     }
-
-    // Retorna um valor de erro se a rota não for encontrada.
     return -1;
 }
 
