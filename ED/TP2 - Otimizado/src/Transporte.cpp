@@ -679,6 +679,7 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
             // CUIDADO: novaRota é um objeto LOCAL. A cópia profunda acontece aqui.
             ListaEncadeadaRota* novaRotaAlocada = new ListaEncadeadaRota(novaRota);
             p->setRota(novaRotaAlocada); // p->setRota vai deletar a rota antiga e atribuir esta nova cópia
+
             
             // 1. Encontra a pilha ONDE o pacote real está.
             int idArmazemReal;

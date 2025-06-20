@@ -1,0 +1,127 @@
+Com certeza! Baseado no modelo de topologia, capacidade e custos que você forneceu, gerei 4 arquivos de entrada distintos para testar diferentes cenários lógicos do seu simulador.
+
+Cada cenário foi projetado para verificar um comportamento específico do planejador de rotas.
+
+---
+
+### Cenário 1: Transporte Normal (Sem Conflitos)
+
+**Objetivo:** Verificar se um pacote segue a rota ótima (`0 -> 3 -> 4 -> 2`) sem nenhum tipo de interferência ou reroteamento.
+
+**Lógica:** Com apenas um pacote no sistema, não haverá congestionamento, pois a capacidade de transporte e armazenamento (1) nunca será excedida.
+
+**`input_normal.txt`**
+```
+100
+1
+1
+5
+0 10 0 5 0
+10 0 10 0 0
+0 10 0 0 5
+5 0 0 0 5
+0 0 5 5 0
+0 1 0 1 0
+1 0 1 0 0
+0 1 0 0 1
+1 0 0 0 1
+0 0 1 1 0
+1
+10 pac 101 org 0 dst 2
+```
+
+---
+
+### Cenário 2: Reroteamento por Congestionamento
+
+**Objetivo:** Forçar um congestionamento na rota principal para testar se o planejador consegue encontrar e utilizar uma rota alternativa com sucesso.
+
+**Lógica:** Dois pacotes são enviados do mesmo local para o mesmo destino ao mesmo tempo. A rota ótima (`0 -> 3`) tem capacidade para apenas um. O planejador deve enviar o primeiro pacote pela rota ótima e remanejar (`REMANEJADO`) o segundo para a rota alternativa (`0 -> 1 -> 2`).
+
+**`input_reroteamento.txt`**
+```
+100
+1
+1
+5
+0 10 0 5 0
+10 0 10 0 0
+0 10 0 0 5
+5 0 0 0 5
+0 0 5 5 0
+0 1 0 1 0
+1 0 1 0 0
+0 1 0 0 1
+1 0 0 0 1
+0 0 1 1 0
+2
+10 pac 101 org 0 dst 2
+10 pac 102 org 0 dst 2
+```
+
+---
+
+### Cenário 3: Pacote Forçado a Esperar (Sem Rota Alternativa Viável)
+
+**Objetivo:** Criar um congestionamento na rota principal e, ao mesmo tempo, bloquear a rota alternativa, forçando um dos pacotes a aguardar o próximo ciclo de transporte.
+
+**Lógica:** Três pacotes são postados ao mesmo tempo no armazém 0.
+1.  `pac 101` e `pac 102` (destino 2) criarão o congestionamento na seção `0 -> 3`.
+2.  `pac 301` (destino 1) ocupará imediatamente a primeira parte da rota alternativa (`0 -> 1`).
+3.  Quando o planejador tentar rerotear o pacote congestionado (ex: `pac 102`), ele encontrará a rota alternativa (`0 -> 1`) também ocupada. Sem outra opção viável, o pacote deverá receber uma mensagem de "AGUARDANDO PROXIMO CICLO".
+
+**`input_espera.txt`**
+```
+100
+1
+1
+5
+0 10 0 5 0
+10 0 10 0 0
+0 10 0 0 5
+5 0 0 0 5
+0 0 5 5 0
+0 1 0 1 0
+1 0 1 0 0
+0 1 0 0 1
+1 0 0 0 1
+0 0 1 1 0
+3
+10 pac 101 org 0 dst 2
+10 pac 102 org 0 dst 2
+10 pac 301 org 0 dst 1
+```
+
+---
+
+### Cenário 4: Situação Complexa com Múltiplos Conflitos
+
+**Objetivo:** Testar a robustez do planejador em um cenário mais dinâmico com pacotes de diferentes origens e destinos, criando potenciais conflitos em vários pontos da rede.
+
+**Lógica:**
+* `pac 101` e `102` criam o conflito inicial em `0 -> 3`. `pac 102` deve ser reroteado via `0 -> 1 -> 2`.
+* `pac 201` (de `1` para `4`) tem como rota ótima `1 -> 2 -> 4`. Ele pode entrar em conflito com `pac 102` quando ambos tentarem chegar ou sair do armazém `2`.
+* `pac 401` cria um fluxo no sentido contrário na rede, testando a capacidade do planejador de lidar com tráfego bidirecional.
+
+**`input_complexo.txt`**
+```
+100
+1
+1
+5
+0 10 0 5 0
+10 0 10 0 0
+0 10 0 0 5
+5 0 0 0 5
+0 0 5 5 0
+0 1 0 1 0
+1 0 1 0 0
+0 1 0 0 1
+1 0 0 0 1
+0 0 1 1 0
+4
+10 pac 101 org 0 dst 2
+10 pac 102 org 0 dst 2
+15 pac 201 org 1 dst 4
+20 pac 401 org 4 dst 1
+```

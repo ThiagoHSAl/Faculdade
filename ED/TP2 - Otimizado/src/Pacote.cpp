@@ -250,15 +250,12 @@ void PilhaPacotes::Imprime() {
         std::cout << "Vazia";
         return;
     }
-    // Now 'primeiro' points to a PilhaPacotesNode, not directly to a Pacote*
     PilhaPacotesNode* atualNode = primeiro; 
     while (atualNode != nullptr) {
-        // Access the Pacote* from the node
         std::cout << atualNode->pacote->getIdUnico() << " "; 
-        // Move to the next PilhaPacotesNode
         atualNode = atualNode->proximo; 
     }
-    std::cout << std::endl; // Added for cleaner output after printing all IDs
+    std::cout << std::endl; 
 }
 
 // Implementação do construtor
