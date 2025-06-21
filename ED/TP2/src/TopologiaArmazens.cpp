@@ -359,7 +359,6 @@ void TopologiaArmazens::ImprimeEstatisticasFinais() {
     TopologiaArmazensVerticeNo* v_node = this->primeiroVertice;
     while (v_node != nullptr) {
         Armazem* armazem_atual = v_node->armazem;
-        // Presume-se que a classe Armazem tenha um método GetDestinoFinal()
         PilhaPacotes* pilha_entregues = armazem_atual->GetDestinoFinal();
 
         if (pilha_entregues != nullptr && !pilha_entregues->estaVazia()) {
@@ -372,8 +371,9 @@ void TopologiaArmazens::ImprimeEstatisticasFinais() {
                 Pacote pacote = pilha_entregues->desempilhaPacote();
                 
                 std::cout << "  - Pacote ID: " << std::setw(3) << std::setfill('0') << pacote.getIdUnico()
-                          << " | Tempo Armazenado Total: " << std::fixed << std::setprecision(2) << pacote.getTempoArmazenado()
-                          << " | Tempo em Transito Total: " << std::fixed << std::setprecision(2) << pacote.getTempoEmTransito()
+                          << " | Tempo para ser entregue: " << std::fixed << std::setprecision(2) << pacote.getTempoEmTransito() +  pacote.getTempoArmazenado()
+                          << " | Tempo Armazenado: " << std::fixed << std::setprecision(2) << pacote.getTempoArmazenado()
+                          << " | Tempo em Transito: " << std::fixed << std::setprecision(2) << pacote.getTempoEmTransito()
                           << std::endl;
                 
                 pilha_temp.empilhaPacote(pacote);

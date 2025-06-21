@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
     
     escalonador->InicializaSimulacao(todosPacotes, numeroPacotes);
     escalonador->RodaSimulacao();
-    //topologia->ImprimeEstatisticasFinais();
+    topologia->ImprimeEstatisticasFinais();
     // --- Bloco 5: Limpeza de Memória ---
    /* for (int i = 0; i < numeroPacotes; ++i) {
         delete todosPacotes[i];
@@ -95,11 +95,11 @@ int main(int argc, char** argv) {
 
     // Calcula a duração
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time); // 
-    /*
+    
     // Imprime o tempo de execução (Exemplo: ao final da saída, ou como uma estatística final)
     std::cout << "\n--- ESTATISTICAS DE DESEMPENHO ---" << std::endl;
     std::cout << "Tempo de Execucao da Simulacao: " << duration.count() << " micro s" << std::endl; // 
-    std::cout << "------------------------------------" << std::endl;*/
+    std::cout << "------------------------------------" << std::endl;
 
     return 0;
 }
