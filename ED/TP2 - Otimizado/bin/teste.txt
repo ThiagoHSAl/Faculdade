@@ -126,7 +126,7 @@ Cada cenário foi projetado para verificar um comportamento específico do plane
 20 pac 401 org 4 dst 1
 ```
 
-2 reroteamentos
+dois reroteamentos
 100
 1
 1

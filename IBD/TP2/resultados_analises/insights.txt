@@ -1,0 +1,108 @@
+Análise 1: Distribuição de Alunos por Campus
+
+Gráfico de Referência: 1_alunos_por_campus.png 
+
+
+Insights:
+
+Concentração em Vitória: Fica evidente que o Campus Vitória é o maior em número de alunos, superando consideravelmente todos os outros.
+
+Campi Intermediários: Existe um segundo escalão de campi com um número significativo de alunos, como Serra e Vila Velha.
+
+Campi Menores: Campi como Venda Nova do Imigrante, Ibatiba e Montanha possuem uma base de alunos muito menor, indicando operações em menor escala ou foco em áreas mais específicas.
+
+
+Análise e Direcionamento Estratégico:
+Os dados indicam uma forte centralização das operações no Campus Vitória. Para a gestão, isso levanta questões importantes: Essa concentração é intencional e estratégica? Ou indica uma oportunidade de crescimento para os campi menores? A alocação de recursos (financeiros, humanos e de infraestrutura) deve refletir essa distribuição, mas também pode ser usada para fomentar o desenvolvimento dos campi com menor número de alunos, talvez com a oferta de novos cursos de alta demanda para atrair mais estudantes para essas localidades.
+
+
+Análise 2: Demanda por Curso
+
+Gráfico de Referência: 2_demanda_por_curso.png 
+
+
+Insights:
+
+Domínio de Engenharia e Tecnologia: Os cursos com maior número de matrículas são predominantemente da área de engenharia e tecnologia, como Engenharia Mecânica, Engenharia Elétrica e Sistemas de Informação.
+
+Alta Procura por Administração: O curso de Bacharelado em Administração também se destaca como um dos mais procurados, mostrando sua relevância contínua.
+
+Demanda Nichada: Cursos de Licenciatura e outros bacharelados, embora importantes, aparecem com uma demanda quantitativamente menor em comparação com os cursos de tecnologia.
+
+Análise e Direcionamento Estratégico:
+A instituição possui uma clara vocação para as áreas de STEM (Ciência, Tecnologia, Engenharia e Matemática). A alta demanda por esses cursos sugere uma oportunidade para expandir vagas ou criar especializações. Por outro lado, a menor procura por cursos de licenciatura pode ser um ponto de atenção. Seria interessante cruzar esses dados com a empregabilidade local para avaliar se a oferta de cursos está alinhada com as necessidades do mercado de trabalho.
+
+
+Análise 3: Distribuição de Gênero por Departamento
+
+Gráfico de Referência: 3_genero_por_departamento.png 
+
+
+Insights:
+
+
+Disparidade em Engenharias: O departamento de "Engenharias e Tecnologia" é massivamente dominado por alunos do sexo masculino (M).
+
+Predominância Feminina em Humanas: Em contrapartida, o departamento de "Ciências Humanas e Sociais" apresenta uma clara maioria de alunas do sexo feminino (F).
+
+Padrão em Outras Áreas: Os departamentos de "Ciências Exatas e da Natureza" e "Ciências Agrárias" também mostram uma maioria masculina, embora a disparidade seja menos acentuada que nas engenharias.
+
+
+Análise e Direcionamento Estratégico:
+Este gráfico revela uma forte segregação de gênero por área de conhecimento dentro da instituição. Este é um insight valioso para direcionar políticas de diversidade e inclusão. A instituição poderia desenvolver programas para incentivar a participação feminina em cursos de tecnologia e engenharia, e talvez campanhas para atrair mais homens para as áreas de educação e ciências sociais, promovendo um ambiente acadêmico mais equilibrado.
+
+
+Análise 4: Tendência de Ingressantes
+
+Gráfico de Referência: 4_tendencia_ingressantes.png 
+
+
+Insights:
+
+
+Sazonalidade: Há um padrão claro de ingresso, com picos consistentemente maiores no primeiro semestre de cada ano (/1) em comparação com o segundo (/2).
+
+Impacto da Pandemia e Recuperação: Nota-se uma queda acentuada nos ingressos por volta de 2020/2 e 2021/1, coincidindo com o auge da pandemia de COVID-19. No entanto, a instituição demonstrou uma recuperação robusta, com os números de 2023 e 2024 ultrapassando os níveis pré-pandêmicos.
+
+Crescimento Recente: O período de 2024/1 representa o maior pico de ingressantes em toda a série histórica analisada, indicando um momento de forte crescimento e captação de alunos.
+
+Análise e Direcionamento Estratégico:
+A capacidade de recuperação pós-pandemia e o crescimento recorde em 2024 são indicadores de sucesso das estratégias de admissão. A análise da sazonalidade (maior entrada no primeiro semestre) pode ser usada para otimizar o planejamento de marketing e eventos de captação, concentrando esforços nos meses que antecedem o início do ano letivo.
+
+
+Análise 5: Cursos com Alunos em Potencial Atraso
+
+Gráfico de Referência: 5_atrasados_por_curso.png 
+
+
+Insights:
+
+Foco em Cursos Específicos: O problema de retenção (alunos que ingressaram antes de 2020 e ainda estão na base de dados) não é uniforme. Ele está fortemente concentrado em cursos como "Engenharia de Controle e Automação" e "Sistemas de Informação".
+
+Relevância do Turno: Para "Engenharia de Controle e Automação", tanto o turno Integral quanto o Noturno aparecem no topo da lista, sugerindo que o desafio está no curso em si, e não apenas no perfil do aluno de um turno específico.
+
+Análise e Direcionamento Estratégico:
+Este é talvez o insight mais acionável para a gestão acadêmica. A alta concentração de alunos antigos em cursos específicos de tecnologia sugere a necessidade de uma investigação direcionada. A instituição deve analisar as taxas de evasão e as causas do atraso nesses cursos. As razões podem variar desde alta dificuldade das disciplinas até desatualização curricular ou falta de infraestrutura. A criação de programas de tutoria e reforço para esses cursos deve ser considerada uma prioridade.
+
+
+Análise 6: Perfil dos Ingressantes de 2024 por Turno
+Gráfico de Referência: 6_ingressantes_2024_por_turno.png
+Dados de Referência: 6_ingressantes_2024_por_turno.csv
+
+Insights:
+
+
+Preferência pelo Turno Integral: A maioria dos novos alunos que ingressaram em 2024 optou pelo turno Integral, que concentrou 137 estudantes.
+
+Forte Demanda pelo Turno Noturno: Apesar da liderança do turno Integral, o turno Noturno também demonstra uma demanda extremamente robusta, sendo a escolha de 112 ingressantes, o que corresponde a quase 45% do total de novos alunos no período.
+
+Distribuição Equilibrada: Não há uma dominância esmagadora de um turno sobre o outro. A divisão (aproximadamente 55% para Integral e 45% para Noturno) indica que a instituição atende com sucesso a dois perfis distintos de estudantes: aqueles com disponibilidade diurna e aqueles que provavelmente trabalham e precisam de horários noturnos.
+
+Análise e Direcionamento Estratégico:
+O equilíbrio na procura entre os turnos Integral e Noturno é um indicador de saúde e alcance da instituição. Isso demonstra que a oferta de cursos está bem alinhada com as necessidades de diferentes públicos.
+
+Para a gestão, isso implica duas ações estratégicas principais:
+
+Garantia de Qualidade e Recursos: É fundamental que a instituição garanta que os recursos (laboratórios, bibliotecas, serviços de apoio ao estudante) e a qualidade do corpo docente estejam igualmente disponíveis para ambos os turnos. A forte demanda noturna justifica investimentos contínuos para que a experiência do aluno seja equivalente à do turno integral.
+
+Planejamento de Novos Cursos: Ao planejar a expansão ou a criação de novos cursos, especialmente os de alta demanda (como os de Engenharia e Tecnologia, vistos na Análise 2), deve-se considerar seriamente a oferta de turmas no período noturno. Isso pode ser um fator decisivo para maximizar a captação de novos alunos e atender a uma parcela importante da população que trabalha.

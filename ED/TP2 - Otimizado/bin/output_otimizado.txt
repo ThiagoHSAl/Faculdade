@@ -1,0 +1,938 @@
+0000010 pacote 000 armazenado em 000 na secao 001
+0000010 pacote 001 armazenado em 000 na secao 001
+0000010 pacote 002 armazenado em 000 na secao 001
+0000010 pacote 003 armazenado em 000 na secao 001
+0000010 pacote 004 armazenado em 000 na secao 001
+0000010 pacote 005 armazenado em 000 na secao 001
+0000010 pacote 006 armazenado em 000 na secao 001
+0000010 pacote 007 armazenado em 000 na secao 001
+0000010 pacote 008 armazenado em 000 na secao 001
+0000010 pacote 009 armazenado em 000 na secao 001
+0000010 pacote 010 armazenado em 000 na secao 001
+0000010 pacote 011 armazenado em 000 na secao 001
+0000010 pacote 012 armazenado em 000 na secao 001
+0000010 pacote 013 armazenado em 000 na secao 001
+0000010 pacote 014 armazenado em 000 na secao 001
+0000010 pacote 015 armazenado em 000 na secao 001
+0000010 pacote 016 armazenado em 000 na secao 001
+0000010 pacote 017 armazenado em 000 na secao 001
+0000010 pacote 018 armazenado em 000 na secao 001
+0000010 pacote 019 armazenado em 000 na secao 001
+0000010 pacote 020 armazenado em 000 na secao 001
+0000010 pacote 021 armazenado em 000 na secao 001
+0000010 pacote 022 armazenado em 000 na secao 001
+0000010 pacote 023 armazenado em 000 na secao 001
+0000010 pacote 024 armazenado em 000 na secao 001
+0000010 pacote 025 armazenado em 000 na secao 001
+0000010 pacote 026 armazenado em 000 na secao 001
+0000010 pacote 027 armazenado em 000 na secao 001
+0000010 pacote 028 armazenado em 000 na secao 001
+0000010 pacote 029 armazenado em 000 na secao 001
+0000010 pacote 030 armazenado em 000 na secao 001
+0000010 pacote 031 armazenado em 000 na secao 001
+0000010 pacote 032 armazenado em 000 na secao 001
+0000010 pacote 033 armazenado em 000 na secao 001
+0000010 pacote 034 armazenado em 000 na secao 001
+0000010 pacote 035 armazenado em 000 na secao 001
+0000010 pacote 036 armazenado em 000 na secao 001
+0000010 pacote 037 armazenado em 000 na secao 001
+0000010 pacote 038 armazenado em 000 na secao 001
+0000010 pacote 039 armazenado em 000 na secao 001
+0000010 pacote 040 armazenado em 000 na secao 001
+0000010 pacote 041 armazenado em 000 na secao 001
+0000010 pacote 042 armazenado em 000 na secao 001
+0000010 pacote 043 armazenado em 000 na secao 001
+0000010 pacote 044 armazenado em 000 na secao 001
+0000010 pacote 045 armazenado em 000 na secao 001
+0000010 pacote 046 armazenado em 000 na secao 001
+0000010 pacote 047 armazenado em 000 na secao 001
+0000010 pacote 048 armazenado em 000 na secao 001
+0000010 pacote 049 armazenado em 000 na secao 001
+0000110 pacote 005 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 006 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 007 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 008 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 009 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 010 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 011 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 012 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 013 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 014 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 015 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 016 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 017 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 018 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 019 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 020 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 021 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 022 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 023 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 024 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 025 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 026 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 027 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 028 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 029 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 030 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 031 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 032 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 033 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 034 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 035 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 036 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 037 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 038 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 039 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 040 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 041 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 042 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 043 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 044 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 045 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 046 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 047 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 048 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 049 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000110 pacote 005 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 006 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 007 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 008 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 009 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 010 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 011 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 012 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 013 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 014 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 015 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 016 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 017 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 018 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 019 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 020 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 021 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 022 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 023 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 024 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 025 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 026 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 027 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 028 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 029 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 030 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 031 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 032 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 033 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 034 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 035 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 036 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 037 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 038 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 039 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 040 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 041 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 042 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 043 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 044 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 045 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 046 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 047 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 048 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000110 pacote 049 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000111 pacote 004 removido de 000 na secao 001
+0000112 pacote 003 removido de 000 na secao 001
+0000113 pacote 002 removido de 000 na secao 001
+0000114 pacote 001 removido de 000 na secao 001
+0000115 pacote 000 removido de 000 na secao 001
+0000115 pacote 000 em transito de 000 para 001
+0000115 pacote 001 rearmazenado em 000 na secao 001
+0000115 pacote 002 rearmazenado em 000 na secao 001
+0000115 pacote 003 rearmazenado em 000 na secao 001
+0000115 pacote 004 rearmazenado em 000 na secao 001
+0000111 pacote 049 removido de 000 na secao 002
+0000112 pacote 048 removido de 000 na secao 002
+0000113 pacote 047 removido de 000 na secao 002
+0000114 pacote 046 removido de 000 na secao 002
+0000115 pacote 045 removido de 000 na secao 002
+0000116 pacote 044 removido de 000 na secao 002
+0000117 pacote 043 removido de 000 na secao 002
+0000118 pacote 042 removido de 000 na secao 002
+0000119 pacote 041 removido de 000 na secao 002
+0000120 pacote 040 removido de 000 na secao 002
+0000121 pacote 039 removido de 000 na secao 002
+0000122 pacote 038 removido de 000 na secao 002
+0000123 pacote 037 removido de 000 na secao 002
+0000124 pacote 036 removido de 000 na secao 002
+0000125 pacote 035 removido de 000 na secao 002
+0000126 pacote 034 removido de 000 na secao 002
+0000127 pacote 033 removido de 000 na secao 002
+0000128 pacote 032 removido de 000 na secao 002
+0000129 pacote 031 removido de 000 na secao 002
+0000130 pacote 030 removido de 000 na secao 002
+0000131 pacote 029 removido de 000 na secao 002
+0000132 pacote 028 removido de 000 na secao 002
+0000133 pacote 027 removido de 000 na secao 002
+0000134 pacote 026 removido de 000 na secao 002
+0000135 pacote 025 removido de 000 na secao 002
+0000136 pacote 024 removido de 000 na secao 002
+0000137 pacote 023 removido de 000 na secao 002
+0000138 pacote 022 removido de 000 na secao 002
+0000139 pacote 021 removido de 000 na secao 002
+0000140 pacote 020 removido de 000 na secao 002
+0000141 pacote 019 removido de 000 na secao 002
+0000142 pacote 018 removido de 000 na secao 002
+0000143 pacote 017 removido de 000 na secao 002
+0000144 pacote 016 removido de 000 na secao 002
+0000145 pacote 015 removido de 000 na secao 002
+0000146 pacote 014 removido de 000 na secao 002
+0000147 pacote 013 removido de 000 na secao 002
+0000148 pacote 012 removido de 000 na secao 002
+0000149 pacote 011 removido de 000 na secao 002
+0000150 pacote 010 removido de 000 na secao 002
+0000151 pacote 009 removido de 000 na secao 002
+0000152 pacote 008 removido de 000 na secao 002
+0000153 pacote 007 removido de 000 na secao 002
+0000154 pacote 006 removido de 000 na secao 002
+0000155 pacote 005 removido de 000 na secao 002
+0000155 pacote 005 em transito de 000 para 002
+0000155 pacote 006 em transito de 000 para 002
+0000155 pacote 007 em transito de 000 para 002
+0000155 pacote 008 em transito de 000 para 002
+0000155 pacote 009 em transito de 000 para 002
+0000155 pacote 010 em transito de 000 para 002
+0000155 pacote 011 em transito de 000 para 002
+0000155 pacote 012 em transito de 000 para 002
+0000155 pacote 013 em transito de 000 para 002
+0000155 pacote 014 em transito de 000 para 002
+0000155 pacote 015 rearmazenado em 000 na secao 002
+0000155 pacote 016 rearmazenado em 000 na secao 002
+0000155 pacote 017 rearmazenado em 000 na secao 002
+0000155 pacote 018 rearmazenado em 000 na secao 002
+0000155 pacote 019 rearmazenado em 000 na secao 002
+0000155 pacote 020 rearmazenado em 000 na secao 002
+0000155 pacote 021 rearmazenado em 000 na secao 002
+0000155 pacote 022 rearmazenado em 000 na secao 002
+0000155 pacote 023 rearmazenado em 000 na secao 002
+0000155 pacote 024 rearmazenado em 000 na secao 002
+0000155 pacote 025 rearmazenado em 000 na secao 002
+0000155 pacote 026 rearmazenado em 000 na secao 002
+0000155 pacote 027 rearmazenado em 000 na secao 002
+0000155 pacote 028 rearmazenado em 000 na secao 002
+0000155 pacote 029 rearmazenado em 000 na secao 002
+0000155 pacote 030 rearmazenado em 000 na secao 002
+0000155 pacote 031 rearmazenado em 000 na secao 002
+0000155 pacote 032 rearmazenado em 000 na secao 002
+0000155 pacote 033 rearmazenado em 000 na secao 002
+0000155 pacote 034 rearmazenado em 000 na secao 002
+0000155 pacote 035 rearmazenado em 000 na secao 002
+0000155 pacote 036 rearmazenado em 000 na secao 002
+0000155 pacote 037 rearmazenado em 000 na secao 002
+0000155 pacote 038 rearmazenado em 000 na secao 002
+0000155 pacote 039 rearmazenado em 000 na secao 002
+0000155 pacote 040 rearmazenado em 000 na secao 002
+0000155 pacote 041 rearmazenado em 000 na secao 002
+0000155 pacote 042 rearmazenado em 000 na secao 002
+0000155 pacote 043 rearmazenado em 000 na secao 002
+0000155 pacote 044 rearmazenado em 000 na secao 002
+0000155 pacote 045 rearmazenado em 000 na secao 002
+0000155 pacote 046 rearmazenado em 000 na secao 002
+0000155 pacote 047 rearmazenado em 000 na secao 002
+0000155 pacote 048 rearmazenado em 000 na secao 002
+0000155 pacote 049 rearmazenado em 000 na secao 002
+0000120 pacote 000 armazenado em 001 na secao 003
+0000175 pacote 005 armazenado em 002 na secao 003
+0000175 pacote 006 armazenado em 002 na secao 003
+0000175 pacote 007 armazenado em 002 na secao 003
+0000175 pacote 008 armazenado em 002 na secao 003
+0000175 pacote 009 armazenado em 002 na secao 003
+0000175 pacote 010 armazenado em 002 na secao 003
+0000175 pacote 011 armazenado em 002 na secao 003
+0000175 pacote 012 armazenado em 002 na secao 003
+0000175 pacote 013 armazenado em 002 na secao 003
+0000175 pacote 014 armazenado em 002 na secao 003
+0000210 pacote 010 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 011 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 012 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 013 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 014 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 020 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 021 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 022 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 023 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 024 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 025 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 026 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 027 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 028 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 029 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 030 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 031 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 032 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 033 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 034 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 035 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 036 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 037 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 038 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 039 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 040 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 041 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 042 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 043 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 044 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 045 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 046 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 047 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 048 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 049 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000210 pacote 020 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 021 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 022 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 023 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 024 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 025 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 026 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 027 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 028 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 029 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 030 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 031 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 032 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 033 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 034 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 035 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 036 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 037 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 038 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 039 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 040 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 041 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 042 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 043 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 044 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 045 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 046 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 047 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 048 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 049 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000210 pacote 010 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000210 pacote 011 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000210 pacote 012 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000210 pacote 013 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000210 pacote 014 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000211 pacote 004 removido de 000 na secao 001
+0000212 pacote 003 removido de 000 na secao 001
+0000213 pacote 002 removido de 000 na secao 001
+0000214 pacote 001 removido de 000 na secao 001
+0000214 pacote 001 em transito de 000 para 001
+0000214 pacote 002 rearmazenado em 000 na secao 001
+0000214 pacote 003 rearmazenado em 000 na secao 001
+0000214 pacote 004 rearmazenado em 000 na secao 001
+0000211 pacote 019 removido de 000 na secao 002
+0000212 pacote 018 removido de 000 na secao 002
+0000213 pacote 017 removido de 000 na secao 002
+0000214 pacote 016 removido de 000 na secao 002
+0000215 pacote 015 removido de 000 na secao 002
+0000215 pacote 015 em transito de 000 para 002
+0000215 pacote 016 em transito de 000 para 002
+0000215 pacote 017 em transito de 000 para 002
+0000215 pacote 018 em transito de 000 para 002
+0000215 pacote 019 em transito de 000 para 002
+0000211 pacote 000 removido de 001 na secao 003
+0000211 pacote 000 em transito de 001 para 003
+0000211 pacote 009 removido de 002 na secao 003
+0000212 pacote 008 removido de 002 na secao 003
+0000213 pacote 007 removido de 002 na secao 003
+0000214 pacote 006 removido de 002 na secao 003
+0000215 pacote 005 removido de 002 na secao 003
+0000215 pacote 005 em transito de 002 para 003
+0000215 pacote 006 em transito de 002 para 003
+0000215 pacote 007 em transito de 002 para 003
+0000215 pacote 008 em transito de 002 para 003
+0000215 pacote 009 em transito de 002 para 003
+0000216 pacote 000 entregue em 003
+0000219 pacote 001 armazenado em 001 na secao 003
+0000235 pacote 005 entregue em 003
+0000235 pacote 006 entregue em 003
+0000235 pacote 007 entregue em 003
+0000235 pacote 008 entregue em 003
+0000235 pacote 009 entregue em 003
+0000235 pacote 015 armazenado em 002 na secao 003
+0000235 pacote 016 armazenado em 002 na secao 003
+0000235 pacote 017 armazenado em 002 na secao 003
+0000235 pacote 018 armazenado em 002 na secao 003
+0000235 pacote 019 armazenado em 002 na secao 003
+0000310 pacote 015 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 016 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 017 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 018 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 019 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 025 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 026 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 027 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 028 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 029 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 030 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 031 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 032 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 033 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 034 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 035 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 036 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 037 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 038 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 039 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 040 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 041 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 042 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 043 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 044 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 045 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 046 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 047 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 048 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 049 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000310 pacote 025 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 026 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 027 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 028 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 029 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 030 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 031 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 032 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 033 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 034 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 035 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 036 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 037 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 038 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 039 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 040 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 041 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 042 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 043 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 044 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 045 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 046 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 047 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 048 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 049 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000310 pacote 015 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000310 pacote 016 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000310 pacote 017 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000310 pacote 018 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000310 pacote 019 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000311 pacote 004 removido de 000 na secao 001
+0000312 pacote 003 removido de 000 na secao 001
+0000313 pacote 002 removido de 000 na secao 001
+0000313 pacote 002 em transito de 000 para 001
+0000313 pacote 003 rearmazenado em 000 na secao 001
+0000313 pacote 004 rearmazenado em 000 na secao 001
+0000311 pacote 024 removido de 000 na secao 002
+0000312 pacote 023 removido de 000 na secao 002
+0000313 pacote 022 removido de 000 na secao 002
+0000314 pacote 021 removido de 000 na secao 002
+0000315 pacote 020 removido de 000 na secao 002
+0000315 pacote 020 em transito de 000 para 002
+0000315 pacote 021 em transito de 000 para 002
+0000315 pacote 022 em transito de 000 para 002
+0000315 pacote 023 em transito de 000 para 002
+0000315 pacote 024 em transito de 000 para 002
+0000311 pacote 001 removido de 001 na secao 003
+0000311 pacote 001 em transito de 001 para 003
+0000311 pacote 014 removido de 002 na secao 003
+0000312 pacote 013 removido de 002 na secao 003
+0000313 pacote 012 removido de 002 na secao 003
+0000314 pacote 011 removido de 002 na secao 003
+0000315 pacote 010 removido de 002 na secao 003
+0000315 pacote 010 em transito de 002 para 003
+0000315 pacote 011 em transito de 002 para 003
+0000315 pacote 012 em transito de 002 para 003
+0000315 pacote 013 em transito de 002 para 003
+0000315 pacote 014 em transito de 002 para 003
+0000316 pacote 001 entregue em 003
+0000318 pacote 002 armazenado em 001 na secao 003
+0000335 pacote 010 entregue em 003
+0000335 pacote 011 entregue em 003
+0000335 pacote 012 entregue em 003
+0000335 pacote 013 entregue em 003
+0000335 pacote 014 entregue em 003
+0000335 pacote 020 armazenado em 002 na secao 003
+0000335 pacote 021 armazenado em 002 na secao 003
+0000335 pacote 022 armazenado em 002 na secao 003
+0000335 pacote 023 armazenado em 002 na secao 003
+0000335 pacote 024 armazenado em 002 na secao 003
+0000410 pacote 020 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 021 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 022 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 023 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 024 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 030 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 031 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 032 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 033 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 034 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 035 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 036 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 037 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 038 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 039 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 040 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 041 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 042 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 043 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 044 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 045 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 046 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 047 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 048 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 049 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000410 pacote 030 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 031 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 032 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 033 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 034 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 035 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 036 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 037 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 038 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 039 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 040 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 041 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 042 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 043 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 044 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 045 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 046 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 047 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 048 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 049 REMANEJADO: Movido da secao 2 para a secao 1 no armazem 0.
+0000410 pacote 020 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000410 pacote 021 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000410 pacote 022 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000410 pacote 023 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000410 pacote 024 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000411 pacote 049 removido de 000 na secao 001
+0000412 pacote 048 removido de 000 na secao 001
+0000413 pacote 047 removido de 000 na secao 001
+0000414 pacote 046 removido de 000 na secao 001
+0000415 pacote 045 removido de 000 na secao 001
+0000416 pacote 044 removido de 000 na secao 001
+0000417 pacote 043 removido de 000 na secao 001
+0000418 pacote 042 removido de 000 na secao 001
+0000419 pacote 041 removido de 000 na secao 001
+0000420 pacote 040 removido de 000 na secao 001
+0000421 pacote 039 removido de 000 na secao 001
+0000422 pacote 038 removido de 000 na secao 001
+0000423 pacote 037 removido de 000 na secao 001
+0000424 pacote 036 removido de 000 na secao 001
+0000425 pacote 035 removido de 000 na secao 001
+0000426 pacote 034 removido de 000 na secao 001
+0000427 pacote 033 removido de 000 na secao 001
+0000428 pacote 032 removido de 000 na secao 001
+0000429 pacote 031 removido de 000 na secao 001
+0000430 pacote 030 removido de 000 na secao 001
+0000431 pacote 004 removido de 000 na secao 001
+0000432 pacote 003 removido de 000 na secao 001
+0000432 pacote 003 em transito de 000 para 001
+0000432 pacote 004 rearmazenado em 000 na secao 001
+0000432 pacote 030 rearmazenado em 000 na secao 001
+0000432 pacote 031 rearmazenado em 000 na secao 001
+0000432 pacote 032 rearmazenado em 000 na secao 001
+0000432 pacote 033 rearmazenado em 000 na secao 001
+0000432 pacote 034 rearmazenado em 000 na secao 001
+0000432 pacote 035 rearmazenado em 000 na secao 001
+0000432 pacote 036 rearmazenado em 000 na secao 001
+0000432 pacote 037 rearmazenado em 000 na secao 001
+0000432 pacote 038 rearmazenado em 000 na secao 001
+0000432 pacote 039 rearmazenado em 000 na secao 001
+0000432 pacote 040 rearmazenado em 000 na secao 001
+0000432 pacote 041 rearmazenado em 000 na secao 001
+0000432 pacote 042 rearmazenado em 000 na secao 001
+0000432 pacote 043 rearmazenado em 000 na secao 001
+0000432 pacote 044 rearmazenado em 000 na secao 001
+0000432 pacote 045 rearmazenado em 000 na secao 001
+0000432 pacote 046 rearmazenado em 000 na secao 001
+0000432 pacote 047 rearmazenado em 000 na secao 001
+0000432 pacote 048 rearmazenado em 000 na secao 001
+0000432 pacote 049 rearmazenado em 000 na secao 001
+0000411 pacote 029 removido de 000 na secao 002
+0000412 pacote 028 removido de 000 na secao 002
+0000413 pacote 027 removido de 000 na secao 002
+0000414 pacote 026 removido de 000 na secao 002
+0000415 pacote 025 removido de 000 na secao 002
+0000415 pacote 025 em transito de 000 para 002
+0000415 pacote 026 em transito de 000 para 002
+0000415 pacote 027 em transito de 000 para 002
+0000415 pacote 028 em transito de 000 para 002
+0000415 pacote 029 em transito de 000 para 002
+0000411 pacote 002 removido de 001 na secao 003
+0000411 pacote 002 em transito de 001 para 003
+0000411 pacote 019 removido de 002 na secao 003
+0000412 pacote 018 removido de 002 na secao 003
+0000413 pacote 017 removido de 002 na secao 003
+0000414 pacote 016 removido de 002 na secao 003
+0000415 pacote 015 removido de 002 na secao 003
+0000415 pacote 015 em transito de 002 para 003
+0000415 pacote 016 em transito de 002 para 003
+0000415 pacote 017 em transito de 002 para 003
+0000415 pacote 018 em transito de 002 para 003
+0000415 pacote 019 em transito de 002 para 003
+0000416 pacote 002 entregue em 003
+0000435 pacote 015 entregue em 003
+0000435 pacote 016 entregue em 003
+0000435 pacote 017 entregue em 003
+0000435 pacote 018 entregue em 003
+0000435 pacote 019 entregue em 003
+0000435 pacote 025 armazenado em 002 na secao 003
+0000435 pacote 026 armazenado em 002 na secao 003
+0000435 pacote 027 armazenado em 002 na secao 003
+0000435 pacote 028 armazenado em 002 na secao 003
+0000435 pacote 029 armazenado em 002 na secao 003
+0000437 pacote 003 armazenado em 001 na secao 003
+0000510 pacote 034 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 035 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 036 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 037 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 038 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 039 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 040 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 041 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 042 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 043 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 044 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 045 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 046 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 047 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 048 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 049 Congestionamento previsto na secao 000 na secao 001 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 025 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 026 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 027 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 028 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 029 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000510 pacote 034 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 035 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 036 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 037 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 038 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 039 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 040 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 041 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 042 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 043 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 044 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 045 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 046 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 047 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 048 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 049 REMANEJADO: Movido da secao 1 para a secao 2 no armazem 0.
+0000510 pacote 025 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000510 pacote 026 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000510 pacote 027 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000510 pacote 028 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000510 pacote 029 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000511 pacote 033 removido de 000 na secao 001
+0000512 pacote 032 removido de 000 na secao 001
+0000513 pacote 031 removido de 000 na secao 001
+0000514 pacote 030 removido de 000 na secao 001
+0000515 pacote 004 removido de 000 na secao 001
+0000515 pacote 004 em transito de 000 para 001
+0000515 pacote 030 rearmazenado em 000 na secao 001
+0000515 pacote 031 rearmazenado em 000 na secao 001
+0000515 pacote 032 rearmazenado em 000 na secao 001
+0000515 pacote 033 rearmazenado em 000 na secao 001
+0000511 pacote 049 removido de 000 na secao 002
+0000512 pacote 048 removido de 000 na secao 002
+0000513 pacote 047 removido de 000 na secao 002
+0000514 pacote 046 removido de 000 na secao 002
+0000515 pacote 045 removido de 000 na secao 002
+0000516 pacote 044 removido de 000 na secao 002
+0000517 pacote 043 removido de 000 na secao 002
+0000518 pacote 042 removido de 000 na secao 002
+0000519 pacote 041 removido de 000 na secao 002
+0000520 pacote 040 removido de 000 na secao 002
+0000521 pacote 039 removido de 000 na secao 002
+0000522 pacote 038 removido de 000 na secao 002
+0000523 pacote 037 removido de 000 na secao 002
+0000524 pacote 036 removido de 000 na secao 002
+0000525 pacote 035 removido de 000 na secao 002
+0000526 pacote 034 removido de 000 na secao 002
+0000526 pacote 034 em transito de 000 para 002
+0000526 pacote 035 em transito de 000 para 002
+0000526 pacote 036 em transito de 000 para 002
+0000526 pacote 037 em transito de 000 para 002
+0000526 pacote 038 em transito de 000 para 002
+0000526 pacote 039 em transito de 000 para 002
+0000526 pacote 040 em transito de 000 para 002
+0000526 pacote 041 em transito de 000 para 002
+0000526 pacote 042 em transito de 000 para 002
+0000526 pacote 043 em transito de 000 para 002
+0000526 pacote 044 rearmazenado em 000 na secao 002
+0000526 pacote 045 rearmazenado em 000 na secao 002
+0000526 pacote 046 rearmazenado em 000 na secao 002
+0000526 pacote 047 rearmazenado em 000 na secao 002
+0000526 pacote 048 rearmazenado em 000 na secao 002
+0000526 pacote 049 rearmazenado em 000 na secao 002
+0000511 pacote 003 removido de 001 na secao 003
+0000511 pacote 003 em transito de 001 para 003
+0000511 pacote 024 removido de 002 na secao 003
+0000512 pacote 023 removido de 002 na secao 003
+0000513 pacote 022 removido de 002 na secao 003
+0000514 pacote 021 removido de 002 na secao 003
+0000515 pacote 020 removido de 002 na secao 003
+0000515 pacote 020 em transito de 002 para 003
+0000515 pacote 021 em transito de 002 para 003
+0000515 pacote 022 em transito de 002 para 003
+0000515 pacote 023 em transito de 002 para 003
+0000515 pacote 024 em transito de 002 para 003
+0000516 pacote 003 entregue em 003
+0000520 pacote 004 armazenado em 001 na secao 003
+0000535 pacote 020 entregue em 003
+0000535 pacote 021 entregue em 003
+0000535 pacote 022 entregue em 003
+0000535 pacote 023 entregue em 003
+0000535 pacote 024 entregue em 003
+0000546 pacote 034 armazenado em 002 na secao 003
+0000546 pacote 035 armazenado em 002 na secao 003
+0000546 pacote 036 armazenado em 002 na secao 003
+0000546 pacote 037 armazenado em 002 na secao 003
+0000546 pacote 038 armazenado em 002 na secao 003
+0000546 pacote 039 armazenado em 002 na secao 003
+0000546 pacote 040 armazenado em 002 na secao 003
+0000546 pacote 041 armazenado em 002 na secao 003
+0000546 pacote 042 armazenado em 002 na secao 003
+0000546 pacote 043 armazenado em 002 na secao 003
+0000610 pacote 049 Congestionamento previsto na secao 000 na secao 002 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 034 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 035 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 036 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 037 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 038 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 039 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 040 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 041 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 042 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 043 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000610 pacote 049 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Congestionamento na proxima secao da rota alternativa (0 -> 1).
+0000610 pacote 034 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 035 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 036 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 037 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 038 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 039 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 040 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 041 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 042 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000610 pacote 043 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000611 pacote 033 removido de 000 na secao 001
+0000612 pacote 032 removido de 000 na secao 001
+0000613 pacote 031 removido de 000 na secao 001
+0000614 pacote 030 removido de 000 na secao 001
+0000614 pacote 030 em transito de 000 para 001
+0000614 pacote 031 rearmazenado em 000 na secao 001
+0000614 pacote 032 rearmazenado em 000 na secao 001
+0000614 pacote 033 rearmazenado em 000 na secao 001
+0000611 pacote 048 removido de 000 na secao 002
+0000612 pacote 047 removido de 000 na secao 002
+0000613 pacote 046 removido de 000 na secao 002
+0000614 pacote 045 removido de 000 na secao 002
+0000615 pacote 044 removido de 000 na secao 002
+0000615 pacote 044 em transito de 000 para 002
+0000615 pacote 045 em transito de 000 para 002
+0000615 pacote 046 em transito de 000 para 002
+0000615 pacote 047 em transito de 000 para 002
+0000615 pacote 048 em transito de 000 para 002
+0000611 pacote 004 removido de 001 na secao 003
+0000611 pacote 004 em transito de 001 para 003
+0000611 pacote 029 removido de 002 na secao 003
+0000612 pacote 028 removido de 002 na secao 003
+0000613 pacote 027 removido de 002 na secao 003
+0000614 pacote 026 removido de 002 na secao 003
+0000615 pacote 025 removido de 002 na secao 003
+0000615 pacote 025 em transito de 002 para 003
+0000615 pacote 026 em transito de 002 para 003
+0000615 pacote 027 em transito de 002 para 003
+0000615 pacote 028 em transito de 002 para 003
+0000615 pacote 029 em transito de 002 para 003
+0000616 pacote 004 entregue em 003
+0000619 pacote 030 armazenado em 001 na secao 003
+0000635 pacote 025 entregue em 003
+0000635 pacote 026 entregue em 003
+0000635 pacote 027 entregue em 003
+0000635 pacote 028 entregue em 003
+0000635 pacote 029 entregue em 003
+0000635 pacote 044 armazenado em 002 na secao 003
+0000635 pacote 045 armazenado em 002 na secao 003
+0000635 pacote 046 armazenado em 002 na secao 003
+0000635 pacote 047 armazenado em 002 na secao 003
+0000635 pacote 048 armazenado em 002 na secao 003
+0000710 pacote 039 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 040 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 041 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 042 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 043 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 044 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 045 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 046 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 047 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 048 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000710 pacote 039 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 040 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 041 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 042 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 043 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 044 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 045 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 046 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 047 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000710 pacote 048 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000711 pacote 033 removido de 000 na secao 001
+0000712 pacote 032 removido de 000 na secao 001
+0000713 pacote 031 removido de 000 na secao 001
+0000713 pacote 031 em transito de 000 para 001
+0000713 pacote 032 rearmazenado em 000 na secao 001
+0000713 pacote 033 rearmazenado em 000 na secao 001
+0000711 pacote 049 removido de 000 na secao 002
+0000711 pacote 049 em transito de 000 para 002
+0000711 pacote 030 removido de 001 na secao 003
+0000711 pacote 030 em transito de 001 para 003
+0000711 pacote 038 removido de 002 na secao 003
+0000712 pacote 037 removido de 002 na secao 003
+0000713 pacote 036 removido de 002 na secao 003
+0000714 pacote 035 removido de 002 na secao 003
+0000715 pacote 034 removido de 002 na secao 003
+0000715 pacote 034 em transito de 002 para 003
+0000715 pacote 035 em transito de 002 para 003
+0000715 pacote 036 em transito de 002 para 003
+0000715 pacote 037 em transito de 002 para 003
+0000715 pacote 038 em transito de 002 para 003
+0000716 pacote 030 entregue em 003
+0000718 pacote 031 armazenado em 001 na secao 003
+0000731 pacote 049 armazenado em 002 na secao 003
+0000735 pacote 034 entregue em 003
+0000735 pacote 035 entregue em 003
+0000735 pacote 036 entregue em 003
+0000735 pacote 037 entregue em 003
+0000735 pacote 038 entregue em 003
+0000810 pacote 044 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000810 pacote 045 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000810 pacote 046 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000810 pacote 047 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000810 pacote 048 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000810 pacote 049 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000810 pacote 044 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000810 pacote 045 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000810 pacote 046 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000810 pacote 047 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000810 pacote 048 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000810 pacote 049 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000811 pacote 033 removido de 000 na secao 001
+0000812 pacote 032 removido de 000 na secao 001
+0000812 pacote 032 em transito de 000 para 001
+0000812 pacote 033 rearmazenado em 000 na secao 001
+0000811 pacote 031 removido de 001 na secao 003
+0000811 pacote 031 em transito de 001 para 003
+0000811 pacote 043 removido de 002 na secao 003
+0000812 pacote 042 removido de 002 na secao 003
+0000813 pacote 041 removido de 002 na secao 003
+0000814 pacote 040 removido de 002 na secao 003
+0000815 pacote 039 removido de 002 na secao 003
+0000815 pacote 039 em transito de 002 para 003
+0000815 pacote 040 em transito de 002 para 003
+0000815 pacote 041 em transito de 002 para 003
+0000815 pacote 042 em transito de 002 para 003
+0000815 pacote 043 em transito de 002 para 003
+0000816 pacote 031 entregue em 003
+0000817 pacote 032 armazenado em 001 na secao 003
+0000835 pacote 039 entregue em 003
+0000835 pacote 040 entregue em 003
+0000835 pacote 041 entregue em 003
+0000835 pacote 042 entregue em 003
+0000835 pacote 043 entregue em 003
+0000910 pacote 049 Congestionamento previsto na secao 002 na secao 003 (Ocupacao: 6, Capacidade: 5)
+0000910 pacote 049 AGUARDANDO PROXIMO CICLO DE TRANSPORTE: Nenhuma rota alternativa viavel encontrada.
+0000911 pacote 033 removido de 000 na secao 001
+0000911 pacote 033 em transito de 000 para 001
+0000911 pacote 032 removido de 001 na secao 003
+0000911 pacote 032 em transito de 001 para 003
+0000911 pacote 048 removido de 002 na secao 003
+0000912 pacote 047 removido de 002 na secao 003
+0000913 pacote 046 removido de 002 na secao 003
+0000914 pacote 045 removido de 002 na secao 003
+0000915 pacote 044 removido de 002 na secao 003
+0000915 pacote 044 em transito de 002 para 003
+0000915 pacote 045 em transito de 002 para 003
+0000915 pacote 046 em transito de 002 para 003
+0000915 pacote 047 em transito de 002 para 003
+0000915 pacote 048 em transito de 002 para 003
+0000916 pacote 032 entregue em 003
+0000916 pacote 033 armazenado em 001 na secao 003
+0000935 pacote 044 entregue em 003
+0000935 pacote 045 entregue em 003
+0000935 pacote 046 entregue em 003
+0000935 pacote 047 entregue em 003
+0000935 pacote 048 entregue em 003
+0001011 pacote 033 removido de 001 na secao 003
+0001011 pacote 033 em transito de 001 para 003
+0001011 pacote 049 removido de 002 na secao 003
+0001011 pacote 049 em transito de 002 para 003
+0001016 pacote 033 entregue em 003
+0001031 pacote 049 entregue em 003
+
+--- ESTATISTICAS FINAIS DOS PACOTES ENTREGUES ---
+Armazem de Entrega: 3
+  - Pacote ID: 049 | Tempo para ser entregue: 941.00 | Tempo Armazenado: 901.00 | Tempo em Transito: 40.00
+  - Pacote ID: 033 | Tempo para ser entregue: 963.00 | Tempo Armazenado: 953.00 | Tempo em Transito: 10.00
+  - Pacote ID: 048 | Tempo para ser entregue: 840.00 | Tempo Armazenado: 800.00 | Tempo em Transito: 40.00
+  - Pacote ID: 047 | Tempo para ser entregue: 845.00 | Tempo Armazenado: 805.00 | Tempo em Transito: 40.00
+  - Pacote ID: 046 | Tempo para ser entregue: 850.00 | Tempo Armazenado: 810.00 | Tempo em Transito: 40.00
+  - Pacote ID: 045 | Tempo para ser entregue: 855.00 | Tempo Armazenado: 815.00 | Tempo em Transito: 40.00
+  - Pacote ID: 044 | Tempo para ser entregue: 860.00 | Tempo Armazenado: 820.00 | Tempo em Transito: 40.00
+  - Pacote ID: 032 | Tempo para ser entregue: 869.00 | Tempo Armazenado: 859.00 | Tempo em Transito: 10.00
+  - Pacote ID: 043 | Tempo para ser entregue: 759.00 | Tempo Armazenado: 719.00 | Tempo em Transito: 40.00
+  - Pacote ID: 042 | Tempo para ser entregue: 763.00 | Tempo Armazenado: 723.00 | Tempo em Transito: 40.00
+  - Pacote ID: 041 | Tempo para ser entregue: 767.00 | Tempo Armazenado: 727.00 | Tempo em Transito: 40.00
+  - Pacote ID: 040 | Tempo para ser entregue: 771.00 | Tempo Armazenado: 731.00 | Tempo em Transito: 40.00
+  - Pacote ID: 039 | Tempo para ser entregue: 775.00 | Tempo Armazenado: 735.00 | Tempo em Transito: 40.00
+  - Pacote ID: 031 | Tempo para ser entregue: 774.00 | Tempo Armazenado: 764.00 | Tempo em Transito: 10.00
+  - Pacote ID: 038 | Tempo para ser entregue: 674.00 | Tempo Armazenado: 634.00 | Tempo em Transito: 40.00
+  - Pacote ID: 037 | Tempo para ser entregue: 678.00 | Tempo Armazenado: 638.00 | Tempo em Transito: 40.00
+  - Pacote ID: 036 | Tempo para ser entregue: 682.00 | Tempo Armazenado: 642.00 | Tempo em Transito: 40.00
+  - Pacote ID: 035 | Tempo para ser entregue: 686.00 | Tempo Armazenado: 646.00 | Tempo em Transito: 40.00
+  - Pacote ID: 034 | Tempo para ser entregue: 690.00 | Tempo Armazenado: 650.00 | Tempo em Transito: 40.00
+  - Pacote ID: 030 | Tempo para ser entregue: 678.00 | Tempo Armazenado: 668.00 | Tempo em Transito: 10.00
+  - Pacote ID: 029 | Tempo para ser entregue: 593.00 | Tempo Armazenado: 553.00 | Tempo em Transito: 40.00
+  - Pacote ID: 028 | Tempo para ser entregue: 596.00 | Tempo Armazenado: 556.00 | Tempo em Transito: 40.00
+  - Pacote ID: 027 | Tempo para ser entregue: 599.00 | Tempo Armazenado: 559.00 | Tempo em Transito: 40.00
+  - Pacote ID: 026 | Tempo para ser entregue: 602.00 | Tempo Armazenado: 562.00 | Tempo em Transito: 40.00
+  - Pacote ID: 025 | Tempo para ser entregue: 605.00 | Tempo Armazenado: 565.00 | Tempo em Transito: 40.00
+  - Pacote ID: 004 | Tempo para ser entregue: 596.00 | Tempo Armazenado: 586.00 | Tempo em Transito: 10.00
+  - Pacote ID: 024 | Tempo para ser entregue: 498.00 | Tempo Armazenado: 458.00 | Tempo em Transito: 40.00
+  - Pacote ID: 023 | Tempo para ser entregue: 501.00 | Tempo Armazenado: 461.00 | Tempo em Transito: 40.00
+  - Pacote ID: 022 | Tempo para ser entregue: 504.00 | Tempo Armazenado: 464.00 | Tempo em Transito: 40.00
+  - Pacote ID: 021 | Tempo para ser entregue: 507.00 | Tempo Armazenado: 467.00 | Tempo em Transito: 40.00
+  - Pacote ID: 020 | Tempo para ser entregue: 510.00 | Tempo Armazenado: 470.00 | Tempo em Transito: 40.00
+  - Pacote ID: 003 | Tempo para ser entregue: 500.00 | Tempo Armazenado: 490.00 | Tempo em Transito: 10.00
+  - Pacote ID: 019 | Tempo para ser entregue: 403.00 | Tempo Armazenado: 363.00 | Tempo em Transito: 40.00
+  - Pacote ID: 018 | Tempo para ser entregue: 406.00 | Tempo Armazenado: 366.00 | Tempo em Transito: 40.00
+  - Pacote ID: 017 | Tempo para ser entregue: 409.00 | Tempo Armazenado: 369.00 | Tempo em Transito: 40.00
+  - Pacote ID: 016 | Tempo para ser entregue: 412.00 | Tempo Armazenado: 372.00 | Tempo em Transito: 40.00
+  - Pacote ID: 015 | Tempo para ser entregue: 415.00 | Tempo Armazenado: 375.00 | Tempo em Transito: 40.00
+  - Pacote ID: 002 | Tempo para ser entregue: 403.00 | Tempo Armazenado: 393.00 | Tempo em Transito: 10.00
+  - Pacote ID: 014 | Tempo para ser entregue: 312.00 | Tempo Armazenado: 272.00 | Tempo em Transito: 40.00
+  - Pacote ID: 013 | Tempo para ser entregue: 314.00 | Tempo Armazenado: 274.00 | Tempo em Transito: 40.00
+  - Pacote ID: 012 | Tempo para ser entregue: 316.00 | Tempo Armazenado: 276.00 | Tempo em Transito: 40.00
+  - Pacote ID: 011 | Tempo para ser entregue: 318.00 | Tempo Armazenado: 278.00 | Tempo em Transito: 40.00
+  - Pacote ID: 010 | Tempo para ser entregue: 320.00 | Tempo Armazenado: 280.00 | Tempo em Transito: 40.00
+  - Pacote ID: 001 | Tempo para ser entregue: 305.00 | Tempo Armazenado: 295.00 | Tempo em Transito: 10.00
+  - Pacote ID: 009 | Tempo para ser entregue: 217.00 | Tempo Armazenado: 177.00 | Tempo em Transito: 40.00
+  - Pacote ID: 008 | Tempo para ser entregue: 219.00 | Tempo Armazenado: 179.00 | Tempo em Transito: 40.00
+  - Pacote ID: 007 | Tempo para ser entregue: 221.00 | Tempo Armazenado: 181.00 | Tempo em Transito: 40.00
+  - Pacote ID: 006 | Tempo para ser entregue: 223.00 | Tempo Armazenado: 183.00 | Tempo em Transito: 40.00
+  - Pacote ID: 005 | Tempo para ser entregue: 225.00 | Tempo Armazenado: 185.00 | Tempo em Transito: 40.00
+  - Pacote ID: 000 | Tempo para ser entregue: 206.00 | Tempo Armazenado: 196.00 | Tempo em Transito: 10.00
+----------------------------------------------------
+
+--- ESTATISTICAS DE DESEMPENHO ---
+Tempo de Execucao da Simulacao: 4733 micro segundos
+------------------------------------

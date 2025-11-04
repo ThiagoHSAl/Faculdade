@@ -1,0 +1,1072 @@
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 35.384776310850235
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 394
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa3_barreira
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 658
+Tamanho do Caminho: 44
+Custo do Caminho: 46.31370849898477
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 260
+Tamanho do Caminho: 38
+Custo do Caminho: 44.4558441227157
+
+----------------------------------------
+Mapa: mapa5_fechado
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 210
+Tamanho do Caminho: 0
+Custo do Caminho: 0
+
+----------------------------------------
+Mapa: mapa6_aberto
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 218
+Tamanho do Caminho: 7
+Custo do Caminho: 8.485281374238571
+
+----------------------------------------
+Mapa: mapa7_custo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 296
+Tamanho do Caminho: 9
+Custo do Caminho: 31.112698372208094
+
+----------------------------------------
+Mapa: a_eq_ucs
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 299
+Tamanho do Caminho: 27
+Custo do Caminho: 30.142135623730955
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847714
+
+----------------------------------------
+Mapa: bfs_eq_ucs
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 284
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847714
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 262.0
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 257
+Tamanho do Caminho: 43
+Custo do Caminho: 47.798989873223334
+
+----------------------------------------
+Mapa: greedy_nao_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 178
+Tamanho do Caminho: 25
+Custo do Caminho: 80.9827560572969
+
+----------------------------------------
+Mapa: greedy_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 434
+Tamanho do Caminho: 30
+Custo do Caminho: 33.97056274847714
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 124
+Tamanho do Caminho: 52
+Custo do Caminho: 56.79898987322333
+
+----------------------------------------
+Mapa: mapa3_barreira
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 677
+Tamanho do Caminho: 340
+Custo do Caminho: 351.4264068711931
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 103
+Tamanho do Caminho: 39
+Custo do Caminho: 45.04163056034261
+
+----------------------------------------
+Mapa: mapa5_fechado
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 210
+Tamanho do Caminho: 0
+Custo do Caminho: 0
+
+----------------------------------------
+Mapa: mapa6_aberto
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 528
+Tamanho do Caminho: 90
+Custo do Caminho: 97.69848480983497
+
+----------------------------------------
+Mapa: mapa7_custo
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 234
+Tamanho do Caminho: 99
+Custo do Caminho: 131.3259018078045
+
+----------------------------------------
+Mapa: a_eq_ucs
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 377
+Tamanho do Caminho: 93
+Custo do Caminho: 96.14213562373094
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.798989873223334
+
+----------------------------------------
+Mapa: bfs_eq_ucs
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 88
+Tamanho do Caminho: 38
+Custo do Caminho: 39.89949493661166
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 122
+Tamanho do Caminho: 43
+Custo do Caminho: 47.798989873223334
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 100
+Tamanho do Caminho: 43
+Custo do Caminho: 43.656854249492376
+
+----------------------------------------
+Mapa: greedy_nao_otimo
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 181
+Tamanho do Caminho: 81
+Custo do Caminho: 119.3259018078045
+
+----------------------------------------
+Mapa: greedy_otimo
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 95
+Tamanho do Caminho: 36
+Custo do Caminho: 38.31370849898476
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 35.384776310850235
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 394
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa3_barreira
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 660
+Tamanho do Caminho: 44
+Custo do Caminho: 44.65685424949238
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 260
+Tamanho do Caminho: 39
+Custo do Caminho: 40.89949493661167
+
+----------------------------------------
+Mapa: mapa5_fechado
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 210
+Tamanho do Caminho: 0
+Custo do Caminho: 0
+
+----------------------------------------
+Mapa: mapa6_aberto
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 158
+Tamanho do Caminho: 7
+Custo do Caminho: 6.0
+
+----------------------------------------
+Mapa: mapa7_custo
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 379
+Tamanho do Caminho: 15
+Custo do Caminho: 15.656854249492381
+
+----------------------------------------
+Mapa: a_eq_ucs
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 305
+Tamanho do Caminho: 27
+Custo do Caminho: 30.142135623730955
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 34.970562748477136
+
+----------------------------------------
+Mapa: bfs_eq_ucs
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 284
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847714
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 416
+Tamanho do Caminho: 31
+Custo do Caminho: 30.82842712474619
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 252
+Tamanho do Caminho: 43
+Custo do Caminho: 43.656854249492376
+
+----------------------------------------
+Mapa: greedy_nao_otimo
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 159
+Tamanho do Caminho: 29
+Custo do Caminho: 29.242640687119287
+
+----------------------------------------
+Mapa: greedy_otimo
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 424
+Tamanho do Caminho: 30
+Custo do Caminho: 29.0
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 201
+Tamanho do Caminho: 52
+Custo do Caminho: 56.79898987322333
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 169
+Tamanho do Caminho: 52
+Custo do Caminho: 56.79898987322333
+
+----------------------------------------
+Mapa: mapa3_barreira
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 454
+Tamanho do Caminho: 50
+Custo do Caminho: 54.798989873223334
+
+----------------------------------------
+Mapa: mapa3_barreira
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 414
+Tamanho do Caminho: 50
+Custo do Caminho: 54.798989873223334
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 95
+Tamanho do Caminho: 39
+Custo do Caminho: 45.04163056034261
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 95
+Tamanho do Caminho: 43
+Custo do Caminho: 49.870057685088796
+
+----------------------------------------
+Mapa: mapa5_fechado
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 210
+Tamanho do Caminho: 0
+Custo do Caminho: 0
+
+----------------------------------------
+Mapa: mapa5_fechado
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 210
+Tamanho do Caminho: 0
+Custo do Caminho: 0
+
+----------------------------------------
+Mapa: mapa6_aberto
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 24
+Tamanho do Caminho: 7
+Custo do Caminho: 6.0
+
+----------------------------------------
+Mapa: mapa6_aberto
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 24
+Tamanho do Caminho: 7
+Custo do Caminho: 6.0
+
+----------------------------------------
+Mapa: mapa7_custo
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 30
+Tamanho do Caminho: 9
+Custo do Caminho: 22.0
+
+----------------------------------------
+Mapa: mapa7_custo
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 30
+Tamanho do Caminho: 9
+Custo do Caminho: 22.0
+
+----------------------------------------
+Mapa: a_eq_ucs
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 83
+Tamanho do Caminho: 27
+Custo do Caminho: 30.142135623730955
+
+----------------------------------------
+Mapa: a_eq_ucs
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 86
+Tamanho do Caminho: 27
+Custo do Caminho: 30.142135623730955
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 115
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847715
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 115
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847715
+
+----------------------------------------
+Mapa: bfs_eq_ucs
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 99
+Tamanho do Caminho: 38
+Custo do Caminho: 39.071067811865476
+
+----------------------------------------
+Mapa: bfs_eq_ucs
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 99
+Tamanho do Caminho: 38
+Custo do Caminho: 39.071067811865476
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 62
+Tamanho do Caminho: 31
+Custo do Caminho: 262.0
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 62
+Tamanho do Caminho: 31
+Custo do Caminho: 262.0
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 124
+Tamanho do Caminho: 43
+Custo do Caminho: 46.14213562373096
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 97
+Tamanho do Caminho: 43
+Custo do Caminho: 46.14213562373096
+
+----------------------------------------
+Mapa: greedy_nao_otimo
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 44
+Tamanho do Caminho: 25
+Custo do Caminho: 72.9827560572969
+
+----------------------------------------
+Mapa: greedy_nao_otimo
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 44
+Tamanho do Caminho: 25
+Custo do Caminho: 72.9827560572969
+
+----------------------------------------
+Mapa: greedy_otimo
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 93
+Tamanho do Caminho: 30
+Custo do Caminho: 29.0
+
+----------------------------------------
+Mapa: greedy_otimo
+Algoritmo: greedy
+Heuristica: manhattan
+Nos Visitados: 93
+Tamanho do Caminho: 30
+Custo do Caminho: 29.0
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 319
+Tamanho do Caminho: 31
+Custo do Caminho: 35.384776310850235
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 394
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 382
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa3_barreira
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 582
+Tamanho do Caminho: 44
+Custo do Caminho: 44.65685424949238
+
+----------------------------------------
+Mapa: mapa3_barreira
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 403
+Tamanho do Caminho: 44
+Custo do Caminho: 44.65685424949238
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 211
+Tamanho do Caminho: 39
+Custo do Caminho: 40.89949493661167
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 103
+Tamanho do Caminho: 38
+Custo do Caminho: 41.14213562373095
+
+----------------------------------------
+Mapa: mapa5_fechado
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 210
+Tamanho do Caminho: 0
+Custo do Caminho: 0
+
+----------------------------------------
+Mapa: mapa5_fechado
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 210
+Tamanho do Caminho: 0
+Custo do Caminho: 0
+
+----------------------------------------
+Mapa: mapa6_aberto
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 24
+Tamanho do Caminho: 7
+Custo do Caminho: 6.0
+
+----------------------------------------
+Mapa: mapa6_aberto
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 24
+Tamanho do Caminho: 7
+Custo do Caminho: 6.0
+
+----------------------------------------
+Mapa: mapa7_custo
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 165
+Tamanho do Caminho: 15
+Custo do Caminho: 15.656854249492381
+
+----------------------------------------
+Mapa: mapa7_custo
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 138
+Tamanho do Caminho: 15
+Custo do Caminho: 15.656854249492381
+
+----------------------------------------
+Mapa: a_eq_ucs
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 178
+Tamanho do Caminho: 27
+Custo do Caminho: 30.142135623730955
+
+----------------------------------------
+Mapa: a_eq_ucs
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 249
+Tamanho do Caminho: 27
+Custo do Caminho: 30.142135623730955
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 311
+Tamanho do Caminho: 31
+Custo do Caminho: 34.970562748477136
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 115
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847715
+
+----------------------------------------
+Mapa: bfs_eq_ucs
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 119
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847714
+
+----------------------------------------
+Mapa: bfs_eq_ucs
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 99
+Tamanho do Caminho: 38
+Custo do Caminho: 39.071067811865476
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 93
+Tamanho do Caminho: 31
+Custo do Caminho: 30.82842712474619
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 93
+Tamanho do Caminho: 31
+Custo do Caminho: 30.82842712474619
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 113
+Tamanho do Caminho: 43
+Custo do Caminho: 43.656854249492376
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 124
+Tamanho do Caminho: 43
+Custo do Caminho: 43.65685424949238
+
+----------------------------------------
+Mapa: greedy_nao_otimo
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 85
+Tamanho do Caminho: 29
+Custo do Caminho: 29.242640687119287
+
+----------------------------------------
+Mapa: greedy_nao_otimo
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 90
+Tamanho do Caminho: 29
+Custo do Caminho: 29.242640687119287
+
+----------------------------------------
+Mapa: greedy_otimo
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 93
+Tamanho do Caminho: 30
+Custo do Caminho: 29.0
+
+----------------------------------------
+Mapa: greedy_otimo
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 93
+Tamanho do Caminho: 30
+Custo do Caminho: 29.0
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: dfs
+Heuristica: manhattan
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: dfs
+Heuristica: manhattan
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: dfs
+Heuristica: manhattan
+Nos Visitados: 122
+Tamanho do Caminho: 43
+Custo do Caminho: 47.798989873223334
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: bfs
+Heuristica: manhattan
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 30.0
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 115
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847715
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: ucs
+Heuristica: manhattan
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 34.970562748477136
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 115
+Tamanho do Caminho: 31
+Custo do Caminho: 34.97056274847715
+
+----------------------------------------
+Mapa: a_melhor_ucs
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 311
+Tamanho do Caminho: 31
+Custo do Caminho: 34.970562748477136
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 183
+Tamanho do Caminho: 44
+Custo do Caminho: 47.14213562373095
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 59
+Tamanho do Caminho: 44
+Custo do Caminho: 44.656854249492376
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 54
+Tamanho do Caminho: 48
+Custo do Caminho: 49.48528137423857
+
+----------------------------------------
+Mapa: dfs_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 54
+Tamanho do Caminho: 48
+Custo do Caminho: 49.48528137423857
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 361
+Tamanho do Caminho: 31
+Custo do Caminho: 262.0
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 382
+Tamanho do Caminho: 31
+Custo do Caminho: 50.14213562373095
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 359
+Tamanho do Caminho: 31
+Custo do Caminho: 262.0
+
+----------------------------------------
+Mapa: bfs_nao_otimo
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 381
+Tamanho do Caminho: 55
+Custo do Caminho: 54.828427124746185
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 35.384776310850235
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 394
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 124
+Tamanho do Caminho: 52
+Custo do Caminho: 56.79898987322333
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 394
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 201
+Tamanho do Caminho: 52
+Custo do Caminho: 56.79898987322333
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 394
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 394
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa2_barreira
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 394
+Tamanho do Caminho: 43
+Custo do Caminho: 42.41421356237309
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 260
+Tamanho do Caminho: 39
+Custo do Caminho: 40.89949493661167
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 212
+Tamanho do Caminho: 39
+Custo do Caminho: 40.89949493661167
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 211
+Tamanho do Caminho: 39
+Custo do Caminho: 40.89949493661167
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: greedy
+Heuristica: euclidian
+Nos Visitados: 93
+Tamanho do Caminho: 39
+Custo do Caminho: 45.04163056034261
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: bfs
+Heuristica: euclidian
+Nos Visitados: 257
+Tamanho do Caminho: 38
+Custo do Caminho: 44.4558441227157
+
+----------------------------------------
+Mapa: mapa4_labirinto
+Algoritmo: dfs
+Heuristica: euclidian
+Nos Visitados: 101
+Tamanho do Caminho: 39
+Custo do Caminho: 45.04163056034261
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: ucs
+Heuristica: euclidian
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 35.384776310850235
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: astar
+Heuristica: euclidian
+Nos Visitados: 319
+Tamanho do Caminho: 31
+Custo do Caminho: 35.384776310850235
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: astar
+Heuristica: manhattan
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: ucs
+Heuristica: manhattan
+Nos Visitados: 434
+Tamanho do Caminho: 31
+Custo do Caminho: 35.384776310850235
+
+----------------------------------------
+Mapa: mapa1_aberto
+Algoritmo: dfs
+Heuristica: manhattan
+Nos Visitados: 98
+Tamanho do Caminho: 31
+Custo do Caminho: 35.38477631085024
+

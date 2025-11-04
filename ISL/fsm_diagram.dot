@@ -1,0 +1,35 @@
+// Código em linguagem DOT para gerar o diagrama da FSM do Cifrador base (cipher.v)
+digraph FSM_Cipher_Base {
+    rankdir=LR; // Desenha o diagrama da esquerda para a direita
+    node [shape = circle, style = filled, fillcolor = lightgray];
+    edge [fontsize = 10];
+
+    // Nó invisível para indicar o início (reset)
+    init [shape=point, width=0];
+
+    // Definição dos 4 estados com seus nomes e valores binários
+    IDLE    [label="IDLE\n(00)"];
+    LOAD    [label="LOAD\n(01)"];
+    PROCESS [label="PROCESS\n(10)"];
+    DONE    [label="DONE\n(11)"];
+
+    // Definição das transições entre os estados
+
+    // Transição de Reset
+    init -> IDLE [label=" reset"];
+
+    // Transições a partir do IDLE
+    IDLE -> LOAD [label="start == 1"];
+    IDLE -> IDLE [label="start == 0"];
+
+    // Transição a partir do LOAD
+    LOAD -> PROCESS [label=" incondicional "];
+
+    // Transições a partir do PROCESS (para um bloco fixo de 8 bits)
+    PROCESS -> PROCESS [label="bit_counter < 7"];
+    PROCESS -> DONE    [label="bit_counter == 7"];
+
+    // Transições a partir do DONE
+    DONE -> DONE [label="start == 1"];
+    DONE -> IDLE [label="start == 0"];
+}

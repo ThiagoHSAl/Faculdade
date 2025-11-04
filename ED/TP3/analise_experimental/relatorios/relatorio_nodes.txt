@@ -1,0 +1,7 @@
+# Relatório de Desempenho para o atributo: nodes
+# Valor | Tempo_Medio_ms
+5 42.0000
+7 38.0000
+8 38.0000
+9 38.0000
+10 34.0000

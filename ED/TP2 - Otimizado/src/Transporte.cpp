@@ -447,7 +447,7 @@ void Transporte::PlanejarCicloDeTransporte(Armazem* armazemOrigem, int idSecao, 
     }
 
 
-    // --- NOVO PASSO B.2: CRIAR MANIFESTO DE PARTIDAS ---
+    // --- PASSO B.2: CRIAR MANIFESTO DE PARTIDAS ---
     struct ManifestoPartida {
         int idArmazem;
         int idSecao;
