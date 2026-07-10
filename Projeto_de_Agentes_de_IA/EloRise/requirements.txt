@@ -1,0 +1,22 @@
+# Frontend + agente (EloRise)
+# Instale com: pip install -r requirements.txt
+streamlit==1.57.0
+requests==2.34.0
+python-dotenv==1.2.2
+langchain-core==1.4.6
+langchain-google-genai==4.2.5
+langgraph==1.2.4
+# RAG da base de conhecimento (Opção B): embeddings via langchain-google-genai + cosseno
+numpy==2.4.4
+plotly
+# Login "Entrar com Google" (st.login / OIDC); a conta local usa só a stdlib (scrypt)
+Authlib>=1.3.2
+# Leitura do cookie "lembrar de mim" no NAVEGADOR: o proxy do Streamlit Cloud não
+# repassa cookies próprios ao servidor (st.context.cookies só vê _streamlit_xsrf lá)
+streamlit-js-eval>=0.1.7
+# Backend Postgres da persistência (Supabase) — usado quando DATABASE_URL está definido;
+# sem ele o app cai no SQLite local (o disco do Streamlit Cloud é efêmero, SQLite lá zera)
+psycopg[binary]>=3.2
+# Pool de conexões do Postgres: sem ele cada operação abre TCP+TLS+auth novos até o
+# pooler do Supabase (~3 RTTs; centenas de ms do Streamlit Cloud)
+psycopg-pool>=3.2

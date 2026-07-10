@@ -1,0 +1,18 @@
+# Projeto_de_Agentes_de_IA — versionado como subdiretorio do monorepo Faculdade.
+# EloRise/ e lol-api/ tem seus proprios .gitignore (respeitados pelo Faculdade).
+
+# Ambiente virtual (pesado, recriavel)
+venv/
+
+# Segredos / credenciais — NUNCA versionar
+*.key
+ssh-key-*.key
+**/.env
+**/.streamlit/secrets.toml
+
+# Config local do Claude Code
+.claude/
+
+# Python
+__pycache__/
+*.pyc
