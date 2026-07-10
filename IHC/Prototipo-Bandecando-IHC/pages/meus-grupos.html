@@ -1,0 +1,254 @@
+<style>
+    .meus-view {
+        padding: var(--spacing-main);
+        display: flex; flex-direction: column;
+        min-height: 100%; padding-bottom: 40px;
+    }
+
+    .meus-topbar {
+        position: relative;
+        display: flex; align-items: center; justify-content: center;
+        margin-top: 10px; min-height: 40px;
+    }
+    .btn-back {
+        position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+        background: none; border: none; width: 40px; height: 40px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; border-radius: 50%; transition: background-color 0.2s;
+    }
+    .btn-back:active { background-color: #e9ecef; }
+    .btn-back svg { width: 24px; height: 24px; stroke: var(--text-main); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    .brand-header { text-align: center; margin-top: 10px; margin-bottom: 22px; }
+    .dashboard-logo-img { width: 120px; height: auto; object-fit: contain; }
+    .page-title { font-size: 1.3rem; font-weight: 700; color: var(--green-text); margin-top: 12px; }
+
+    .section-head {
+        font-size: 1.05rem; font-weight: 700; color: var(--text-main);
+        margin: 6px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #eef0f2;
+    }
+    .section-empty { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 14px; font-style: italic; }
+    .section-gap { height: 26px; }
+
+    .btn-empty-action {
+        width: 100%; padding: 13px; margin-bottom: 10px;
+        border: 1px solid var(--green-primary); background-color: rgba(43,147,72,0.06);
+        color: var(--green-primary); border-radius: var(--radius-btn);
+        font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-empty-action:active { transform: scale(0.99); background-color: rgba(43,147,72,0.12); }
+
+    .mygroup-card {
+        background-color: var(--bg-card); border: 1px solid var(--border-color);
+        border-radius: var(--radius-card); padding: 20px; margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .mygroup-name { font-size: 1.15rem; font-weight: 700; color: var(--green-text); margin-bottom: 6px; }
+    .mygroup-desc { font-size: 0.88rem; color: var(--text-muted); font-style: italic; line-height: 1.4; margin-bottom: 12px; }
+    .mygroup-info { font-size: 0.84rem; color: #495057; margin-bottom: 6px; }
+    .mygroup-info strong { color: var(--text-main); }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 12px; }
+    .chip { background-color: #d8f3dc; color: var(--green-primary); font-size: 0.78rem; font-weight: 600; padding: 5px 12px; border-radius: 16px; }
+
+    .status-line { font-size: 0.84rem; font-weight: 700; margin: 6px 0 12px; }
+    /* Verde escuro sobre faixa clara: contraste AA legível */
+    .status-line.open {
+        color: var(--green-status);
+        display: table;
+        background-color: #e6f4ea;
+        padding: 4px 10px;
+        border-radius: 8px;
+        margin-top: 4px;
+    }
+    .status-line.closed { color: var(--text-muted); }
+
+    .btn-go {
+        width: 100%; padding: 12px; border: none; background-color: var(--green-primary);
+        color: #fff; border-radius: var(--radius-btn); font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-go:active { transform: scale(0.99); opacity: 0.9; }
+
+    .btn-leave-sm {
+        width: 100%; padding: 11px; margin-top: 10px;
+        border: 1px solid #f1aeb5; background: transparent; color: #d00000;
+        border-radius: var(--radius-btn); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-leave-sm:active { background-color: #fff5f5; }
+
+    .btn-delete {
+        width: 100%; padding: 11px; border: 1px solid #f1aeb5; background-color: transparent;
+        color: #d00000; border-radius: var(--radius-btn); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-delete:active { background-color: #fff5f5; }
+
+    /* ============ BALÕES ============ */
+    .overlay {
+        display: none; position: fixed; top: 0; bottom: 0; left: 50%;
+        transform: translateX(-50%); width: 100%; max-width: 414px;
+        background-color: rgba(0,0,0,0.5); z-index: 50;
+        justify-content: center; align-items: center; padding: var(--spacing-main);
+    }
+    .overlay.active { display: flex; animation: fadeIn 0.25s ease forwards; }
+    .balloon {
+        background-color: var(--bg-card); border-radius: 20px; padding: 24px 20px;
+        width: 100%; max-width: 340px; box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+        animation: popIn 0.25s ease forwards; position: relative; max-height: 80vh; overflow-y: auto;
+    }
+    .confirm-balloon { text-align: center; }
+    .confirm-icon { width: 48px; height: auto; margin-bottom: 8px; }
+    .confirm-title { color: var(--green-text); font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; }
+    .confirm-text { font-size: 0.95rem; color: var(--text-main); line-height: 1.4; }
+    .confirm-actions { display: flex; gap: 10px; margin-top: 20px; }
+    .confirm-actions button { flex: 1; padding: 12px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none; }
+    .btn-cancel { background-color: #e9ecef; color: var(--text-main); }
+    .btn-danger { background-color: #d00000; color: #fff; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+</style>
+
+<div class="meus-view">
+
+    <div class="meus-topbar">
+        <button class="btn-back" onclick="nav('dashboard')" aria-label="Voltar">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+    </div>
+
+    <header class="brand-header">
+        <img src="assets/logo.png" alt="Logo Bandecando" class="dashboard-logo-img">
+        <h1 class="page-title">Meus grupos</h1>
+    </header>
+
+    <h2 class="section-head">Grupos que participo</h2>
+    <div id="participo-list"></div>
+    <div class="section-gap"></div>
+    <h2 class="section-head">Grupos que criei</h2>
+    <div id="criei-list"></div>
+
+    <!-- Balão: ação destrutiva -->
+    <div class="overlay" id="overlay-ask">
+        <div class="balloon confirm-balloon">
+            <h2 class="confirm-title" id="ask-title" style="color:var(--text-main);"></h2>
+            <p class="confirm-text" id="ask-text"></p>
+            <div class="confirm-actions">
+                <button class="btn-cancel" onclick="window.closeAsk()">Cancelar</button>
+                <button class="btn-danger" id="ask-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    window.initMeusGrupos = function() {
+        window.renderParticipo();
+        window.renderCriei();
+    };
+
+    /* ---------- Grupos que participo ---------- */
+    window.renderParticipo = function() {
+        const D = window.BandecandoData;
+        const grupos = D.getParticipatingGroups();
+        const lista = document.getElementById('participo-list');
+        lista.innerHTML = '';
+        if (grupos.length === 0) {
+            lista.innerHTML =
+                '<p class="section-empty">Você ainda não entrou em nenhum grupo.</p>' +
+                '<button class="btn-empty-action" onclick="nav(\'encontrar-grupos\')">Encontrar grupos</button>';
+            return;
+        }
+        grupos.forEach(g => {
+            const openRUs = D.getGroupOpenRUs(g);
+            const aberto = openRUs.length > 0;
+            const card = document.createElement('div');
+            card.className = 'mygroup-card';
+            let html = `<h3 class="mygroup-name">${g.name}</h3>`;
+            html += `<p class="mygroup-desc">" ${g.desc} "</p>`;
+            if (aberto) {
+                openRUs.forEach(ru => {
+                    const horarios = D.getMeetingsForGroupInRU(g, ru).map(m => m.time).join(', ');
+                    html += `<p class="status-line open">📍 Aberto hoje em ${ru} • ${horarios}</p>`;
+                });
+            } else {
+                html += '<p class="status-line closed">Sem encontro aberto hoje</p>';
+            }
+            html += `<button class="btn-go" onclick="window.verGrupo('${g.id}')">${aberto ? 'Ver e confirmar presença' : 'Ver grupo'}</button>`;
+            html += `<button class="btn-leave-sm" onclick="window.askSair('${g.id}')">Sair do grupo</button>`;
+            card.innerHTML = html;
+            lista.appendChild(card);
+        });
+    };
+
+    window.askSair = function(id) {
+        const g = window.BandecandoData.getGroupById(id);
+        document.getElementById('ask-title').innerText = 'Sair do grupo?';
+        document.getElementById('ask-text').innerText =
+            `Você deixará de participar de "${g ? g.name : 'este grupo'}".`;
+        document.getElementById('ask-confirm').onclick = () => {
+            window.BandecandoData.leaveGroup(id);
+            window.closeAsk(); window.initMeusGrupos();
+        };
+        document.getElementById('overlay-ask').classList.add('active');
+    };
+
+    window.verGrupo = function(id) {
+        localStorage.setItem('bandecando_selected_group_id', id);
+        localStorage.setItem('bandecando_group_origin', 'meus-grupos');
+        nav('grupo');
+    };
+
+    /* ---------- Grupos que criei ---------- */
+    window.renderCriei = function() {
+        const D = window.BandecandoData;
+        const grupos = D.getCreatedGroups();
+        const lista = document.getElementById('criei-list');
+        lista.innerHTML = '';
+        if (grupos.length === 0) {
+            lista.innerHTML =
+                '<p class="section-empty">Você ainda não criou nenhum grupo.</p>' +
+                '<button class="btn-empty-action" onclick="nav(\'criar-grupo\')">+ Criar novo grupo</button>';
+            return;
+        }
+        grupos.forEach(g => {
+            const card = document.createElement('div');
+            card.className = 'mygroup-card';
+            let html = `<h2 class="mygroup-name">${g.name}</h2>`;
+            html += `<p class="mygroup-desc">" ${g.desc} "</p>`;
+            if (g.period) html += `<p class="mygroup-info"><strong>Válido:</strong> de hoje até ${D.formatDateBR(g.period)}</p>`;
+            if (g.interests && g.interests.length) {
+                html += '<div class="chips">';
+                g.interests.forEach(i => { html += `<span class="chip">${i}</span>`; });
+                html += '</div>';
+            }
+
+            const openRUs = D.getGroupOpenRUs(g);
+            const aberto = openRUs.length > 0;
+            if (aberto) {
+                openRUs.forEach(ru => {
+                    const horarios = D.getMeetingsForGroupInRU(g, ru).map(m => m.time).join(', ');
+                    html += `<p class="status-line open">📍 Aberto hoje em ${ru} • ${horarios}</p>`;
+                });
+            } else {
+                html += '<p class="status-line closed">Sem encontro aberto hoje</p>';
+            }
+
+            html += `<button class="btn-go" onclick="window.verGrupo('${g.id}')">Ver grupo</button>`;
+            html += `<button class="btn-delete" onclick="window.askExcluir('${g.id}')">Excluir grupo</button>`;
+            card.innerHTML = html;
+            lista.appendChild(card);
+        });
+    };
+
+    /* ---- excluir ---- */
+    window.askExcluir = function(id) {
+        document.getElementById('ask-title').innerText = 'Excluir grupo?';
+        document.getElementById('ask-text').innerText = 'Esta ação não pode ser desfeita. O grupo será removido permanentemente.';
+        document.getElementById('ask-confirm').onclick = () => { window.BandecandoData.deleteGroup(id); window.closeAsk(); window.initMeusGrupos(); };
+        document.getElementById('overlay-ask').classList.add('active');
+    };
+    window.closeAsk = function() { document.getElementById('overlay-ask').classList.remove('active'); };
+
+    window.initMeusGrupos();
+</script>
