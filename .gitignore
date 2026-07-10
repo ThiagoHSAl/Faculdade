@@ -1,0 +1,4 @@
+# Config local do Claude Code e artefatos Python — todo o monorepo Faculdade
+.claude/
+__pycache__/
+*.pyc

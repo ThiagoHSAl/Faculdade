@@ -1,0 +1,6 @@
+# ADMProd: versionar apenas .py e .pdf (o resto — xlsx, png, tex, bib — fica fora)
+*
+!*/
+!.gitignore
+!*.py
+!*.pdf
