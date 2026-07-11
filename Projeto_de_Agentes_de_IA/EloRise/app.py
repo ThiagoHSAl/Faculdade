@@ -520,18 +520,27 @@ def renderizar_panorama_meta():
     
     # Seleção de Elo (largura contida). O emblema do elo é embutido DENTRO do seletor e em
     # CADA opção da lista, via CSS dinâmico com data URIs em cache (ver emblema_elo_data_uri).
-    elos = ["IRON", "BRONZE", "SILVER", "GOLD", "PLATINUM", "EMERALD",
-            "DIAMOND", "MASTER", "GRANDMASTER", "CHALLENGER"]
-    col_elo, col_fila, _ = st.columns([1.5, 1.2, 1.8])
-    with col_elo:
-        elo_selecionado = st.selectbox(
-            "Selecione o Elo para ver o Meta:", elos,
-            format_func=_fmt_elo, key="meta_elo",
-        )
+    # A fila é lida ANTES de montar a lista de elos: só a Normal atribui o jogador ao próprio
+    # elo solo/duo, então só nela existe o bucket UNRANKED (quem não tem rank). A fila é
+    # renderizada primeiro para que a troca reflita na lista de elos no mesmo rerun.
+    col_fila, col_elo, _ = st.columns([1.2, 1.5, 1.8])
     with col_fila:
         fila_selecionada = st.selectbox(
             "Fila:", list(FILAS.keys()),
             format_func=lambda f: FILAS[f]["label"], key="meta_fila",
+        )
+    elos = ["IRON", "BRONZE", "SILVER", "GOLD", "PLATINUM", "EMERALD",
+            "DIAMOND", "MASTER", "GRANDMASTER", "CHALLENGER"]
+    if fila_selecionada == "normal":
+        elos = elos + ["UNRANKED"]
+    # Se o elo memorizado saiu da lista (ex.: estava em UNRANKED e trocou de fila),
+    # limpa o estado para o selectbox não quebrar ao reabrir com opção inexistente.
+    if st.session_state.get("meta_elo") not in elos:
+        st.session_state.pop("meta_elo", None)
+    with col_elo:
+        elo_selecionado = st.selectbox(
+            "Selecione o Elo para ver o Meta:", elos,
+            format_func=_fmt_elo, key="meta_elo",
         )
 
     # O popover da lista é portado pro <body> (fora do .st-key). Para aplicar emblema/identidade
@@ -674,6 +683,8 @@ def _fmt_elo(elo) -> str:
     técnica (maiúsculas com underscore) na interface."""
     if not elo:
         return "—"
+    if str(elo).upper() in ("UNRANKED", "UNRANKED_I"):
+        return "Sem Rank"
     romanos = {"I", "II", "III", "IV"}
     partes = [
         tok.upper() if tok.upper() in romanos else tok.capitalize()
@@ -706,6 +717,11 @@ def emblema_elo_data_uri(tier: str, tamanho: int = 96) -> str:
     """Baixa o emblema do elo UMA vez (cache por 7 dias), redimensiona com Pillow e devolve
     como data URI base64. Evita refetch a cada rerun, some com o flicker e deixa o CSS leve.
     Cai na URL externa se algo falhar."""
+    # UNRANKED não tem emblema no CommunityDragon: devolve um PNG transparente 1x1
+    # (o seletor mostra só o texto "Sem Rank", sem brasão), evitando um 404/flicker.
+    if str(tier).upper() in ("UNRANKED", "UNRANKED_I"):
+        return ("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1H"
+                "AwCAAAAC0lEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==")
     try:
         resp = requests.get(url_emblema_elo(tier), timeout=6)
         resp.raise_for_status()
