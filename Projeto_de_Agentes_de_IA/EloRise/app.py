@@ -532,11 +532,13 @@ def renderizar_panorama_meta():
     elos = ["IRON", "BRONZE", "SILVER", "GOLD", "PLATINUM", "EMERALD",
             "DIAMOND", "MASTER", "GRANDMASTER", "CHALLENGER"]
     if fila_selecionada == "normal":
-        elos = elos + ["UNRANKED"]
+        elos = ["UNRANKED"] + elos  # UNRANKED no topo da lista (antes de Iron)
     # Se o elo memorizado saiu da lista (ex.: estava em UNRANKED e trocou de fila),
-    # limpa o estado para o selectbox não quebrar ao reabrir com opção inexistente.
+    # reatribui ao 1º elo válido. NÃO usar pop(): remover a chave deixa o baseweb exibindo
+    # o rótulo ANTIGO ("Sem Rank") enquanto o backend já caiu p/ Iron — o valor e o texto
+    # ficam dessincronizados. Setar um valor válido força o rótulo a acompanhar.
     if st.session_state.get("meta_elo") not in elos:
-        st.session_state.pop("meta_elo", None)
+        st.session_state["meta_elo"] = elos[0]
     with col_elo:
         elo_selecionado = st.selectbox(
             "Selecione o Elo para ver o Meta:", elos,
@@ -549,9 +551,17 @@ def renderizar_panorama_meta():
     # de elo aberto, quando o único popover no DOM é justamente o dele.
     op = ('body:has(.st-key-meta_elo input[aria-expanded="true"]) '
           'div[data-baseweb="popover"] li[role="option"]')
+    # IMPORTANTE: casar o emblema pelo ID da opção, NÃO por posição (:nth-child/:nth-of-type).
+    # O baseweb VIRTUALIZA a lista: renderiza só ~10 <li> por vez (absolute + top:Npx) e os
+    # RECICLA ao rolar. Com seletor posicional, o <li> na k-ésima posição visível recebia o
+    # emblema k — então, ao rolar, cada opção pegava o emblema da de cima (o bug relatado:
+    # "challenger com ícone de GM"). O baseweb dá a cada opção id="{prefixo}-{índiceLógico}";
+    # o índice é ESTÁVEL (não muda com o scroll). `[id$="-{i}"]` casa exatamente a opção i
+    # (o "-" antes do número evita ambiguidade: "...-1" não casa "...-10"/"...-11"). Verificado
+    # com scroll no Streamlit 1.57 (produção): mapeamento 100% correto, inclusive Challenger.
     regras_opcoes = "".join(
-        f'{op}:nth-child({i}) {{ background-image: url("{emblema_elo_data_uri(e, 80)}") !important; }}'
-        for i, e in enumerate(elos, start=1)
+        f'{op}[id$="-{i}"] {{ background-image: url("{emblema_elo_data_uri(e, 80)}") !important; }}'
+        for i, e in enumerate(elos)
     )
     st.markdown(
         f"""
@@ -717,15 +727,17 @@ def emblema_elo_data_uri(tier: str, tamanho: int = 96) -> str:
     """Baixa o emblema do elo UMA vez (cache por 7 dias), redimensiona com Pillow e devolve
     como data URI base64. Evita refetch a cada rerun, some com o flicker e deixa o CSS leve.
     Cai na URL externa se algo falhar."""
-    # UNRANKED não tem emblema no CommunityDragon: devolve um PNG transparente 1x1
-    # (o seletor mostra só o texto "Sem Rank", sem brasão), evitando um 404/flicker.
-    if str(tier).upper() in ("UNRANKED", "UNRANKED_I"):
-        return ("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1H"
-                "AwCAAAAC0lEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==")
     try:
-        resp = requests.get(url_emblema_elo(tier), timeout=6)
-        resp.raise_for_status()
-        img = Image.open(BytesIO(resp.content)).convert("RGBA")
+        # UNRANKED não existe no CommunityDragon: usa o emblema local (assets/), mesmo
+        # pipeline de recorte/thumbnail dos demais. Sem rede → sem 404/flicker.
+        if str(tier).upper() in ("UNRANKED", "UNRANKED_I"):
+            caminho = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   "assets", "unranked_emblem.webp")
+            img = Image.open(caminho).convert("RGBA")
+        else:
+            resp = requests.get(url_emblema_elo(tier), timeout=6)
+            resp.raise_for_status()
+            img = Image.open(BytesIO(resp.content)).convert("RGBA")
         bbox = img.getbbox()  # recorta a moldura transparente p/ o brasão preencher a caixa
         if bbox:
             img = img.crop(bbox)
