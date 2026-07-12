@@ -48,9 +48,11 @@ BENCHMARKS_API_URL: str = os.getenv("BENCHMARKS_API_URL", "http://129.213.153.23
 # ──────────────────────────────────────────────
 # Coleta de partidas
 # ──────────────────────────────────────────────
-# Quantas partidas buscar por jogador. 40 ≈ 43 requests/análise — dentro da chave grátis
-# da Riot (20 req/seg, 100 req/2min). Suba via env se tiver production key.
-MATCH_COUNT: int = int(os.getenv("MATCH_COUNT", "40"))
+# Quantas partidas buscar por jogador POR FILA. 15 ≈ 18 requests/análise — como cada troca
+# de fila (solo/flex/normal) refaz o fetch de outra queue, um número baixo evita estourar o
+# limite da chave grátis da Riot (100 req/2min) ao alternar entre as filas em sequência.
+# Suba via env se tiver production key.
+MATCH_COUNT: int = int(os.getenv("MATCH_COUNT", "15"))
 # Mínimo de partidas NA ROTA para a comparação de métricas ser confiável.
 MIN_PARTIDAS_ROTA: int = int(os.getenv("MIN_PARTIDAS_ROTA", "5"))
 
@@ -78,11 +80,23 @@ MIN_GAME_DURATION_SECONDS: int = 300
 # `queue` = queueId da Riot usado ao buscar as partidas do jogador; a mesma chave
 # ('solo'/'flex'/'normal') é passada ao backend como ?fila= para os benchmarks.
 FILAS: dict[str, dict] = {
-    "solo":   {"queue": 420, "label": "Solo/Duo"},
-    "flex":   {"queue": 440, "label": "Flex"},
-    "normal": {"queue": 400, "label": "Normal"},
+    "solo":   {"queue": 420, "label": "Ranked Solo/Duo"},
+    "flex":   {"queue": 440, "label": "Ranked Flex"},
+    "normal": {"queue": 400, "label": "Normal Game"},
 }
 FILA_PADRAO: str = "solo"
+
+# Elo OFICIAL de comparação por fila (qual rank ranqueado usar como base do "vs Meta").
+# Ordem = prioridade: o primeiro queueType que o jogador tiver rank vence.
+#  - solo   → só o rank Solo/Duo;
+#  - flex   → só o rank Flex;
+#  - normal → Solo/Duo, com FALLBACK para Flex (a Normal não tem rank próprio).
+# Sem nenhum desses → UNRANKED.
+FILA_RANK: dict[str, list[str]] = {
+    "solo":   ["RANKED_SOLO_5x5"],
+    "flex":   ["RANKED_FLEX_SR"],
+    "normal": ["RANKED_SOLO_5x5", "RANKED_FLEX_SR"],
+}
 
 # ──────────────────────────────────────────────
 # Benchmarks

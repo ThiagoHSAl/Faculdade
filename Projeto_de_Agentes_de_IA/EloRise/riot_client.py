@@ -148,11 +148,19 @@ class RiotClient:
         Retorna lista de match IDs recentes.
 
         queue=420  → Ranked Solo/Duo
-        queue=None → Todas as filas
+        queue=440  → Ranked Flex
+        queue=400  → Normal (Draft)
+        queue=None → Todas as filas ranqueadas
+
+        Ao passar um `queue` específico NÃO enviamos `type`: o filtro por queue já
+        basta, e `type=ranked` + `queue=400` (Normal, que não é ranqueada) faz a Riot
+        devolver lista VAZIA. Sem queue, mantemos `type=ranked` (todas as ranqueadas).
         """
-        params: dict = {"count": count, "type": "ranked"}
+        params: dict = {"count": count}
         if queue is not None:
             params["queue"] = queue
+        else:
+            params["type"] = "ranked"
         path = f"/lol/match/v5/matches/by-puuid/{puuid}/ids"
         return self._get("match", path, params)
 

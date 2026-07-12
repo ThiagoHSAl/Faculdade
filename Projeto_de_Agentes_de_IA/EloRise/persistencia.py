@@ -3,10 +3,10 @@ persistencia.py — Memória de longo prazo do tutor, MULTIUSUÁRIO, com DOIS ba
 
 Cada dado pertence a um usuário logado (ver auth.py): o thiago que pesquisa
 "seravini#BR1" tem a própria conversa/plano; outro login que pesquise o mesmo nick
-começa do zero. A interface mantém UMA conversa salva por (usuário, jogador, rota) —
-a troca de contexto é pelo seletor de rota da tela do perfil — mas o esquema suporta
-várias por slot (listar/nova/selecionar/excluir_conversa ficam para uso futuro);
-o plano de treino e o histórico de planos são um por rota.
+começa do zero. A interface mantém UMA conversa salva por (usuário, jogador, rota, fila) —
+a troca de contexto é pelos seletores de rota e de fila da tela do perfil — mas o esquema
+suporta várias por slot (listar/nova/selecionar/excluir_conversa ficam para uso futuro);
+o plano de treino e o histórico de planos são um por (rota, fila).
 
 Backends (decidido em tempo de execução, por conexão):
   * SQLite local (elorise.db) — desenvolvimento/uso local; zero configuração.
@@ -20,8 +20,8 @@ com RETURNING id (funciona nos dois; requer SQLite >= 3.35).
 Esquema:
     usuarios     — contas (locais com hash scrypt de senha, ou Google OIDC sem senha)
     sessoes_auth — tokens de sessão do login local (cookie "lembrar de mim"; ver auth.py)
-    jogadores    — por (user_id, jogador): rota_atual, servidor e metricas_superadas
-    rotas        — por (user_id, jogador, rota): plano, historico_planos e conversa ativa
+    jogadores    — por (user_id, jogador): rota_atual, fila_atual, servidor e metricas_superadas
+    rotas        — por (user_id, jogador, rota, fila): plano, historico_planos e conversa ativa
     conversas    — cada conversa salva: título, mensagens (JSON) e tutoria_encerrada
     meta         — flags internas (ex.: migração do sessoes_tutor.json legado)
 
@@ -160,32 +160,37 @@ def _ddl(pg: bool) -> list[str]:
                 user_id             INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
                 jogador             TEXT NOT NULL,
                 rota_atual          TEXT,
+                fila_atual          TEXT DEFAULT 'solo',
                 servidor            TEXT,
                 metricas_superadas  TEXT DEFAULT '{}',
                 atualizado_em       TEXT,
                 PRIMARY KEY (user_id, jogador)
             )""",
+        # O slot (plano + conversa ativa) é por (usuário, jogador, rota, FILA): cada fila
+        # solo/flex/normal tem plano e conversa próprios. 'fila' entra na PK.
         """CREATE TABLE IF NOT EXISTS rotas (
                 user_id           INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
                 jogador           TEXT NOT NULL,
                 rota              TEXT NOT NULL,
+                fila              TEXT NOT NULL DEFAULT 'solo',
                 plano             TEXT,
                 historico_planos  TEXT DEFAULT '[]',
                 conversa_ativa    INTEGER,
-                PRIMARY KEY (user_id, jogador, rota)
+                PRIMARY KEY (user_id, jogador, rota, fila)
             )""",
         f"""CREATE TABLE IF NOT EXISTS conversas (
                 id                {id_auto},
                 user_id           INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
                 jogador           TEXT NOT NULL,
                 rota              TEXT NOT NULL,
+                fila              TEXT NOT NULL DEFAULT 'solo',
                 titulo            TEXT,
                 mensagens         TEXT DEFAULT '[]',
                 tutoria_encerrada INTEGER DEFAULT 0,
                 criado_em         TEXT,
                 atualizado_em     TEXT
             )""",
-        "CREATE INDEX IF NOT EXISTS idx_conversas_slot ON conversas (user_id, jogador, rota)",
+        "CREATE INDEX IF NOT EXISTS idx_conversas_slot ON conversas (user_id, jogador, rota, fila)",
         """CREATE TABLE IF NOT EXISTS meta (
                 chave TEXT PRIMARY KEY,
                 valor TEXT
@@ -193,8 +198,41 @@ def _ddl(pg: bool) -> list[str]:
     ]
 
 
+def _tem_coluna(con, tabela: str, coluna: str) -> bool:
+    """Existe a coluna `coluna` na tabela `tabela`? (dialeto-agnóstico)."""
+    if con.pg:
+        row = con.execute(
+            "SELECT 1 FROM information_schema.columns WHERE table_name=? AND column_name=?",
+            (tabela, coluna)).fetchone()
+        return bool(row)
+    # SQLite: PRAGMA table_info não aceita placeholder no nome da tabela.
+    cols = con.execute(f"PRAGMA table_info({tabela})").fetchall()
+    return any(c["name"] == coluna for c in cols)
+
+
+def _tabela_existe(con, tabela: str) -> bool:
+    if con.pg:
+        return bool(con.execute(
+            "SELECT 1 FROM information_schema.tables WHERE table_name=?", (tabela,)).fetchone())
+    return bool(con.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (tabela,)).fetchone())
+
+
+def _reset_schema_fila(con) -> None:
+    """Introdução da dimensão FILA no slot (rota+fila). Os dados existentes eram todos de
+    TESTE e descartáveis (decisão 12/07/2026): em vez de migrar preservando dados, se as
+    tabelas de slot ainda estão no schema antigo (sem a coluna `fila` em `rotas`), dropa e
+    recria conversas/rotas/jogadores. Idempotente: com `fila` já presente, não faz nada.
+    Contas/logins (usuarios, sessoes_auth) são preservados."""
+    if not _tabela_existe(con, "rotas") or _tem_coluna(con, "rotas", "fila"):
+        return
+    for tabela in ("conversas", "rotas", "jogadores"):  # ordem: filhos antes dos pais (FK)
+        con.execute(f"DROP TABLE IF EXISTS {tabela}")
+
+
 def _init_db() -> None:
     with _conectar() as con:
+        _reset_schema_fila(con)
         for stmt in _ddl(con.pg):
             con.execute(stmt)
 
@@ -347,21 +385,22 @@ def _migrar_json_legado(user_id: int) -> None:
                 cid = None
                 if slot.get("mensagens"):
                     novo = con.execute(
-                        "INSERT INTO conversas (user_id, jogador, rota, titulo, mensagens,"
-                        " tutoria_encerrada, criado_em, atualizado_em) VALUES (?,?,?,?,?,?,?,?)"
+                        "INSERT INTO conversas (user_id, jogador, rota, fila, titulo, mensagens,"
+                        " tutoria_encerrada, criado_em, atualizado_em) VALUES (?,?,?,?,?,?,?,?,?)"
                         " RETURNING id",
-                        (user_id, jogador, rota, _titulo_automatico(slot["mensagens"]),
+                        (user_id, jogador, rota, "solo", _titulo_automatico(slot["mensagens"]),
                          json.dumps(slot["mensagens"], ensure_ascii=False),
                          int(bool(slot.get("tutoria_encerrada"))), _agora(), _agora())).fetchone()
                     cid = novo["id"]
-                con.execute("INSERT OR IGNORE INTO rotas (user_id, jogador, rota) VALUES (?,?,?)",
-                            (user_id, jogador, rota))
+                con.execute(
+                    "INSERT OR IGNORE INTO rotas (user_id, jogador, rota, fila) VALUES (?,?,?,?)",
+                    (user_id, jogador, rota, "solo"))
                 con.execute(
                     "UPDATE rotas SET plano=?, historico_planos=?, conversa_ativa=?"
-                    " WHERE user_id=? AND jogador=? AND rota=?",
+                    " WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
                     (json.dumps(slot.get("plano"), ensure_ascii=False) if slot.get("plano") else None,
                      json.dumps(slot.get("historico_planos") or [], ensure_ascii=False), cid,
-                     user_id, jogador, rota))
+                     user_id, jogador, rota, "solo"))
         con.execute("INSERT OR IGNORE INTO meta (chave, valor) VALUES ('json_migrado', ?)",
                     (_agora(),))
 
@@ -384,48 +423,56 @@ def _titulo_automatico(mensagens: list) -> str:
 
 
 def _garantir_jogador(con, user_id: int, jogador: str, rota: str = None,
-                      servidor: str = None) -> None:
+                      servidor: str = None, fila: str = None) -> None:
     con.execute(
         "INSERT OR IGNORE INTO jogadores (user_id, jogador, atualizado_em) VALUES (?,?,?)",
         (user_id, jogador, _agora()))
     sets, vals = ["atualizado_em=?"], [_agora()]
     if rota:
         sets.append("rota_atual=?"); vals.append(rota)
+    if fila:
+        sets.append("fila_atual=?"); vals.append(fila)
     if servidor:
         sets.append("servidor=?"); vals.append(servidor)
     con.execute(f"UPDATE jogadores SET {', '.join(sets)} WHERE user_id=? AND jogador=?",
                 (*vals, user_id, jogador))
 
 
-def _garantir_rota(con, user_id: int, jogador: str, rota: str):
-    con.execute("INSERT OR IGNORE INTO rotas (user_id, jogador, rota) VALUES (?,?,?)",
-                (user_id, jogador, rota))
-    return con.execute("SELECT * FROM rotas WHERE user_id=? AND jogador=? AND rota=?",
-                       (user_id, jogador, rota)).fetchone()
+def _garantir_rota(con, user_id: int, jogador: str, rota: str, fila: str = "solo"):
+    con.execute("INSERT OR IGNORE INTO rotas (user_id, jogador, rota, fila) VALUES (?,?,?,?)",
+                (user_id, jogador, rota, fila))
+    return con.execute(
+        "SELECT * FROM rotas WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+        (user_id, jogador, rota, fila)).fetchone()
 
 
-def _garantir_conversa_ativa(con, user_id: int, jogador: str, rota: str) -> int:
-    """Devolve o id da conversa ativa do slot, criando uma vazia se não houver."""
-    slot = _garantir_rota(con, user_id, jogador, rota)
+def _garantir_conversa_ativa(con, user_id: int, jogador: str, rota: str,
+                             fila: str = "solo") -> int:
+    """Devolve o id da conversa ativa do slot (rota,fila), criando uma vazia se não houver."""
+    slot = _garantir_rota(con, user_id, jogador, rota, fila)
     if slot["conversa_ativa"]:
         ok = con.execute("SELECT 1 FROM conversas WHERE id=? AND user_id=?",
                          (slot["conversa_ativa"], user_id)).fetchone()
         if ok:
             return slot["conversa_ativa"]
     novo = con.execute(
-        "INSERT INTO conversas (user_id, jogador, rota, criado_em, atualizado_em)"
-        " VALUES (?,?,?,?,?) RETURNING id",
-        (user_id, jogador, rota, _agora(), _agora())).fetchone()
-    con.execute("UPDATE rotas SET conversa_ativa=? WHERE user_id=? AND jogador=? AND rota=?",
-                (novo["id"], user_id, jogador, rota))
+        "INSERT INTO conversas (user_id, jogador, rota, fila, criado_em, atualizado_em)"
+        " VALUES (?,?,?,?,?,?) RETURNING id",
+        (user_id, jogador, rota, fila, _agora(), _agora())).fetchone()
+    con.execute(
+        "UPDATE rotas SET conversa_ativa=? WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+        (novo["id"], user_id, jogador, rota, fila))
     return novo["id"]
 
 
-def carregar_sessao(user_id: int, game_name: str, tag_line: str, rota: str = None) -> dict:
+def carregar_sessao(user_id: int, game_name: str, tag_line: str, rota: str = None,
+                    fila: str = "solo") -> dict:
     """Retorna {mensagens, tutoria_encerrada, plano, historico_planos, metricas_superadas,
-    rota, rota_atual, conversa_id, titulo} da ROTA pedida (ou da última rota ativa), lendo a
-    CONVERSA ATIVA do slot (cria uma vazia se preciso, para o thread do agente ser estável)."""
+    rota, rota_atual, fila, conversa_id, titulo} do slot (ROTA, FILA) pedido (ou da última
+    rota ativa), lendo a CONVERSA ATIVA do slot (cria uma vazia se preciso, para o thread do
+    agente ser estável)."""
     jogador = _chave(game_name, tag_line)
+    fila = fila or "solo"
     with _conectar() as con:
         reg = con.execute("SELECT * FROM jogadores WHERE user_id=? AND jogador=?",
                           (user_id, jogador)).fetchone()
@@ -434,15 +481,16 @@ def carregar_sessao(user_id: int, game_name: str, tag_line: str, rota: str = Non
             "mensagens": [], "tutoria_encerrada": False, "plano": None,
             "historico_planos": [],
             "metricas_superadas": json.loads(reg["metricas_superadas"]) if reg else {},
-            "rota": alvo, "rota_atual": reg["rota_atual"] if reg else None,
+            "rota": alvo, "rota_atual": reg["rota_atual"] if reg else None, "fila": fila,
             "conversa_id": None, "titulo": None,
         }
         if not alvo:
             return base
         _garantir_jogador(con, user_id, jogador, rota=alvo if rota else None)
-        cid = _garantir_conversa_ativa(con, user_id, jogador, alvo)
-        slot = con.execute("SELECT * FROM rotas WHERE user_id=? AND jogador=? AND rota=?",
-                           (user_id, jogador, alvo)).fetchone()
+        cid = _garantir_conversa_ativa(con, user_id, jogador, alvo, fila)
+        slot = con.execute(
+            "SELECT * FROM rotas WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+            (user_id, jogador, alvo, fila)).fetchone()
         conv = con.execute("SELECT * FROM conversas WHERE id=?", (cid,)).fetchone()
         base.update({
             "mensagens": json.loads(conv["mensagens"] or "[]"),
@@ -457,17 +505,18 @@ def carregar_sessao(user_id: int, game_name: str, tag_line: str, rota: str = Non
 def salvar_sessao(user_id: int, game_name: str, tag_line: str, rota: str = None,
                   mensagens=_MANTER, tutoria_encerrada=_MANTER, plano=_MANTER,
                   metricas_superadas=_MANTER, historico_planos=_MANTER,
-                  conversa_id: int = None, servidor: str = None) -> None:
+                  conversa_id: int = None, servidor: str = None, fila: str = "solo") -> None:
     """Grava por MESCLAGEM: mensagens/tutoria_encerrada vão para a conversa (a de
-    `conversa_id`, ou a ativa da rota); plano/historico_planos para o slot da rota;
+    `conversa_id`, ou a ativa do slot (rota,fila)); plano/historico_planos para o slot;
     metricas_superadas para o jogador. O sentinela _MANTER deixa o campo intacto, então
     cada escritor mexe só no que é seu (quem salva a conversa não apaga o plano e vice-versa).
 
     Proteção anti-clobber do histórico: NUNCA encolhe uma conversa já salva (um estado em
     memória vazio/transitório não pode sobrescrever a conversa real)."""
     jogador = _chave(game_name, tag_line)
+    fila = fila or "solo"
     with _conectar() as con:
-        _garantir_jogador(con, user_id, jogador, rota=rota, servidor=servidor)
+        _garantir_jogador(con, user_id, jogador, rota=rota, servidor=servidor, fila=fila)
         reg = con.execute("SELECT rota_atual FROM jogadores WHERE user_id=? AND jogador=?",
                           (user_id, jogador)).fetchone()
         alvo = rota or (reg["rota_atual"] if reg else None)
@@ -478,19 +527,20 @@ def salvar_sessao(user_id: int, game_name: str, tag_line: str, rota: str = None,
                          user_id, jogador))
 
         if alvo and (plano is not _MANTER or historico_planos is not _MANTER):
-            _garantir_rota(con, user_id, jogador, alvo)
+            _garantir_rota(con, user_id, jogador, alvo, fila)
             if plano is not _MANTER:
-                con.execute("UPDATE rotas SET plano=? WHERE user_id=? AND jogador=? AND rota=?",
-                            (json.dumps(plano, ensure_ascii=False) if plano else None,
-                             user_id, jogador, alvo))
+                con.execute(
+                    "UPDATE rotas SET plano=? WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+                    (json.dumps(plano, ensure_ascii=False) if plano else None,
+                     user_id, jogador, alvo, fila))
             if historico_planos is not _MANTER:
                 con.execute(
-                    "UPDATE rotas SET historico_planos=? WHERE user_id=? AND jogador=? AND rota=?",
+                    "UPDATE rotas SET historico_planos=? WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
                     (json.dumps(list(historico_planos or []), ensure_ascii=False),
-                     user_id, jogador, alvo))
+                     user_id, jogador, alvo, fila))
 
         if alvo and (mensagens is not _MANTER or tutoria_encerrada is not _MANTER):
-            cid = conversa_id or _garantir_conversa_ativa(con, user_id, jogador, alvo)
+            cid = conversa_id or _garantir_conversa_ativa(con, user_id, jogador, alvo, fila)
             conv = con.execute("SELECT * FROM conversas WHERE id=? AND user_id=?",
                                (cid, user_id)).fetchone()
             if conv:
@@ -530,18 +580,21 @@ def limpar_sessao(user_id: int, game_name: str, tag_line: str) -> None:
 # Conversas salvas (a UI usa uma por slot; várias ficam para uso futuro)
 # ---------------------------------------------------------------------------
 
-def listar_conversas(user_id: int, game_name: str, tag_line: str, rota: str) -> list[dict]:
-    """Conversas do slot, mais recente primeiro: {id, titulo, criado_em, atualizado_em,
-    n_mensagens, ativa}."""
+def listar_conversas(user_id: int, game_name: str, tag_line: str, rota: str,
+                     fila: str = "solo") -> list[dict]:
+    """Conversas do slot (rota,fila), mais recente primeiro: {id, titulo, criado_em,
+    atualizado_em, n_mensagens, ativa}."""
     jogador = _chave(game_name, tag_line)
+    fila = fila or "solo"
     with _conectar() as con:
-        slot = con.execute("SELECT conversa_ativa FROM rotas WHERE user_id=? AND jogador=? AND rota=?",
-                           (user_id, jogador, rota)).fetchone()
+        slot = con.execute(
+            "SELECT conversa_ativa FROM rotas WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+            (user_id, jogador, rota, fila)).fetchone()
         ativa = slot["conversa_ativa"] if slot else None
         rows = con.execute(
             "SELECT id, titulo, mensagens, criado_em, atualizado_em FROM conversas"
-            " WHERE user_id=? AND jogador=? AND rota=? ORDER BY atualizado_em DESC, id DESC",
-            (user_id, jogador, rota)).fetchall()
+            " WHERE user_id=? AND jogador=? AND rota=? AND fila=? ORDER BY atualizado_em DESC, id DESC",
+            (user_id, jogador, rota, fila)).fetchall()
     return [{"id": r["id"],
              "titulo": r["titulo"] or f"Conversa de {(r['criado_em'] or '')[:10]}",
              "criado_em": r["criado_em"], "atualizado_em": r["atualizado_em"],
@@ -549,52 +602,61 @@ def listar_conversas(user_id: int, game_name: str, tag_line: str, rota: str) -> 
              "ativa": r["id"] == ativa} for r in rows]
 
 
-def nova_conversa(user_id: int, game_name: str, tag_line: str, rota: str) -> int:
-    """Cria uma conversa vazia no slot e a torna ativa. Devolve o id."""
+def nova_conversa(user_id: int, game_name: str, tag_line: str, rota: str,
+                  fila: str = "solo") -> int:
+    """Cria uma conversa vazia no slot (rota,fila) e a torna ativa. Devolve o id."""
     jogador = _chave(game_name, tag_line)
+    fila = fila or "solo"
     with _conectar() as con:
         _garantir_jogador(con, user_id, jogador)
-        _garantir_rota(con, user_id, jogador, rota)
+        _garantir_rota(con, user_id, jogador, rota, fila)
         novo = con.execute(
-            "INSERT INTO conversas (user_id, jogador, rota, criado_em, atualizado_em)"
-            " VALUES (?,?,?,?,?) RETURNING id",
-            (user_id, jogador, rota, _agora(), _agora())).fetchone()
-        con.execute("UPDATE rotas SET conversa_ativa=? WHERE user_id=? AND jogador=? AND rota=?",
-                    (novo["id"], user_id, jogador, rota))
+            "INSERT INTO conversas (user_id, jogador, rota, fila, criado_em, atualizado_em)"
+            " VALUES (?,?,?,?,?,?) RETURNING id",
+            (user_id, jogador, rota, fila, _agora(), _agora())).fetchone()
+        con.execute(
+            "UPDATE rotas SET conversa_ativa=? WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+            (novo["id"], user_id, jogador, rota, fila))
         return novo["id"]
 
 
 def selecionar_conversa(user_id: int, game_name: str, tag_line: str, rota: str,
-                        conversa_id: int) -> None:
-    """Torna `conversa_id` a conversa ativa do slot (ignora ids de outros usuários)."""
+                        conversa_id: int, fila: str = "solo") -> None:
+    """Torna `conversa_id` a conversa ativa do slot (rota,fila) (ignora ids de outros usuários)."""
     jogador = _chave(game_name, tag_line)
+    fila = fila or "solo"
     with _conectar() as con:
         ok = con.execute(
-            "SELECT 1 FROM conversas WHERE id=? AND user_id=? AND jogador=? AND rota=?",
-            (conversa_id, user_id, jogador, rota)).fetchone()
+            "SELECT 1 FROM conversas WHERE id=? AND user_id=? AND jogador=? AND rota=? AND fila=?",
+            (conversa_id, user_id, jogador, rota, fila)).fetchone()
         if ok:
-            _garantir_rota(con, user_id, jogador, rota)
-            con.execute("UPDATE rotas SET conversa_ativa=? WHERE user_id=? AND jogador=? AND rota=?",
-                        (conversa_id, user_id, jogador, rota))
+            _garantir_rota(con, user_id, jogador, rota, fila)
+            con.execute(
+                "UPDATE rotas SET conversa_ativa=? WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+                (conversa_id, user_id, jogador, rota, fila))
 
 
 def excluir_conversa(user_id: int, conversa_id: int) -> None:
-    """Apaga uma conversa salva. Se era a ativa, promove a mais recente restante (ou nenhuma)."""
+    """Apaga uma conversa salva. Se era a ativa, promove a mais recente restante (ou nenhuma).
+    A fila do slot vem da própria linha da conversa."""
     with _conectar() as con:
         conv = con.execute("SELECT * FROM conversas WHERE id=? AND user_id=?",
                            (conversa_id, user_id)).fetchone()
         if not conv:
             return
+        fila = conv["fila"]
         con.execute("DELETE FROM conversas WHERE id=?", (conversa_id,))
-        slot = con.execute("SELECT conversa_ativa FROM rotas WHERE user_id=? AND jogador=? AND rota=?",
-                           (user_id, conv["jogador"], conv["rota"])).fetchone()
+        slot = con.execute(
+            "SELECT conversa_ativa FROM rotas WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+            (user_id, conv["jogador"], conv["rota"], fila)).fetchone()
         if slot and slot["conversa_ativa"] == conversa_id:
             resto = con.execute(
-                "SELECT id FROM conversas WHERE user_id=? AND jogador=? AND rota=?"
+                "SELECT id FROM conversas WHERE user_id=? AND jogador=? AND rota=? AND fila=?"
                 " ORDER BY atualizado_em DESC, id DESC LIMIT 1",
-                (user_id, conv["jogador"], conv["rota"])).fetchone()
-            con.execute("UPDATE rotas SET conversa_ativa=? WHERE user_id=? AND jogador=? AND rota=?",
-                        (resto["id"] if resto else None, user_id, conv["jogador"], conv["rota"]))
+                (user_id, conv["jogador"], conv["rota"], fila)).fetchone()
+            con.execute(
+                "UPDATE rotas SET conversa_ativa=? WHERE user_id=? AND jogador=? AND rota=? AND fila=?",
+                (resto["id"] if resto else None, user_id, conv["jogador"], conv["rota"], fila))
 
 
 def excluir_usuario(user_id: int) -> None:
@@ -608,9 +670,9 @@ def excluir_usuario(user_id: int) -> None:
 
 def listar_jogadores(user_id: int) -> list[dict]:
     """Análises salvas do usuário (para retomar na tela de busca): {jogador, rota_atual,
-    servidor, atualizado_em}, mais recente primeiro."""
+    fila_atual, servidor, atualizado_em}, mais recente primeiro."""
     with _conectar() as con:
         rows = con.execute(
-            "SELECT jogador, rota_atual, servidor, atualizado_em FROM jogadores"
+            "SELECT jogador, rota_atual, fila_atual, servidor, atualizado_em FROM jogadores"
             " WHERE user_id=? ORDER BY atualizado_em DESC", (user_id,)).fetchall()
     return [dict(r) for r in rows]

@@ -21,7 +21,8 @@ import base_conhecimento
 import rag
 import analise_partidas
 from riot_client import RiotClient
-from config import BENCHMARKS_API_URL, METRIC_LABELS, ROLE_LABELS, REGION, nome_exibicao
+from config import (BENCHMARKS_API_URL, METRIC_LABELS, ROLE_LABELS, REGION,
+                    FILA_PADRAO, nome_exibicao)
 import streamlit as st
 
 
@@ -84,14 +85,18 @@ def consultar_estatisticas_meta(
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def _coletar_dados_cached(game_name: str, tag_line: str,
-                          platform: str = None, region: str = None) -> dict:
-    """Cacheia a parte cara (chamadas à Riot API) por jogador + servidor."""
-    return coletar_metricas_jogador(game_name, tag_line, platform=platform, region=region)
+                          platform: str = None, region: str = None,
+                          fila: str = FILA_PADRAO) -> dict:
+    """Cacheia a parte cara (chamadas à Riot API) por jogador + servidor + fila.
+    Trocar a fila busca outra queue → entra na chave de cache."""
+    return coletar_metricas_jogador(game_name, tag_line, platform=platform,
+                                    region=region, fila=fila)
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def _benchmarks_rota_cached(posicao: str, regiao: str = None) -> dict:
-    """Cacheia os benchmarks de uma rota (1 chamada por rota + região)."""
-    return carregar_benchmarks_rota(posicao, regiao)
+def _benchmarks_rota_cached(posicao: str, regiao: str = None,
+                            fila: str = FILA_PADRAO) -> dict:
+    """Cacheia os benchmarks de uma rota (1 chamada por rota + região + fila)."""
+    return carregar_benchmarks_rota(posicao, regiao, fila)
 
 def _rotular_metricas(perfil: dict) -> dict:
     """Anexa o nome de exibição (pt-BR) às métricas do diagnóstico que vai para o LLM.
@@ -187,9 +192,10 @@ def formatar_relatorio(perfil: dict) -> str:
     """
 
 def obter_dados_jogador(game_name: str, tag_line: str,
-                        platform: str = None, region: str = None) -> dict:
+                        platform: str = None, region: str = None,
+                        fila: str = FILA_PADRAO) -> dict:
     """Dados brutos do jogador (métricas + histórico + elo), via cache — sem novo fetch."""
-    return _coletar_dados_cached(game_name, tag_line, platform, region)
+    return _coletar_dados_cached(game_name, tag_line, platform, region, fila)
 
 
 def invalidar_cache_jogador() -> None:
@@ -198,26 +204,28 @@ def invalidar_cache_jogador() -> None:
     _coletar_dados_cached.clear()
 
 def obter_historico(game_name: str, tag_line: str,
-                    platform: str = None, region: str = None) -> list:
+                    platform: str = None, region: str = None,
+                    fila: str = FILA_PADRAO) -> list:
     """Histórico de partidas do jogador (reusa o fetch cacheado, sem nova chamada)."""
-    dados = _coletar_dados_cached(game_name, tag_line, platform, region)
+    dados = _coletar_dados_cached(game_name, tag_line, platform, region, fila)
     # Auto-cura de cache antigo (gerado antes de 'historico' existir): limpa e recalcula.
     if "historico" not in dados:
         _coletar_dados_cached.clear()
-        dados = _coletar_dados_cached(game_name, tag_line, platform, region)
+        dados = _coletar_dados_cached(game_name, tag_line, platform, region, fila)
     return dados.get("historico", [])
 
 def buscar_perfil_e_formatar(game_name: str, tag_line: str, posicao: str = None,
-                             platform: str = None, region: str = None):
+                             platform: str = None, region: str = None,
+                             fila: str = FILA_PADRAO):
     """
     Coleta os dados do jogador (cacheado) e monta o diagnóstico para a rota
-    escolhida (ou a detectada). Trocar a rota NÃO refaz as chamadas à Riot.
-    Retorna (perfil, texto_relatorio).
+    escolhida (ou a detectada) na `fila`. Trocar a rota NÃO refaz as chamadas à
+    Riot; trocar a FILA sim (queue diferente). Retorna (perfil, texto_relatorio).
     """
-    dados = _coletar_dados_cached(game_name, tag_line, platform, region)
+    dados = _coletar_dados_cached(game_name, tag_line, platform, region, fila)
     posicao = (posicao or dados["posicao_detectada"]).upper()
-    benchmarks = _benchmarks_rota_cached(posicao, dados.get("regiao"))
-    perfil = montar_diagnostico(dados, posicao, benchmarks)
+    benchmarks = _benchmarks_rota_cached(posicao, dados.get("regiao"), fila)
+    perfil = montar_diagnostico(dados, posicao, benchmarks, fila)
     return perfil, formatar_relatorio(perfil)
 
 #Função de padrões de desistência
@@ -283,12 +291,13 @@ def obter_cadeia_tutor(dados_brutos: dict, posicao: str, caixa_plano: dict = Non
 
     # ── Ferramentas vinculadas ao jogador atual (autonomia de coleta) ──
     regiao_jogador = dados_brutos.get("regiao")
+    fila_jogador = dados_brutos.get("fila", FILA_PADRAO)  # fila coletada → benchmarks/diagnóstico
     _bench_por_rota: dict[str, dict] = {}  # cache por rota (evita refazer a busca/DB)
 
     def _benchmarks(rota: str) -> dict:
         rota = (rota or posicao).upper()
         if rota not in _bench_por_rota:
-            _bench_por_rota[rota] = carregar_benchmarks_rota(rota, regiao_jogador)
+            _bench_por_rota[rota] = carregar_benchmarks_rota(rota, regiao_jogador, fila_jogador)
         return _bench_por_rota[rota]
 
     @tool
@@ -299,7 +308,7 @@ def obter_cadeia_tutor(dados_brutos: dict, posicao: str, caixa_plano: dict = Non
         outra rota (ex.: rota='UTILITY')."""
         try:
             rota = (rota or posicao).upper()
-            perfil = montar_diagnostico(dados_brutos, rota, _benchmarks(rota))
+            perfil = montar_diagnostico(dados_brutos, rota, _benchmarks(rota), fila_jogador)
             # 'benchmarks_base' é o dicionário cru de benchmarks (uso interno do plano);
             # não serve ao LLM e só polui o contexto.
             perfil.pop("benchmarks_base", None)

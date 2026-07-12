@@ -5,7 +5,7 @@ import time
 import concurrent.futures
 from collections import Counter, defaultdict
 from config import (BENCHMARKS_API_URL, ROLE_METRICS, ELO_METRICS, ELO_ORDER,
-                    ROLE_LABELS, PLATFORM, REGION, FILA_PADRAO,
+                    ROLE_LABELS, PLATFORM, REGION, FILA_PADRAO, FILAS, FILA_RANK,
                     MATCH_COUNT, MIN_PARTIDAS_ROTA, LIMIAR_MONO_CAMPEAO,
                     MIN_JOGOS_RECORRENTE, MAX_POOL, MIN_AMOSTRA_CAMPEAO)
 
@@ -143,17 +143,34 @@ def _resumo_participante_card(p: dict, duracao_min: float) -> dict:
     }
 
 
+def _elo_oficial_por_fila(ranked_data: list, fila: str) -> str:
+    """Elo de comparação para a FILA escolhida, seguindo config.FILA_RANK: solo→Solo/Duo,
+    flex→Flex, normal→Solo/Duo com fallback Flex. Retorna 'TIER_DIV' (ex.: 'GOLD_II') ou
+    'UNRANKED' se o jogador não tem nenhum dos ranks aplicáveis."""
+    por_queue = {e["queueType"]: e for e in (ranked_data or [])}
+    for queue_type in FILA_RANK.get(fila, FILA_RANK[FILA_PADRAO]):
+        entry = por_queue.get(queue_type)
+        if entry:
+            return f"{entry['tier']}_{entry['rank']}"
+    return "UNRANKED"
+
+
 def coletar_metricas_jogador(game_name: str, tag_line: str, count: int = MATCH_COUNT,
-                             platform: str = None, region: str = None) -> dict:
+                             platform: str = None, region: str = None,
+                             fila: str = FILA_PADRAO) -> dict:
     """
     Faz as chamadas à Riot API e devolve as MÉDIAS de todas as métricas do jogador,
     o elo oficial e a rota detectada (teamPosition mais frequente). Esta etapa é a
     cara (rede) — é o ponto natural de cache; trocar a rota não precisa repeti-la.
 
     `platform`/`region` definem o servidor (ex.: kr/asia); por padrão usa o de config.
+    `fila` (solo/flex/normal) escolhe a queue das partidas buscadas e o rank de
+    comparação (ver _elo_oficial_por_fila). Trocar a fila EXIGE novo fetch (queue diferente).
     """
     platform = platform or PLATFORM
     region = region or REGION
+    fila = fila if fila in FILAS else FILA_PADRAO
+    queue_id = FILAS[fila]["queue"]
     client = RiotClient(platform=platform, region=region)
 
     # 1. PUUID
@@ -163,15 +180,11 @@ def coletar_metricas_jogador(game_name: str, tag_line: str, count: int = MATCH_C
     #    (corta um round-trip, relevante em servidores distantes como o asia/KR).
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
         fut_ranked = ex.submit(client.get_ranked_entries, puuid)
-        fut_ids = ex.submit(client.get_match_ids, puuid, count)
+        fut_ids = ex.submit(client.get_match_ids, puuid, count, queue_id)
         ranked_data = fut_ranked.result()
         match_ids = fut_ids.result()
 
-    elo_oficial = "UNRANKED"
-    for entry in ranked_data:
-        if entry["queueType"] == "RANKED_SOLO_5x5":
-            elo_oficial = f"{entry['tier']}_{entry['rank']}"
-            break
+    elo_oficial = _elo_oficial_por_fila(ranked_data, fila)
 
     # 3. Detalhe das partidas (em paralelo, com paralelismo limitado p/ respeitar o
     #    burst de 20 req/seg da chave grátis; o cliente já faz retry/sleep em 429).
@@ -258,6 +271,7 @@ def coletar_metricas_jogador(game_name: str, tag_line: str, count: int = MATCH_C
         "nick": f"{game_name}#{tag_line}",
         "puuid": puuid,  # checagem barata do monitor (1 chamada) sem re-resolver a conta
         "elo_oficial": elo_oficial,
+        "fila": fila,  # fila coletada (solo/flex/normal) — benchmarks e persistência por fila
         "regiao": platform,  # filtro de região dos benchmarks (= código de plataforma)
         "posicao_detectada": posicao_detectada,
         "metricas_brutas": medias,                  # média global (compat); diagnóstico usa por rota
@@ -365,17 +379,22 @@ def escolher_base_comparacao(partidas_metricas: list, posicao: str) -> dict:
     return {"tipo": "rota", "campeoes": []}
 
 
-def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict = None) -> dict:
+def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict = None,
+                       fila: str = None) -> dict:
     """
     Monta o perfil de diagnóstico para uma rota específica, usando apenas as
     métricas relevantes dela (ROLE_METRICS) e SÓ as partidas daquela rota. Etapa
     barata: pode ser recalculada ao trocar a rota sem refazer as chamadas à Riot.
     Se houver menos de MIN_PARTIDAS_ROTA partidas na rota, marca amostra insuficiente.
+
+    `fila` (solo/flex/normal) escolhe os benchmarks comparados; por padrão usa a fila
+    coletada em `dados_brutos` (ver coletar_metricas_jogador).
     """
     posicao = posicao.upper()
     if posicao not in ROLE_METRICS:
         posicao = "MIDDLE"
     metricas_rota = ROLE_METRICS[posicao]
+    fila = fila or dados_brutos.get("fila", FILA_PADRAO)
 
     # Agrega SÓ as partidas da rota selecionada (apples-to-apples com o benchmark da rota).
     medias, n_rota = agregar_metricas_rota(dados_brutos.get("partidas_metricas", []), posicao)
@@ -389,6 +408,7 @@ def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict =
             "regiao": dados_brutos.get("regiao"),
             "posicao": posicao,
             "posicao_label": ROLE_LABELS.get(posicao, posicao),
+            "fila": fila,
             "amostra_insuficiente": True,
             "partidas_rota": n_rota,
             "minimo_partidas": MIN_PARTIDAS_ROTA,
@@ -402,7 +422,7 @@ def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict =
         }
 
     if benchmarks_rota is None:
-        benchmarks_rota = carregar_benchmarks_rota(posicao, dados_brutos.get("regiao"))
+        benchmarks_rota = carregar_benchmarks_rota(posicao, dados_brutos.get("regiao"), fila)
 
     if not benchmarks_rota:
         raise Exception(f"Sem benchmarks disponíveis para a rota {posicao}.")
@@ -418,7 +438,7 @@ def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict =
     escolha_base = escolher_base_comparacao(dados_brutos.get("partidas_metricas", []), posicao)
     if escolha_base["tipo"] != "rota":
         bench_camp = carregar_benchmarks_campeoes(
-            escolha_base["campeoes"], posicao, dados_brutos.get("regiao")
+            escolha_base["campeoes"], posicao, dados_brutos.get("regiao"), fila
         )
         bloco_elo = bench_camp.get(elo_oficial)
         if bloco_elo and bloco_elo.get("amostra", 0) >= MIN_AMOSTRA_CAMPEAO:
@@ -503,6 +523,7 @@ def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict =
         "elo_equivalente": elo_equivalente.replace("_", " "),
         "posicao": posicao,
         "posicao_label": ROLE_LABELS.get(posicao, posicao),
+        "fila": fila,
         "metricas": metricas,
         "pior_metrica_identificada": pior_metrica,
         "amostra_insuficiente": False,

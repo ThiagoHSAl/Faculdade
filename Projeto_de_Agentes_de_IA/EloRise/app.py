@@ -1376,7 +1376,7 @@ def _render_analise_ia(partida, j):
         st.rerun()
 
 
-def render_card_partida(partida, versao, mapa):
+def render_card_partida(partida, versao, mapa, fila_label=None):
     j = partida["jogador"]
     if not j:
         return
@@ -1386,6 +1386,13 @@ def render_card_partida(partida, versao, mapa):
     resultado = "Vitória" if venceu else "Derrota"
     dur = partida["duracao_seg"]
     lane = ROLE_LABELS.get(j["lane"], j["lane"] or "—")
+    # Selo da fila: reforça que a lista mostra só partidas da fila selecionada.
+    fila_badge = (
+        f"<span style='display:inline-block;margin-top:4px;padding:1px 8px;border-radius:8px;"
+        f"background:rgba(232,194,101,.12);border:1px solid var(--border);"
+        f"color:var(--gold);font-size:.68rem;font-weight:600'>{html.escape(fila_label)}</span>"
+        if fila_label else ""
+    )
 
     times = {100: [], 200: []}
     for p in partida["participantes"]:
@@ -1411,11 +1418,12 @@ def render_card_partida(partida, versao, mapa):
         f"border-left:4px solid {cor};border-radius:12px;"
         f"background:linear-gradient(90deg,{tint},rgba(14,24,34,.35))'>"
 
-        # Resultado / rota / tempo
+        # Resultado / rota / tempo / fila
         f"<div style='min-width:92px'>"
         f"<div style='color:{cor};font-weight:700;font-size:1.05rem'>{resultado}</div>"
         f"<div style='color:var(--muted);font-size:.78rem;margin-top:2px'>{html.escape(lane)}</div>"
         f"<div style='color:var(--muted);font-size:.74rem'>{dur // 60}m {dur % 60:02d}s · {tempo_atras(partida['fim_ts'])}</div>"
+        f"{fila_badge}"
         f"</div>"
 
         # Ícone do campeão + nível
@@ -1532,19 +1540,28 @@ def _render_padroes_recentes(historico, versao):
 
 
 def render_historico(historico):
+    fila_label = FILAS.get(_fila_atual(), {}).get("label", "")
     if not historico:
-        st.info("Nenhuma partida recente encontrada para exibir.")
+        st.info(f"Nenhuma partida de **{fila_label}** encontrada para exibir. "
+                "Troque a fila na barra lateral para ver outras.")
         return
     versao = obter_versao_mais_recente()
     mapa = obter_mapa_campeoes(versao)
-    st.caption(f"Últimas {len(historico)} partidas analisadas")
+    st.caption(f"Últimas {len(historico)} partidas de {fila_label} "
+               "(a análise mostra apenas partidas da fila selecionada na barra lateral).")
     _render_padroes_recentes(historico, versao)
     for partida in historico:
-        render_card_partida(partida, versao, mapa)
+        render_card_partida(partida, versao, mapa, fila_label)
+
+def _fila_atual() -> str:
+    """Fila ativa da página do jogador (solo/flex/normal). Define a queue das partidas,
+    os benchmarks comparados e o slot de persistência (plano/conversa por rota+fila)."""
+    return st.session_state.get("fila_atual") or FILA_PADRAO
+
 
 def _thread_id() -> str:
-    """Thread de memória do agente = usuário + jogador + conversa ativa: trocar de login
-    ou de conversa salva isola a memória (nada vaza entre usuários nem entre conversas)."""
+    """Thread de memória do agente = usuário + jogador + conversa ativa: trocar de login,
+    de conversa salva OU de fila (a conversa ativa é por rota+fila) isola a memória."""
     jogador = f"{st.session_state.game_name}#{st.session_state.tag_line}".strip().lower()
     return f"u{st.session_state.user_id}:{jogador}:c{st.session_state.get('conversa_id') or 0}"
 
@@ -1563,7 +1580,7 @@ def render_mentoria(tutor_grafo, prompt_sistema, player_profile, thread_id):
     if not st.session_state.mensagens_chat:
         salva = carregar_sessao(st.session_state.user_id,
                                 st.session_state.game_name, st.session_state.tag_line,
-                                rota=st.session_state.get("posicao_atual"))
+                                rota=st.session_state.get("posicao_atual"), fila=_fila_atual())
         st.session_state.conversa_id = salva.get("conversa_id")
         if salva.get("mensagens"):
             st.session_state.mensagens_chat = salva["mensagens"]
@@ -1595,7 +1612,7 @@ def render_mentoria(tutor_grafo, prompt_sistema, player_profile, thread_id):
                       st.session_state.game_name, st.session_state.tag_line,
                       mensagens=st.session_state.mensagens_chat,
                       tutoria_encerrada=st.session_state.tutoria_encerrada,
-                      rota=st.session_state.get("posicao_atual"),
+                      rota=st.session_state.get("posicao_atual"), fila=_fila_atual(),
                       conversa_id=st.session_state.get("conversa_id"))
 
     # Resposta pendente: a pergunta já está no histórico (renderizado acima); a resposta
@@ -1676,7 +1693,7 @@ def render_mentoria(tutor_grafo, prompt_sistema, player_profile, thread_id):
                       st.session_state.game_name, st.session_state.tag_line,
                       mensagens=st.session_state.mensagens_chat,
                       tutoria_encerrada=st.session_state.tutoria_encerrada,
-                      rota=st.session_state.get("posicao_atual"),
+                      rota=st.session_state.get("posicao_atual"), fila=_fila_atual(),
                       conversa_id=st.session_state.get("conversa_id"))
 
     # Caixa de digitação — SEMPRE o último elemento do chat. O envio só registra a
@@ -1713,7 +1730,7 @@ def _persistir_plano(plano, tutor_grafo, thread_id):
     # o monitor autônomo chama isto a cada 180s e não pode sobrescrever/encolher o chat).
     salvar_sessao(st.session_state.user_id,
                   st.session_state.game_name, st.session_state.tag_line,
-                  rota=st.session_state.get("posicao_atual"), plano=plano,
+                  rota=st.session_state.get("posicao_atual"), fila=_fila_atual(), plano=plano,
                   metricas_superadas=st.session_state.get("metricas_superadas", {}),
                   historico_planos=_historico_planos())
 
@@ -1735,7 +1752,8 @@ def _apagar_do_historico(plano_escolhido):
     hist[:] = [p for p in hist if assinatura_plano(p) != assin]
     salvar_sessao(st.session_state.user_id,
                   st.session_state.game_name, st.session_state.tag_line,
-                  rota=st.session_state.get("posicao_atual"), historico_planos=hist)
+                  rota=st.session_state.get("posicao_atual"), fila=_fila_atual(),
+                  historico_planos=hist)
 
 
 def _fim_ts_mais_recente():
@@ -1743,15 +1761,17 @@ def _fim_ts_mais_recente():
     dados = obter_dados_jogador(
         st.session_state.game_name, st.session_state.tag_line,
         st.session_state.get("platform", "br1"), st.session_state.get("region", "americas"),
+        _fila_atual(),
     )
     hist = dados.get("historico") or []
     return hist[0]["fim_ts"] if hist else None
 
 
 def _metricas_superadas_rota(rota: str) -> list[str]:
-    """Lista (mutável no session_state) das métricas já dominadas nesta rota."""
+    """Lista (mutável no session_state) das métricas já dominadas nesta rota+fila.
+    A chave inclui a fila (`solo:MIDDLE`); chaves antigas sem ':' eram solo."""
     mapa = st.session_state.setdefault("metricas_superadas", {})
-    return mapa.setdefault(rota, [])
+    return mapa.setdefault(f"{_fila_atual()}:{rota}", [])
 
 
 def _criar_plano(player_profile, tutor_grafo, thread_id):
@@ -1760,7 +1780,7 @@ def _criar_plano(player_profile, tutor_grafo, thread_id):
     atingida e o jogador gera um novo plano, ela é marcada como superada e o foco avança.
     Usa a MESMA base de comparação do diagnóstico (mono/pool/rota) para definir o alvo."""
     benchmarks = player_profile.get("benchmarks_base") or _benchmarks_rota_cached(
-        player_profile["posicao"], player_profile.get("regiao"))
+        player_profile["posicao"], player_profile.get("regiao"), _fila_atual())
     rota = player_profile["posicao"]
     superadas = _metricas_superadas_rota(rota)
 
@@ -1808,6 +1828,7 @@ def verificar_partidas_automaticamente(plano: dict) -> str:
 
     platform = st.session_state.get("platform", "br1")
     region = st.session_state.get("region", "americas")
+    fila = _fila_atual()
 
     # Checagem BARATA primeiro (1 chamada à Riot): se a partida mais recente é a mesma
     # da última verificação, não invalida o cache nem recoleta as ~40 partidas — o caso
@@ -1818,9 +1839,11 @@ def verificar_partidas_automaticamente(plano: dict) -> str:
     if ultimo_visto:
         try:
             puuid = obter_dados_jogador(st.session_state.game_name, st.session_state.tag_line,
-                                        platform, region).get("puuid")
+                                        platform, region, fila).get("puuid")
             if puuid:
-                ids = RiotClient(platform=platform, region=region).get_match_ids(puuid, count=1)
+                # Checa a MESMA fila do plano (queue própria), não sempre a solo.
+                ids = RiotClient(platform=platform, region=region).get_match_ids(
+                    puuid, count=1, queue=FILAS[fila]["queue"])
                 if ids and ids[0] == ultimo_visto:
                     plano["ultima_verificacao"] = agora.isoformat()
                     return "sem_novidade"
@@ -1830,11 +1853,11 @@ def verificar_partidas_automaticamente(plano: dict) -> str:
     invalidar_cache_jogador()  # força o re-fetch das partidas mais recentes
     perfil, _ = buscar_perfil_e_formatar(
         st.session_state.game_name, st.session_state.tag_line, plano["posicao"],
-        platform=platform, region=region,
+        platform=platform, region=region, fila=fila,
     )
     st.session_state.perfil_jogador = perfil  # atualiza sidebar/histórico com dados frescos
     dados = obter_dados_jogador(st.session_state.game_name, st.session_state.tag_line,
-                                platform, region)
+                                platform, region, fila)
     hist = dados.get("historico") or []
     plano["ultima_verificacao"] = agora.isoformat()
 
@@ -2173,7 +2196,7 @@ def render_evolucao(player_profile, platform, region):
 
     rota = plano["posicao"]
     dados = obter_dados_jogador(st.session_state.game_name, st.session_state.tag_line,
-                                platform, region)
+                                platform, region, _fila_atual())
     medias_pos, n_pos = agregar_metricas_rota_periodo(dados, rota, plano.get("baseline_fim_ts"))
 
     st.subheader(f"Evolução desde o início do treinamento · Rota {ROLE_LABELS.get(rota, rota)}")
@@ -2301,16 +2324,18 @@ st.session_state.user_nome = _usuario["nome"]
 st.session_state.user_metodo = _usuario["metodo"]
 
 
-def _abrir_jogador(game_name: str, tag_line: str, servidor: str, rota: str = None) -> None:
+def _abrir_jogador(game_name: str, tag_line: str, servidor: str, rota: str = None,
+                   fila: str = FILA_PADRAO) -> None:
     """Busca o jogador e entra na tela de mentoria (usado pela busca e pelas análises
     salvas do perfil). Registra a análise no perfil do usuário logado."""
     # Higiene da digitação: espaços sobrando e "#" na tag criariam um "jogador novo"
     # (chave/thread diferentes) e duplicariam a análise salva.
     game_name = " ".join(game_name.split())
     tag_line = " ".join(tag_line.split()).lstrip("#")
+    fila = fila or FILA_PADRAO
     platform, region = SERVIDORES.get(servidor, list(SERVIDORES.values())[0])
     perfil, relatorio = buscar_perfil_e_formatar(
-        game_name, tag_line, rota, platform=platform, region=region
+        game_name, tag_line, rota, platform=platform, region=region, fila=fila
     )
     st.session_state.perfil_jogador = perfil
     st.session_state.texto_relatorio = relatorio
@@ -2320,9 +2345,10 @@ def _abrir_jogador(game_name: str, tag_line: str, servidor: str, rota: str = Non
     st.session_state.platform = platform
     st.session_state.region = region
     st.session_state.posicao_atual = perfil["posicao"]
+    st.session_state.fila_atual = perfil.get("fila", fila)
     # Registra o jogador (com o servidor) na lista de análises salvas do perfil.
     salvar_sessao(st.session_state.user_id, game_name, tag_line,
-                  rota=perfil["posicao"], servidor=servidor)
+                  rota=perfil["posicao"], servidor=servidor, fila=st.session_state.fila_atual)
 
 
 def _voltar_para_busca() -> None:
@@ -2396,7 +2422,8 @@ def _render_analises_salvas() -> None:
                 with _carregando("Retomando análise salva"):
                     try:
                         _abrir_jogador(nick_gn, nick_tl, servidor_salvo,
-                                       rota=reg.get("rota_atual"))
+                                       rota=reg.get("rota_atual"),
+                                       fila=reg.get("fila_atual") or FILA_PADRAO)
                         st.rerun()  # troca de tela: rerun do app inteiro
                     except Exception as e:
                         st.error(f"Erro ao retomar a análise: {e}")
@@ -2453,6 +2480,9 @@ else:
     # Servidor escolhido na busca (fallback BR para sessões antigas)
     platform = st.session_state.get("platform", "br1")
     region = st.session_state.get("region", "americas")
+    # Fila ativa (solo/flex/normal): define coleta, benchmarks e o slot de persistência.
+    fila = st.session_state.get("fila_atual") or player_profile.get("fila") or FILA_PADRAO
+    st.session_state.fila_atual = fila
 
     # Aquece o índice da base de conhecimento (RAG) uma vez por sessão.
     _aquecer_base_conhecimento()
@@ -2462,14 +2492,14 @@ else:
         # Se não existe, cria a IA e a Memória pela primeira vez e guarda no cofre.
         # O agente recebe os dados brutos e a rota e BUSCA o diagnóstico via ferramentas.
         dados_jogador = obter_dados_jogador(
-            st.session_state.game_name, st.session_state.tag_line, platform, region
+            st.session_state.game_name, st.session_state.tag_line, platform, region, fila
         )
         # Holder do plano de treino: fonte de verdade compartilhada com as ferramentas
         # do agente (consultar_plano). Restaurado da memória de longo prazo DO USUÁRIO
-        # LOGADO (a conversa ativa dele para este jogador/rota), se houver.
+        # LOGADO (a conversa ativa dele para este jogador/rota/fila), se houver.
         sessao_salva = carregar_sessao(st.session_state.user_id,
                                        st.session_state.game_name, st.session_state.tag_line,
-                                       rota=player_profile["posicao"])
+                                       rota=player_profile["posicao"], fila=fila)
         st.session_state.conversa_id = sessao_salva.get("conversa_id")
         caixa_plano = {"plano": sessao_salva.get("plano")}
         grafo, prompt = obter_cadeia_tutor(dados_jogador, player_profile["posicao"], caixa_plano)
@@ -2517,6 +2547,33 @@ else:
         st.subheader(nome_exibicao(player_profile['nick']))
         st.caption(f"Servidor: {st.session_state.get('servidor', 'BR (Brasil)')}")
 
+        # Seletor de fila: solo/flex/normal. Trocar REFAZ o fetch da Riot (queue diferente)
+        # e compara contra os benchmarks daquela fila. Cada fila tem plano e conversa próprios.
+        filas = list(FILAS.keys())
+        indice_fila = filas.index(fila) if fila in filas else 0
+        fila_escolhida = st.selectbox(
+            "Fila:",
+            filas,
+            index=indice_fila,
+            format_func=lambda f: FILAS[f]["label"],
+        )
+        if fila_escolhida != fila:
+            with _carregando(f"Buscando partidas de {FILAS[fila_escolhida]['label']}"):
+                # Fila nova = outra queue → novo fetch (a rota detectada pode mudar também).
+                perfil, relatorio = buscar_perfil_e_formatar(
+                    st.session_state.game_name, st.session_state.tag_line,
+                    st.session_state.get("posicao_atual"),
+                    platform=platform, region=region, fila=fila_escolhida,
+                )
+            st.session_state.perfil_jogador = perfil
+            st.session_state.texto_relatorio = relatorio
+            st.session_state.fila_atual = fila_escolhida
+            st.session_state.posicao_atual = perfil["posicao"]
+            # Conversa e plano são por (rota, fila): descarta só o estado em RAM para o
+            # agente recarregar o slot da nova fila (o da fila anterior segue salvo).
+            _resetar_estado_conversa()
+            st.rerun()
+
         # Seletor de rota: permite confirmar/trocar a função analisada
         posicoes = list(ROLE_LABELS.keys())
         indice_atual = posicoes.index(player_profile["posicao"]) if player_profile["posicao"] in posicoes else 0
@@ -2533,13 +2590,13 @@ else:
             with _carregando("Recalculando para a nova rota"):
                 perfil, relatorio = buscar_perfil_e_formatar(
                     st.session_state.game_name, st.session_state.tag_line, rota_escolhida,
-                    platform=platform, region=region
+                    platform=platform, region=region, fila=fila
                 )
             st.session_state.perfil_jogador = perfil
             st.session_state.texto_relatorio = relatorio
             st.session_state.posicao_atual = rota_escolhida
-            # A tutoria e o plano são guardados POR ROTA. Ao trocar, NÃO apagamos nada do
-            # disco: só descartamos o estado em RAM para o agente recarregar o slot da nova
+            # A tutoria e o plano são guardados POR (ROTA, FILA). Ao trocar, NÃO apagamos nada
+            # do disco: só descartamos o estado em RAM para o agente recarregar o slot da nova
             # rota. A conversa e o plano da rota anterior continuam salvos, prontos para
             # quando o jogador voltar a ela.
             _resetar_estado_conversa()
@@ -2661,7 +2718,7 @@ else:
 
     with abas["Análise de Partidas"]:
         render_historico(obter_historico(
-            st.session_state.game_name, st.session_state.tag_line, platform, region
+            st.session_state.game_name, st.session_state.tag_line, platform, region, _fila_atual()
         ))
 
     _rodape_legal()
