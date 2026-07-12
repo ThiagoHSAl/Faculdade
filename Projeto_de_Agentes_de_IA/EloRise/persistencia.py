@@ -557,20 +557,38 @@ def salvar_sessao(user_id: int, game_name: str, tag_line: str, rota: str = None,
                                 (int(bool(tutoria_encerrada)), cid))
 
 
-def limpar_sessao(user_id: int, game_name: str, tag_line: str) -> None:
-    """Apaga TODO o registro do jogador PARA ESTE USUÁRIO (todas as rotas e conversas).
-
-    Casa pela chave CANÔNICA: registros legados (ex.: migrados do sessoes_tutor.json,
+def _chaves_do_jogador(con, user_id: int, game_name: str, tag_line: str) -> set:
+    """Todas as chaves em `jogadores` (deste usuário) que casam pela chave CANÔNICA
+    com (game_name, tag_line). Registros legados (ex.: migrados do sessoes_tutor.json,
     que inseria a chave crua) podem estar gravados com espaços/caixa divergentes —
     "dogla la dogla #br1" e "dogla la dogla#br1" são o mesmo jogador."""
     alvo = _chave(game_name, tag_line)
+    rows = con.execute("SELECT jogador FROM jogadores WHERE user_id=?",
+                       (user_id,)).fetchall()
+    chaves = {r["jogador"] for r in rows
+              if "#" in r["jogador"] and _chave(*r["jogador"].rsplit("#", 1)) == alvo}
+    chaves.add(alvo)
+    return chaves
+
+
+def limpar_sessao(user_id: int, game_name: str, tag_line: str) -> None:
+    """Recomeça do zero PARA ESTE USUÁRIO: apaga conversas, planos de treino e a
+    evolução (métricas superadas) de TODAS as rotas, mas PRESERVA o perfil do
+    jogador (a linha em `jogadores`, que o mantém na lista de jogadores salvos)."""
     with _conectar() as con:
-        rows = con.execute("SELECT jogador FROM jogadores WHERE user_id=?",
-                           (user_id,)).fetchall()
-        chaves = {r["jogador"] for r in rows
-                  if "#" in r["jogador"] and _chave(*r["jogador"].rsplit("#", 1)) == alvo}
-        chaves.add(alvo)
-        for jogador in chaves:
+        for jogador in _chaves_do_jogador(con, user_id, game_name, tag_line):
+            con.execute("DELETE FROM conversas WHERE user_id=? AND jogador=?", (user_id, jogador))
+            con.execute("DELETE FROM rotas WHERE user_id=? AND jogador=?", (user_id, jogador))
+            # Mantém o perfil (rota_atual, fila_atual, servidor), zerando só a evolução.
+            con.execute("UPDATE jogadores SET metricas_superadas='{}', atualizado_em=?"
+                        " WHERE user_id=? AND jogador=?", (_agora(), user_id, jogador))
+
+
+def excluir_jogador(user_id: int, game_name: str, tag_line: str) -> None:
+    """Remove por completo o jogador PARA ESTE USUÁRIO — conversas, planos e o próprio
+    perfil (linha em `jogadores`) — tirando-o da lista de jogadores salvos."""
+    with _conectar() as con:
+        for jogador in _chaves_do_jogador(con, user_id, game_name, tag_line):
             con.execute("DELETE FROM conversas WHERE user_id=? AND jogador=?", (user_id, jogador))
             con.execute("DELETE FROM rotas WHERE user_id=? AND jogador=?", (user_id, jogador))
             con.execute("DELETE FROM jogadores WHERE user_id=? AND jogador=?", (user_id, jogador))

@@ -126,7 +126,9 @@ def _descrever_percentil(perfil: dict) -> str:
 
 def descrever_base_comparacao(perfil: dict) -> str:
     """Texto curto de CONTRA QUEM as métricas estão sendo comparadas (consciente do
-    campeão): o próprio campeão (mono), a pool de campeões do jogador, ou a média da rota."""
+    campeão): o próprio campeão (mono), a pool de campeões do jogador, ou a média da rota.
+    Quando a base PRETENDIDA (mono/pool) caiu para a rota por falta de amostra do campeão
+    naquela fila, explicita o motivo (para o tutor não parecer que ignorou o main)."""
     base = perfil.get("base_comparacao", "rota")
     champs = perfil.get("campeoes_referencia") or []
     amostra = perfil.get("amostra_referencia")
@@ -135,6 +137,10 @@ def descrever_base_comparacao(perfil: dict) -> str:
         return f"vs outros jogadores de {champs[0]} na mesma rota/elo{suf}"
     if base == "pool" and champs:
         return f"vs a média da sua pool de campeões ({', '.join(champs)}){suf}"
+    if perfil.get("base_degradada"):
+        camps = ", ".join(perfil.get("campeoes_pretendidos") or []) or "os campeões do jogador"
+        return (f"vs a média geral da rota (todos os campeões) — ainda NÃO há amostra "
+                f"suficiente de {camps} nesta fila para comparar contra o próprio campeão")
     return "vs a média geral da rota (todos os campeões)"
 
 def formatar_relatorio(perfil: dict) -> str:

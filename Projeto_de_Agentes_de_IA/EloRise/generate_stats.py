@@ -435,8 +435,17 @@ def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict =
     base_comparacao = "rota"
     campeoes_referencia: list = []
     amostra_referencia = None
+    # Degradação da base: o jogador é mono/pool de um campeão, mas o benchmark daquele
+    # campeão NAQUELA FILA não tem amostra suficiente → cai na média da rota. Guardamos o
+    # que foi PRETENDIDO (base + campeões + motivo) para a UI/tutor explicarem a queda.
+    base_pretendida = "rota"
+    campeoes_pretendidos: list = []
+    base_degradada = False
+    motivo_degradacao = None  # "sem_amostra_campeao" | "elo_sem_amostra_campeao"
     escolha_base = escolher_base_comparacao(dados_brutos.get("partidas_metricas", []), posicao)
     if escolha_base["tipo"] != "rota":
+        base_pretendida = escolha_base["tipo"]
+        campeoes_pretendidos = escolha_base["campeoes"]
         bench_camp = carregar_benchmarks_campeoes(
             escolha_base["campeoes"], posicao, dados_brutos.get("regiao"), fila
         )
@@ -446,14 +455,22 @@ def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict =
             base_comparacao = escolha_base["tipo"]
             campeoes_referencia = escolha_base["campeoes"]
             amostra_referencia = bloco_elo.get("amostra")
+        else:
+            # Sem amostra do(s) campeão(ões) nesta fila (404/vazio) ou o elo oficial não
+            # atinge MIN_AMOSTRA_CAMPEAO → degrada para a rota, mas sinaliza o porquê.
+            base_degradada = True
+            motivo_degradacao = ("elo_sem_amostra_campeao" if bench_camp
+                                 else "sem_amostra_campeao")
 
-    # Benchmark do elo alvo (oficial, com fallback)
+    # Benchmark do elo alvo (oficial, com fallback). Se o elo do jogador não tem amostra
+    # no benchmark, comparamos contra outro elo — também é uma degradação a sinalizar.
     if elo_oficial in benchmarks:
         elo_alvo = elo_oficial
     elif "SILVER_IV" in benchmarks:
         elo_alvo = "SILVER_IV"
     else:
         elo_alvo = next(iter(benchmarks))
+    elo_comparacao_degradado = elo_alvo != elo_oficial
     meta = benchmarks[elo_alvo]
 
     # Elo equivalente: usa SÓ as métricas que crescem monotonicamente com o elo
@@ -536,6 +553,13 @@ def montar_diagnostico(dados_brutos: dict, posicao: str, benchmarks_rota: dict =
         "base_comparacao": base_comparacao,
         "campeoes_referencia": campeoes_referencia,
         "amostra_referencia": amostra_referencia,
+        # Sinalização de degradação (para a UI/tutor explicarem por que "caiu"):
+        "base_pretendida": base_pretendida,          # o que seria usado (mono/pool) se houvesse amostra
+        "campeoes_pretendidos": campeoes_pretendidos,
+        "base_degradada": base_degradada,            # queria mono/pool mas caiu na rota
+        "motivo_degradacao": motivo_degradacao,      # por falta de amostra do campeão nesta fila
+        "elo_comparacao_degradado": elo_comparacao_degradado,  # comparou com elo != oficial
+        "min_amostra_campeao": MIN_AMOSTRA_CAMPEAO,
         # Benchmark efetivamente usado (campeão/pool/rota) → o plano usa o mesmo p/ alvo
         "benchmarks_base": benchmarks,
     }

@@ -29,8 +29,8 @@ from generate_stats import agregar_metricas_rota_periodo
 from base_conhecimento import erros_comuns_do_elo
 from insights_evolucao import coletar_partidas_pos_plano, gerar_insights_evolucao
 from explicar_drill import explicar_drill
-from persistencia import (carregar_sessao, salvar_sessao, limpar_sessao, listar_jogadores,
-                          excluir_usuario)
+from persistencia import (carregar_sessao, salvar_sessao, limpar_sessao, excluir_jogador,
+                          listar_jogadores, excluir_usuario)
 import auth
 import legal
 from riot_client import RiotClient
@@ -2397,15 +2397,15 @@ def _render_analises_salvas() -> None:
         servidor_salvo = reg.get("servidor") or list(SERVIDORES.keys())[0]
         with colunas[i % 3]:
             if excluir_pendente == reg["jogador"]:
-                # Confirmação em duas etapas: apaga conversas e plano de TODAS
-                # as rotas deste jogador (para este usuário).
+                # Confirmação em duas etapas: remove o jogador por completo (perfil,
+                # conversas e plano de TODAS as rotas) da lista de jogadores salvos.
                 st.warning(f"Excluir a análise de **{nome_exibicao(reg['jogador'])}**? "
-                           "Conversas e plano de treino serão apagados.")
+                           "O jogador sairá da lista de salvos.")
                 col_sim, col_nao = st.columns(2)
                 if col_sim.button("Excluir", key=f"conf_excluir_{reg['jogador']}",
                                   type="primary", width="stretch"):
                     nick_gn, nick_tl = reg["jogador"].rsplit("#", 1)
-                    limpar_sessao(st.session_state.user_id, nick_gn, nick_tl)
+                    excluir_jogador(st.session_state.user_id, nick_gn, nick_tl)
                     st.session_state.pop("excluir_analise_pendente", None)
                     st.session_state.pop("analises_salvas", None)
                     _rerun_fragmento()
@@ -2634,11 +2634,31 @@ else:
             st.markdown("---")
             pior = player_profile["pior_metrica_identificada"]
             st.error(f"Ponto crítico: **{METRIC_LABELS.get(pior, pior.upper())}**")
+            fila_label_atual = FILAS.get(_fila_atual(), {}).get("label", "esta fila")
             if player_profile.get("base_comparacao", "rota") != "rota":
                 campeoes_ref = ", ".join(player_profile.get("campeoes_referencia") or [])
                 st.caption(f"Comparação personalizada · referência: média de {elo_fmt} jogando {campeoes_ref or 'seus campeões'}")
+            elif player_profile.get("base_degradada"):
+                # Queria comparar contra o(s) campeão(ões) do jogador (mono/pool), mas o
+                # benchmark daquele campeão NAQUELA FILA não tem amostra suficiente → caiu
+                # na média da rota. Deixa o motivo explícito (senão parece que ignorou o main).
+                camps = ", ".join(player_profile.get("campeoes_pretendidos") or []) or "seus campeões"
+                min_am = player_profile.get("min_amostra_campeao", 20)
+                st.info(
+                    f"Sem amostra suficiente de **{camps}** em **{fila_label_atual}** ainda "
+                    f"(mínimo de {min_am} partidas no seu elo). Comparando com a **média da "
+                    f"rota inteira** de {elo_fmt}. Conforme mais partidas dessa fila forem "
+                    "coletadas, a comparação passa a ser contra o seu campeão."
+                )
             else:
                 st.caption(f"Comparado com a média de {elo_fmt} (rota inteira)")
+
+            # Degradação do ELO: o benchmark do elo oficial não tinha amostra, então a
+            # comparação usa outro elo — deixa claro para não confundir o usuário.
+            if player_profile.get("elo_comparacao_degradado"):
+                elo_of_fmt = _fmt_elo(player_profile["elo_oficial"])
+                st.caption(f"Obs.: {elo_of_fmt} ainda sem amostra suficiente em "
+                           f"{fila_label_atual}; comparando com {elo_fmt}.")
 
             # Referência COMPLETA no rótulo de cada card: contra quem o diff compara —
             # campeão (mono), pool ou média da rota, sempre com rota + elo.
@@ -2676,12 +2696,13 @@ else:
         # Botão para analisar outro jogador e resetar a memória da tela.
         if st.button("Pesquisar outro jogador"):
             _voltar_para_busca()
-        # Recomeçar do zero: apaga a análise salva DESTE jogador (conversas e plano
-        # de todas as rotas, só para este usuário) e volta à busca — a próxima
-        # pesquisa parte de uma sessão limpa, com thread novo para o agente.
+        # Recomeçar do zero: apaga conversas, plano de treino e evolução DESTE jogador
+        # (todas as rotas, só para este usuário), mas PRESERVA o perfil — ele continua
+        # na lista de jogadores salvos. Volta à busca: a próxima pesquisa parte de uma
+        # sessão limpa, com thread novo para o agente.
         if st.session_state.get("confirmar_recomecar"):
-            st.warning("Apagar conversas e plano de treino salvos deste jogador "
-                       "e recomeçar do zero?")
+            st.warning("Apagar conversas, plano de treino e evolução deste jogador "
+                       "e recomeçar do zero? O perfil do jogador será mantido.")
             col_sim, col_nao = st.columns(2)
             if col_sim.button("Apagar tudo", type="primary", width="stretch"):
                 limpar_sessao(st.session_state.user_id,
