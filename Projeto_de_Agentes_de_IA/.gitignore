@@ -1,5 +1,9 @@
 # Projeto_de_Agentes_de_IA — versionado como subdiretorio do monorepo Faculdade.
-# EloRise/ e lol-api/ tem seus proprios .gitignore (respeitados pelo Faculdade).
+# EloRise/ e lol-api/ deixaram de ser versionados aqui: cada um virou repo proprio
+# (ThiagoHSAl/EloRise.git e ThiagoHSAl/lol-api.git) com .git dentro da pasta. O deploy
+# no servidor e por git pull; aqui eles sao ignorados para o Faculdade nao rastrea-los.
+/EloRise/
+/lol-api/
 
 # Ambiente virtual (pesado, recriavel)
 venv/
