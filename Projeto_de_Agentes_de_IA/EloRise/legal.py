@@ -8,7 +8,7 @@ no rodapé dos documentos.
 """
 
 VERSAO_LEGAL = "08/07/2026"
-EMAIL_CONTATO = "thiagohenriquesilva.a@gmail.com"
+EMAIL_CONTATO = "suporte@elorise.com.br"
 
 # Boilerplate exigido pela política de desenvolvedores da Riot (Legal Jibber Jabber).
 # O texto oficial é em inglês; a linha em português resume para o usuário brasileiro.
